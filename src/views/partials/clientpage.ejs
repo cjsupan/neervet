@@ -1,0 +1,248 @@
+<h1 class='display-4'>Client Information</h1>
+<button type='button' id='client-back' class='btn btn-secondary'>Back</button>
+<button type='button' id='add-appointment' class='btn btn-primary' data-toggle="modal" data-target="#appointmentModal"> <span>+</span> Appointment</button><br>
+<input type='hidden' id='client-stay' href='/viewClient/<%= client[0].id %>'>
+<div id='client-page'>
+    <p class='display-4'>Name: <span class='lead' ><%= client[0].name %></span></p>
+    <p class='display-4'>Address: <span class='lead'><%= client[0].address %></span></p>
+    <p class='display-4'>Contact No: <span class='lead'><%= client[0].contact %></span></p>
+</div><br>
+<button type='button' id='add-pet' class='btn btn-primary' data-toggle="modal" data-target="#petModal"><span>+</span> Pet</button>
+<div id='pet-section'>
+    <table class='table table-bordered table-sm '>
+        <thead class='table-dark'>
+            <tr>
+                <th>Pet's Name</th>
+                <th>Species</th>
+                <th>Breed</th>
+                <th>Sex</th>
+                <th>Date of Birth</th>
+                <th id='th-action'>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <% for(var i=0; i< pet.length; i++){ %>
+                <tr>
+                    <td><%= pet[i].name %></td>
+                    <td><%= pet[i].species %></td>
+                    <td><%= pet[i].breed %></td>
+                    <td><%= pet[i].sex %></td>
+                    <td><%= pet[i].birthday %></td>
+                    <td class='td-action'><a class='view-pet' href='/viewPet/<%= client[0].id %>/<%= pet[i].id %>'>View</a> | <a class='delete-pet' href='/deletePet/<%= pet[i].id %>'>Delete</a></td>
+                </tr>
+            <%} %>
+        </tbody>
+    </table>
+</div>
+
+<!-- APPOINTMENT MODAL -->
+
+<div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="appointmentModalLabel">Add Appointment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id='appointment-modal-body' class="modal-body">
+            <form id='appointment-form' action='/addAppointment/<%= client[0].id %>' method='POST'>
+                <label for='Datetime'>Date and Time: </label><br>
+                <input type='datetime-local' name='datetime' required><br>
+            </form>
+            <div id='appointment-error'></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type='button' id='save-appointment' class='btn btn-primary' >Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PET MODAL -->
+
+  <div class="modal fade" id="petModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="petModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="petModalLabel">Add Pet</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id='pet-modal-body' class="modal-body">
+            <form id='pet-form' action='/addPet/<%= client[0].id %>' method='POST'>
+                <label for='examvet'>Examining Vet: </label>
+                <input type='text' id='examvet-input' class='form-control' name='examvet'>
+                <label for='datetime'>Date and Time: </label>
+                <input type='datetime-local' id='datetime-input' class='form-control' name='datetime'><br>
+                <label for='name'>Patient's Name: </label>
+                <input type='text' id='name-input' class='form-control' name='name'>
+                <label for='species'>Species: </label>
+                <input type='text' id='species-input' class='form-control pet-input' name='species'>
+                <label for='breed'>Breed: </label>
+                <input type='text' id='breed-input' class='form-control pet-input' name='breed'><br>
+                <label for='sex'>Sex: </label>
+                <select name='sex' id='sex-input' class='form-control pet-input'>
+                    <option value='Male'>Male</option>
+                    <option value='Female'>Female</option>
+                </select>
+                <label for='altered'>Altered</label>
+                <select name='altered' id='altered-input' class='form-control pet-input'>
+                    <option value='No'>No</option>
+                    <option value='Yes'>Yes</option>
+                </select>
+                <label for='color'>Color: </label>
+                <input type='text' id='color-input' class='form-control pet-input' name='color'>
+                <label for='birthdate'>Date of Birth: </label>
+                <input type='date' id='birthdate-input' class='form-control' name='birthdate'>
+                <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History: </label>
+                <label for='currentmed' id='currentmed-label'>Current Medication: </label>
+                <label for='physicalexam' >Physical Exam: </label><br>
+                <textarea name='complainthistory' id='complaint' class='form-control textarea-input'></textarea>
+                <textarea name='currentmed' id='currentmed' class='form-control textarea-input'></textarea>
+                <textarea name='physicalexam' id='physicalexam' class='form-control textarea-input'></textarea>
+
+                <div id='vitalsigns'>
+                    <p class='lead'>Vital signs</p>
+                    <label for='weight'>Weight/BCS: </label>
+                    <input type='text' name='weight' class='form-control vitalsign'>
+                    <label for='temp'>Temp: </label>
+                    <input type='text' name='temp' class='form-control vitalsign'>
+                    <label for='resprate'>Resp. rate: </label>
+                    <input type='text' name='resprate' class='form-control vitalsign'>
+                    <label for='heartrate'>Heart rate: </label>
+                    <input type='text' name='heartrate' class='form-control vitalsign'>
+                    <label for='crt'>CRT: </label>
+                    <input type='text' name='crt' class='form-control vitalsign'>
+                    <label for='mm'>MM: </label>
+                    <input type='text' name='mm' class='form-control vitalsign'>
+                </div>
+
+                <div id='system'>
+                    <table class='table table-bordered'>
+                        <thead class='table-dark'>
+                            <tr>
+                                <th>Systems</th>
+                                <th>Condition</th>
+                                <th>Findings/Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>General Apperance</td>
+                                <td class='conditions'><select name='generalApp' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='genappfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Teeth/Mouth</td>
+                                <td class='conditions'><select name='teethmouth' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='teethmouthfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Eyes</td>
+                                <td class='conditions'><select name='eyes' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='eyesfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Ears</td>
+                                <td class='conditions'><select name='ears' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='earsfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Skin/Coat</td>
+                                <td class='conditions'><select name='skincoat' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='skincoatfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Heart/Lungs</td>
+                                <td class='conditions'><select name='heartlungs' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='heartlungsfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Digestive</td>
+                                <td class='conditions'><select name='digestive' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='digestivefindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>musculoskeletal</td>
+                                <td class='conditions'><select name='musculoskeletal' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='musculoskeletalfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Nervous</td>
+                                <td class='conditions'><select name='nervous' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='nervousfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Lymph nodes</td>
+                                <td class='conditions'><select name='lymph' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='lymphfindings' class='form-control'></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Urogenitals</td>
+                                <td class='conditions'><select name='urogenitals' class='form-control'>
+                                        <option value='Normal'>Normal</option>
+                                        <option value='Abnormal'>Abnormal</option>
+                                    </select>
+                                </td>
+                                <td class='findings'><textarea name='urogenitalsfindings' class='form-control'></textarea></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div id='pet-error'></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type='button' id='save-pet' class='btn btn-primary' >Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

@@ -1,0 +1,920 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+::-webkit-scrollbar {
+    width: 0.25rem;
+    border-radius: 0.125rem;
+  }
+  
+::-webkit-scrollbar-track {
+    border-radius: 0.125rem;
+    background-color: lightgray;
+}
+   
+::-webkit-scrollbar-thumb {
+    border-radius: 0.125rem;
+    background-color: gray;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: silver; 
+  }
+
+.navbar{
+    background-color: #343a40;
+}
+
+.navbar-default a{
+    color: #eee;
+    text-decoration: none;
+}
+
+.container-fluid{
+    width: 100%;
+    height: 605px;
+    margin: 0px;
+    padding: 0px;
+    background-color: #d0d0d0;
+}
+
+.container-fluid #sidenav{
+    margin: 0px;
+    width: 15%;
+    height: 100%;
+    background-color: white;
+    display: inline-block;
+}
+
+#sidenav #navigation{
+    width: 100%;
+    margin: 10px 0px;
+    display: inline-block;
+}
+
+#navigation ul .lead{
+    font-size: 25px;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #d0d0d0;
+    display: inline-block;
+    text-align: center;
+}
+
+#navigation ul li .lead{
+    margin: 0px;
+    padding: 5px 0px;
+    font-size: 20px;
+    border: 0px;
+    font-weight: normal;
+    text-decoration: none;
+    color: #2c343d;
+    text-align: left;
+}
+
+#navigation ul li .lead:hover{
+    background: #f0eeee;
+    color: black;
+    border-radius: 10px 0px 0px 10px;
+    cursor: pointer;
+}
+
+#navigation ul li a img{
+    width: 23px;
+    height: 23px;
+    margin: 0px 10px 0px 10px;
+    display: inline-block;
+}
+
+#navigation .lead{
+    font-size: 20px;
+}
+
+.container-fluid #main{
+    width: 83%;
+    height: calc(100% - 20px);
+    margin: 10px 10px;
+    padding: 0px;
+    overflow: auto;
+    border-radius: 10px 4px 4px 10px;
+    box-shadow: 0px 0px 10px 2px  gray;
+    background-color: white;
+    display: inline-block;
+    vertical-align: top;
+  
+}
+
+#main h1{
+    width: 100%;
+    padding: 3px 0px; 
+    text-align: center;
+    font-size: 30px;
+    border-bottom: 2px solid #d0d0d0;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    display: inline-block;
+}
+
+#main #main-top{
+    width: 90%;
+    margin: 20px 5%;
+    display: inline-block;
+    /* border: 1px solid black; */
+}
+
+#main #main-top .main-box{
+    width: 300px;
+    margin: 20px 10px;
+    display: inline-block;
+    border-radius: 10px;
+    border: 1px solid #d0d0d0;
+}
+
+#main #main-top #subadmin{
+    background-color: #2195d3; 
+}
+
+#main #main-top #dogs{
+    background-color: #f54951;
+}
+
+#main #main-top #cats{
+    background-color: #946d4e; 
+}
+
+#main #main-top #clients{
+    background-color: #89579c; 
+}
+
+#main #main-top #appointments-today{
+    background-color: #ff8906;
+}
+
+#main #main-top .main-box .icon{
+    width: 40px;
+    height: 40px;
+    margin: 20px 0px 10px 20px;
+    opacity: 0.5;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.main-box .lead-num{
+    color: #eee;
+    font-size: 30px;
+    margin: 10px 0px 0px 60%;
+    display: inline-block;
+}
+
+.main-box .lead-name{
+    color: #eee;
+    width: 100%;
+    font-size: 20px;
+    margin: 0px 0px 5px 0px;
+    padding-right: 10px;
+    text-align: right;
+    display: inline-block;
+}
+
+#main #search{
+    display: inline-block;
+    margin: 10px 55% 20px 55px;
+}
+
+#main #app-search{
+    display: inline-block;
+    margin: 10px 0px 20px 55px;
+}
+
+#main #app-search label{
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#main #app-search input{
+    display: inline-block;
+}
+
+#main #app-search .btn{
+    vertical-align: top;
+    display: inline-block;
+}
+
+#main #app-search .btn img{
+    margin: 0px 0px 3px 0px;
+    display: inline-block;
+}
+
+#main #search #search-client{
+    width: 250px;
+    display: inline-block;
+}
+
+#main #search .btn{
+    vertical-align: top;
+    display: inline-block;
+}
+
+#main #search .btn img{
+    margin: 0px 0px 3px 0px;
+    display: inline-block;
+}
+
+#main #search #search-client:focus, #main #app-search #search-appointment:focus{
+    box-shadow: none;
+}
+
+#main #app-search #search-appointment{
+    width: 250px;
+    display: inline-block;
+}
+
+#main #app-search .form-control-sm{
+    width: 200px;
+}
+
+#main #appointment-table{
+    width: 90%;
+    height: 70%;
+    margin: 0px 5%;
+    overflow: auto;
+    display: inline-block;
+    border: 1px solid #d0d0d0;
+}
+
+#main #appointment-table thead{
+    text-align: center;
+}
+
+#main #appointment-table td{
+    text-transform: capitalize;
+}
+
+#main #appointment-table .delete-appointment{
+    width: 80px;
+    margin-left: 28px;
+    padding: 5px 0px;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    background-color: #dc3545;
+}
+
+#main #client-table{
+    width: 90%;
+    height: 70%;
+    overflow: auto;
+    margin: 0px 5%;
+    display: inline-block;
+    border: 1px solid #d0d0d0;
+}
+
+#main #client-table thead{
+    text-align: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    margin: 0px;
+}
+
+#main #client-table td{
+    text-transform: capitalize;
+}
+
+#main #client-table .td-action{
+    text-align: center;
+}
+
+#main #client-table td .viewClient{
+    width: 80px;
+    margin-right: 10px;
+    padding: 5px 0px;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    background-color: #28a745;
+}
+
+#main #client-table td .deleteClient{
+    width: 80px;
+    margin-left: 10px;
+    padding: 5px 0px;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    background-color: #dc3545;
+}
+
+#client-modal #client-form{
+    width: 100%;
+    margin: 0px;
+    padding: 20px;
+    display: inline-block;
+} 
+
+#client-modal #client-form #client-firstname{
+    width: 100px;
+    margin-right: 110px; 
+    display: inline-block;
+}
+
+#client-modal #client-form .client-input{
+    width: 180px;
+    margin-bottom: 20px; 
+    display: inline-block;
+}
+
+#client-modal #client-form #input-firstname{
+    margin-right: 30px;
+}
+
+#client-modal #client-form #email, #client-modal #client-form #input-address{
+    width: 300px;
+}
+
+#client-modal #client-form #errors .lead{
+    font-size: 15px;
+}
+
+#main #client-page{
+    margin: 0px 0px 20px 60px;
+    display: inline-block;
+}
+
+#main #client-back{
+    margin: 0px 0px 20px 20px; 
+    display: inline-block;
+}
+
+#main #client-page p{
+    font-size: 20px;
+    font-weight: normal;
+}
+
+#main #client-page p .lead{
+    text-transform: capitalize;
+}
+
+#main #add-client{
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#main #add-appointment{
+    margin-left: 75%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+#main #add-pet{
+    margin: 10px 0px 0px 89%;
+    display: inline-block;
+}
+
+#main #pet-section{
+    width: 90%;
+    height: 250px;
+    margin: 20px 5% 0px 5%;
+    overflow: auto;
+    display: inline-block;
+    border: 1px solid #d0d0d0;
+}
+
+
+#main #pet-section table thead{
+    text-align: center;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+#main #pet-section #th-action{
+    width: 300px;
+}
+
+#main #pet-section .td-action{
+    text-align: center;
+}
+
+#main #pet-section td .view-pet{
+    width: 80px;
+    margin-right: 10px;
+    padding: 5px 0px;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    background-color: #28a745;
+}
+
+#main #pet-section .delete-pet{
+    width: 80px;
+    margin-left: 10px;
+    padding: 5px 0px;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    background-color: #dc3545;
+}
+
+#main #appointmentModal #appointment-form{
+    margin: 20px 0px 40px 25%; 
+    display: inline-block;
+}
+
+#main #appointmentModal #appointment-form label{
+    margin-bottom: 10px;
+}
+
+#main #petModal #pet-form{
+    font-weight: normal;
+    display: inline-block;
+}
+
+#main #petModal #pet-modal-body .form-control{
+    width: 200px;
+    display: inline-block;
+}
+
+#main #petModal #pet-modal-body #examvet-input{
+    margin: 10px 130px 60px 0px;
+}
+
+#main #petModal #pet-modal-body #name-input{
+    width: 170px;
+    margin: 0px 60px 20px 0px;
+}
+
+#main #petModal #pet-modal-body #datetime-input{
+    width: 170px;
+}
+
+#main #petModal #pet-modal-body #birthdate-input{
+    width: 170px;
+    margin-bottom: 20px;
+}
+
+#main #petModal #pet-modal-body .pet-input{
+    width: 100px;
+    margin-right: 10px;
+}
+
+#main #petModal #pet-modal-body .textarea-input{
+    width: 230px;
+    margin-right: 20px;
+    display: inline-block;
+    resize: none;
+}
+
+#main #petModal #pet-modal-body #complaint-label{
+    margin-right: 40px;
+    display: inline-block;
+}
+
+#main #petModal #pet-modal-body #currentmed-label{
+    margin-right: 110px;
+    display: inline-block;
+}
+
+#main #petModal #pet-modal-body #vitalsigns{
+    width: 100%;
+    margin: 20px 0px;
+    display: inline-block;
+}
+
+#main #petModal #pet-modal-body #vitalsigns .lead{
+    text-align: center;
+    font-weight: normal;
+    border-bottom: 2px solid #d0d0d0;
+    width: 100%;
+    display: inline-block;
+}
+
+#main #petModal #pet-modal-body #vitalsigns .vitalsign{
+    width: 100px;
+    margin: 0px 10px 10px 0px;
+    display: inline-block;
+}
+
+#main #petModal #system{
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #petModal #pet-modal-body{
+    height: 450px;
+    overflow: auto;
+}
+
+#main #petModal #system table{
+    margin: 0px;
+}
+
+#main #petModal #system table thead{
+    text-align: center;
+}
+
+#main #petModal #system table td{
+    margin: 0px;
+    padding: 0px;
+}
+
+#main #petModal #system .conditions{
+    width: 70px;
+}
+
+#main #petModal #system .conditions select{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+}
+
+#main #petModal #system table .findings{
+    width: 450px;
+}
+
+#main #petModal #system table .findings .form-control{
+    width: 100%;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    resize: none;
+    border: 0px;
+    display: inline-block;
+}
+
+#main #petModal #pet-modal-body #pet-error .alert{
+    margin-bottom: 5px;
+}
+
+#main #health-record .record #laboratory{
+    width: 95%;
+    margin: 10px 2%;
+    display: inline-block;
+}
+
+#main #health-record .record #laboratory .display-3{
+    width: 100%;
+    font-size: 25px;
+    padding-bottom: 5px;
+    text-align: center;
+    border-bottom: 2px solid #d0d0d0;
+    display: inline-block;
+}
+
+#laboratory .edit-lab{
+    float: right;
+    margin: 0px 10px;
+}
+
+#laboratory .display-4{
+    font-size: 18px;
+    margin-right: 100px;
+    display: inline-block;
+}
+
+#laboratory .display-4 .lead{
+    font-size: 20px;
+    font-weight: normal;
+}
+
+#laboratory .lab-textarea{
+    margin-right: 230px; 
+}
+
+#laboratory textarea{
+    width: 300px;
+    height: 80px;
+    resize: none;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+}
+
+#laboratory .xray{
+    width: 70%;
+}
+
+#laboratory .treatment{
+    width: 100%;
+}
+
+#laboratory .definitive{
+    margin: 0px;
+    vertical-align: top;
+}
+
+#main #labModal .modal-content .modal-body .lab-input{
+    width: 100px;
+    margin: 0px 30px 10px 0px;
+    display: inline-block;
+}
+
+#main #labModal .modal-content .modal-body #lab-form label{
+    margin-right: 5px;
+}
+
+#main #labModal .modal-content .modal-body #lab-form .lab-textarea{
+    width: 150px;
+    margin-right: 80px;
+    display: inline-block;
+}
+
+#main #labModal .modal-content .modal-body #lab-form textarea{
+    width: 200px;
+    height: 80px;
+    margin-right: 30px;
+    resize: none;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #xray{
+    width: 70%;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #differential{
+    width: 250px;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #def-lab{
+    margin: 0px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #definitive{
+    margin-left: 8px;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #treatment-label{
+    width: 300px;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #treatment{
+    width: 100%;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #comments{
+    width: 250px;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #date{
+    width: 250px;
+    margin-left: 15px;
+}
+
+#main #pet-back{
+    margin: 0px 0px 20px 20px; 
+    display: inline-block;
+}
+
+#main #pet-page{
+    width: 95%;
+    margin: 10px 2%;
+    padding: 10px;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #pet-page p{
+    font-size: 18px;
+    font-weight: normal;
+}
+
+#main #pet-page #owner{
+    margin: 10px 100px 30px 0px;
+    display: inline-block;
+}
+
+#main #pet-page #vet{
+    display: inline-block;
+}
+
+#main #pet-page p .lead{
+    font-size: 20px;
+    font-weight: normal;
+}
+
+#main #health-record{
+    width: 95%;
+    margin: 10px 2%;
+    background-color: white; 
+    display: inline-block;
+}
+
+#main #health-record .date{
+    font-size: 20px;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 5px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #A0DAA9;
+    position: sticky;
+    top: 50px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#main #health-record .date .date-label{
+    padding-top: 5px;
+    display: inline-block;  
+}
+
+#main #health-record .record{
+    border: 2px solid #d0d0d0;
+    margin-bottom: 10px; 
+    display: none;
+}
+
+#main #health-record .record .pet-vitalsign {
+    width: 95%;
+    margin: 10px 2%; 
+    /* border: 1px solid #848C8C; */
+    display: inline-block;
+}
+
+#main #health-record .record .pet-vitalsign p{
+    padding: 10px 0px 0px 20px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+#main #health-record .record .pet-vitalsign .display-3{
+    padding: 10px 0px 0px 20px;
+    margin-right: 50px; 
+    font-size: 18px;
+    font-weight: normal;
+    display: inline-block;
+}
+
+#main #health-record .record .pet-vitalsign #physicalexam-label{
+    margin-left: 75px; 
+}
+
+#main #health-record .record .pet-vitalsign p .lead{
+    font-size: 20px;
+    font-weight: normal;
+}
+
+#main #health-record .record .pet-vitalsign textarea{
+    width: 250px;
+    font-size: 18px;
+    resize: none;
+    font-weight: normal;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#main #health-record .record .pet-vitalsign #complaint{
+    margin: 0px 50px 20px 20px;
+}
+
+#main #health-record .record .pet-vitalsign #currentmed{
+    margin-right: 50px;
+}
+
+#main #add-pet-record{
+    margin-left: 89%;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-form{
+    font-weight: normal;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body .form-control{
+    width: 200px;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body #examvet-input{
+    margin: 10px 130px 60px 0px;
+}
+
+#main #petRecordModal #pet-modal-body #name-input{
+    width: 170px;
+    margin: 0px 60px 20px 0px;
+}
+
+#main #petRecordModal #pet-modal-body #datetime-input{
+    width: 170px;
+}
+
+#main #petRecordModal #pet-modal-body #birthdate-input{
+    width: 170px;
+    margin-bottom: 20px;
+}
+
+#main #petRecordModal #pet-modal-body .pet-input{
+    width: 100px;
+    margin-right: 10px;
+}
+
+#main #petRecordModal #pet-modal-body .textarea-input{
+    width: 230px;
+    margin-right: 20px;
+    display: inline-block;
+    resize: none;
+}
+
+#main #petRecordModal #pet-modal-body #complaint-label{
+    margin-right: 40px;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body #currentmed-label{
+    margin-right: 110px;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body #vitalsigns{
+    width: 100%;
+    margin: 20px 0px;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body #vitalsigns .lead{
+    text-align: center;
+    font-weight: normal;
+    border-bottom: 2px solid #d0d0d0;
+    width: 100%;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body #vitalsigns .vitalsign{
+    width: 100px;
+    margin: 0px 10px 10px 0px;
+    display: inline-block;
+}
+
+#main #petRecordModal #system{
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body{
+    height: 450px;
+    overflow: auto;
+}
+
+#main #petRecordModal #system table{
+    margin: 0px;
+}
+
+#main #petRecordModal #system table thead{
+    text-align: center;
+}
+
+#main #petRecordModal #system table td{
+    margin: 0px;
+    padding: 0px;
+}
+
+#main #petRecordModal #system .conditions{
+    width: 70px;
+}
+
+#main #petRecordModal #system .conditions select{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+}
+
+#main #petRecordModal #system table .findings{
+    width: 450px;
+}
+
+#main #petRecordModal #system table .findings .form-control{
+    width: 100%;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    resize: none;
+    border: 0px;
+    display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body #pet-error .alert{
+    margin-bottom: 5px;
+}

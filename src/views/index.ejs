@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Neervet Animal Clinic</title>
+    <link rel="icon" href="img/web-icon.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/myscript.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <a class="navbar-brand" id='to-dashboard' href="/">Neervet Animal Clinic</a>
+      </nav>
+
+    <div id='container' class="container-fluid">
+        
+        <div id='sidenav'>
+            <div id='navigation'>
+                <ul>
+                    <li class='lead' >Navigation</li>
+                    <li><a id='dashboard' class='lead' href='/'><img src='img/dashboard.png'>Dashboard</a></li>
+                    <li><a id='appointment' class='lead' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
+                    <li><a id='client' class='lead' href='/client'><img src='img/profile.png'>Clients</a></li>
+                </ul>
+            </div>
+            
+        </div>
+        <div id='main'>
+            <h1 class='display-4'>Dashboard</h1>
+            <div id='main-top'>
+                <div id='subadmin' class='main-box'>
+                    <img src='img/people.png' class='icon'>
+                    <p class='lead lead-num'>1</p>
+                    <p class='lead lead-name'>Subadmin</p>
+                </div>
+                <div id='dogs' class='main-box'>
+                    <img src='img/dogs.png' class='icon'>
+                    <p class='lead lead-num'>2</p>
+                    <p class='lead lead-name'>Dogs</p>
+                </div>
+                <div id='cats' class='main-box'>
+                    <img src='img/cats.png' class='icon'>    
+                    <p class='lead lead-num'>3</p>
+                    <p class='lead lead-name'>Cats</p>
+                </div> 
+                <div id='clients' class='main-box'>
+                    <img src='img/profile.png' class='icon'>
+                    <p class='lead lead-num'><%= clients[0].clients %></p>
+                    <p class='lead lead-name'>Clients</p>
+                </div> 
+                <div id='appointments-today' class='main-box'>
+                    <img src='img/appointment.png' class='icon'>
+                    <p class='lead lead-num'><%= app[0].apps %></p>
+                    <p class='lead lead-name'>Appointments Today</p>
+                </div>  
+
+            </div>
+            
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

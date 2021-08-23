@@ -1,0 +1,67 @@
+<h1 class='display-4'>Client List</h1>
+<form id='search' action='/searchClient' method='POST' autocomplete="off">
+    <input type='text' id='search-client' class='form-control form-control-sm' name='search' placeholder='Search Name'>
+    <button type='button' name='submit' id='search-btn' class='btn btn-primary btn-sm'><img src='img/search.png'> Search</button>
+</form>
+
+<button type='button' id='add-client' class='btn btn-primary' name='add-client' value='Add'data-toggle="modal" data-target="#client-modal">Add</button>
+
+<div id='client-table'>
+    <table class='table table-bordered'>
+        <thead class='table-dark'>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Contact No.</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i < client.length; i++){ %>
+
+                <tr>
+                    <td><%=client[i].name %></td>
+                    <td><%=client[i].address %></td>
+                    <td><%=client[i].contact %></td>
+                    <td class='td-action' ><a id='<%= client[i].id %>' class='viewClient' href='/viewClient/<%= client[i].id %>'>View</a> | <a class='deleteClient' href="/deleteClient/<%= client[i].id %>">Delete</a></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</div>
+    
+<!-- CLIENT MODAL -->
+
+<div class="modal fade" id="client-modal" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Client</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id='client-form' action='/addClient' method='POST' autocomplete="nope">
+                    <label for='firstname' id='client-firstname'>First Name: </label>
+                    <label for='Lastname' id='client-lastname'>Last Name: </label><br>
+                    <input type='text' name='firstname' id='input-firstname' class='form-control client-input'  autocomplete="nope">
+                    <input type='text' name='lastname' id='input-lastname' class='form-control client-input' autocomplete="nope"><br>
+                    <label for='email'>Email: </label><br>
+                    <input type='text' name='email' id='email' class='form-control'><br>
+                    <label for='address'>Address: </label>
+                    <input type='text' name='address' id='input-address' class='form-control' autocomplete="nope"><br>
+                    <label for='contact'>Contact No: </label><br>
+                    <input type='text' id='input-contact' name='contact' class='form-control client-input' autocomplete="nope">
+                    <div id='errors'>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" id='saveClient' class="btn btn-primary" >Add Client</button>
+            </div>
+          </div>
+        </div>
+    </div>
