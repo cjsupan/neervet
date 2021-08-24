@@ -51,6 +51,19 @@ class User extends main_model{
         return result;
     }
 
+    async getNotif(){
+        let now = new Date();
+        let notifdate = new Date();
+        notifdate.setDate(notifdate.getDate() + 3);
+
+        console.log('this is now '+ now);
+        console.log('this is after 3 days '+ notifdate);
+        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y %l:%i %p') AS datetime FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e'); ", notifdate);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
+    }
+
     async getAllClient(){
         let query = mysql.format('SELECT id, CONCAT(first_name, " ",last_name) as name, address, contact  FROM clients ORDER BY created_at DESC');
         let result = await this.executeQuery(query);
@@ -101,7 +114,7 @@ class User extends main_model{
         let date = new Date();
         var firstname = details.firstname.charAt(0).toUpperCase() + details.firstname.slice(1);
         var lastname = details.lastname.charAt(0).toUpperCase() + details.lastname.slice(1);
-        let query = mysql.format('INSERT INTO clients (first_name, last_name, contact, address, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)', [firstname, lastname, details.contact, details.address, date, date]);
+        let query = mysql.format('INSERT INTO clients (first_name, last_name, email, contact, address, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)', [firstname, lastname, details.email, details.contact, details.address, date, date]);
         let result = await this.executeQuery(query);
         return result;
     }

@@ -79,6 +79,12 @@ class Users{
         res.redirect('/');
     }
 
+    async get_notification(req, res){
+        let result = await user_model.getNotif();
+        console.log(result);
+        res.render('partials/notification.ejs', {clients: result});
+    }
+
     async validate_pet(req, res){
         let result = await user_model.validatePet(req.body);
         if(result.length > 0){

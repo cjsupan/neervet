@@ -25,4 +25,6 @@ Router.get("/deletePetRecord/:systemid/:vitalid/:historyid", UserController.dele
 Router.post("/updateLab/:id", UserController.update_lab);
 Router.get("/getLab/:id", UserController.get_lab);
 
+Router.get("/getNotification", UserController.get_notification);
+
 module.exports = Router;
