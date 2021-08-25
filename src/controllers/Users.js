@@ -1,27 +1,12 @@
 var user_model = require('../models/User');
-// const sgMail = require("@sendgrid/mail");
-// sgMail.setApiKey("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");
 
 class Users{
-    async index(req, res){
+    async home(req, res){
         let client = await user_model.countClient();
         let app = await user_model.countApp();
 
-        // const msg = {
-        //     to: "cedricksupan@yahoo.com",
-        //     from: "supancj18@gmail.com",
-        //     subject: "testing email from node",
-        //     text: "here's the email",
-        //     html: "<p>this is email too</p>"
-        // };
-
-        // sgMail.send(msg).then(() => {
-        //     console.log('email has been sent');
-        // }).catch((error) => {
-        //     console.log(error);
-        // });
-
-        res.render('index', {clients: client, app: app});
+        // res.render('home', {clients: client, app: app});
+        res.render('login');
     }
     async appointment(req, res){
         let getAppointment = await user_model.getAllAppointment();
@@ -80,9 +65,14 @@ class Users{
     }
 
     async get_notification(req, res){
-        let result = await user_model.getNotif();
-        console.log(result);
+        let result = await user_model.getNotif(req.params.number);
+
         res.render('partials/notification.ejs', {clients: result});
+    }
+
+    async send_notification(req, res){
+        let result = await user_model.sendNotif(req.params.day);
+        res.json("/");
     }
 
     async validate_pet(req, res){

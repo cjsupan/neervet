@@ -2,7 +2,7 @@ const Express = require("express");
 const Router = Express.Router();
 const UserController = require(`./controllers/users`);
 
-Router.get("/", UserController.index);
+Router.get("/", UserController.home);
 Router.get("/appointment", UserController.appointment);
 Router.post("/addAppointment/:id", UserController.validate_appointment);
 Router.get("/deleteAppointment/:id", UserController.delete_appointment);
@@ -25,6 +25,7 @@ Router.get("/deletePetRecord/:systemid/:vitalid/:historyid", UserController.dele
 Router.post("/updateLab/:id", UserController.update_lab);
 Router.get("/getLab/:id", UserController.get_lab);
 
-Router.get("/getNotification", UserController.get_notification);
+Router.get("/getNotification/:number", UserController.get_notification);
+Router.get("/sendNotification/:day", UserController.send_notification);
 
 module.exports = Router;

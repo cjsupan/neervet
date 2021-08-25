@@ -1,6 +1,8 @@
 var connection = require('../config/database');
 const main_model = require('./Main');
 var mysql = require('mysql');
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey("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");
 
 class User extends main_model{
     constructor(){super()}
@@ -51,17 +53,63 @@ class User extends main_model{
         return result;
     }
 
-    async getNotif(){
-        let now = new Date();
+    async getNotif(number){
         let notifdate = new Date();
-        notifdate.setDate(notifdate.getDate() + 3);
+        let num = parseInt(number);
+        notifdate.setDate(notifdate.getDate() + num);
 
-        console.log('this is now '+ now);
-        console.log('this is after 3 days '+ notifdate);
-        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y %l:%i %p') AS datetime FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e'); ", notifdate);
+        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y %l:%i %p') AS datetime FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
+    }
+
+    async sendNotif(day){
+        let notifdate = new Date();
+        let num = parseInt(day);
+        notifdate.setDate(notifdate.getDate() + num);
+
+        let query = mysql.format("SELECT appointments.client_id as id, CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y %l:%i %p') AS datetime FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
+        let result = await this.executeQuery(query);
+        
+        let client = JSON.parse(JSON.stringify(result));
+
+        for(var i=0; i<client.length; i++){
+        
+            const msg = {
+                    to: client[i].email,
+                    from: "supancj18@gmail.com",
+                    subject: "Appointment - Neervet Animal Clinic",
+                    text: "here's the email",
+                    html: "<h1>Neervet Animal Clinic</h1><p>Hi "+client[i].name+"</p><p>This is a reminder for your appointment on "+ client[i].datetime +"</p>"
+                };
+                var id = client[i].id;
+                sgMail.send(msg).then(() => {
+                    console.log('email has been sent');
+                    
+                    let update = mysql.format("UPDATE appointments SET notification = 1 WHERE client_id = ?", id);
+                    let updateresult = this.executeQuery(update);
+                }).catch((error) => {
+                    console.log(error);
+                });
+        }
+        return client;
+    }
+
+    async validateAppointment(details){
+        let errors = [];
+        if(this.empty(details.datetime)){
+            errors.push('Date and time should not be blank');
+        }
+        return errors;
+    }
+
+    async addAppointment(details, id){
+        let date = new Date();
+        let notify = 0;
+        let query = mysql.format('INSERT INTO appointments (client_id, date_and_time, notification, created_at, updated_at) VALUES(?, ?, ?, ?, ?)', [id, details.datetime, notify, date, date]);
+        let result = await this.executeQuery(query);
+        return result;
     }
 
     async getAllClient(){
@@ -156,21 +204,6 @@ class User extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
-    async validateAppointment(details){
-        let errors = [];
-        if(this.empty(details.datetime)){
-            errors.push('Date and time should not be blank');
-        }
-        return errors;
-    }
-
-    async addAppointment(details, id){
-        let date = new Date();
-        let query = mysql.format('INSERT INTO appointments (client_id, date_and_time, created_at, updated_at) VALUES(?, ?, ?, ?)', [id, details.datetime, date, date]);
-        let result = await this.executeQuery(query);
-        return result;
-    }
-
     async deleteAppointment(id){
         let query = mysql.format('DELETE FROM appointments WHERE id = ?', id);
         let result = await this.executeQuery(query);
@@ -248,7 +281,6 @@ class User extends main_model{
     }
 
     async pet_info(id){
-        // let query = mysql.format("SELECT pets.id, pets.client_id, systems.id as system_id, CONCAT(clients.first_name, ' ',clients.last_name) as owner, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c/%e/%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age, systems.general_appearance, systems.teeth_mouth, systems.eyes, systems.ears, systems.skin_coat, systems.heart_lungs, systems.digestive, systems.musculoskeletal, systems.nervous, systems.lymph, systems.urogenitals, DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date, vitalsigns.weight, vitalsigns.temp, vitalsigns.respiratory_rate, vitalsigns.heart_rate, vitalsigns.crt, vitalsigns.mm, findings.general_appearance as findings_genapp, findings.teeth_mouth as findings_teeth, findings.eyes as findings_eyes, findings.ears as findings_ears, findings.skin_coat as findings_skin, findings.heart_lungs as findings_heart, findings.digestive as findings_digestive, findings.musculoskeletal as findings_muscu, findings.nervous as findings_nervous, findings.lymph as findings_lymph, findings.urogenitals as findings_uro, history.complaint, history.current_med, history.physical_exam FROM pets LEFT JOIN clients ON pets.client_id = clients.id LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN vitalsigns ON systems.pet_id = vitalsigns.pet_id LEFT JOIN findings ON vitalsigns.pet_id = findings.system_pet_id LEFT JOIN history ON findings.system_pet_id = history.pet_id WHERE pets.id = ? GROUP BY systems.id", id);
         let petInfo = mysql.format("SELECT clients.id as clientId, pets.id as petId, CONCAT(clients.first_name, ' ', clients.last_name) as owner, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c/%e/%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age FROM clients LEFT JOIN pets ON clients.id = pets.client_id WHERE pets.id = ?", id);
         let result = await this.executeQuery(petInfo);
         return JSON.parse(JSON.stringify(result));

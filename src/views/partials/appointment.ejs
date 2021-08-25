@@ -47,10 +47,18 @@
                 </button>
             </div>
             <div class="modal-body">
+                <p class='lead'>Appointments  
+                        <select name='date' id='dateValue' class='form-control'>
+                            <option value='3'>3</option>
+                            <option value='1'>1</option>
+                        </select>
+                    days from now
+                </p>
+                <div id='notif-table'></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" id='send-notification' class="btn btn-primary">Send Notification</button>
             </div>
       </div>
     </div>

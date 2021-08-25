@@ -24,6 +24,7 @@
 
 .navbar{
     background-color: #343a40;
+    box-shadow: 0px 5px 5px gray;
 }
 
 .navbar-default a{
@@ -44,6 +45,37 @@
     width: 15%;
     height: 100%;
     background-color: white;
+    display: inline-block;
+}
+
+.container-fluid #main-login{
+    width: 30%;
+    margin: 40px 35%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: inline-block;
+}
+
+#main-login h1{
+    font-size: 30px;
+    width: 100%;
+    padding: 5px 0px;
+    border-bottom: 2px solid #d0d0d0; 
+    text-align: center;
+    display: inline-block;
+}
+
+#main-login #login-form{
+    width: 95%;
+    margin: 10px 2%;
+    padding: 10px;
+    display: inline-block;
+}
+
+#main-login #login-form input{
+    width: 100%;
+    margin: 10px 0px;
     display: inline-block;
 }
 
@@ -238,6 +270,7 @@
 
 #main #notification{
     margin-left: 75px;
+    box-shadow: none;
 }
 
 #main #appointment-table{
@@ -389,17 +422,25 @@
 
 #main #add-client{
     vertical-align: middle;
+    box-shadow: none;
     display: inline-block;
 }
 
 #main #add-appointment{
     margin-left: 75%;
     vertical-align: top;
+    box-shadow: none;
+    display: inline-block;
+}
+
+#main p #dateValue{
+    width: 60px;
     display: inline-block;
 }
 
 #main #add-pet{
     margin: 10px 0px 0px 89%;
+    box-shadow: none;
     display: inline-block;
 }
 

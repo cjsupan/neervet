@@ -38,10 +38,30 @@ $(document).ready(function(){
     $(document).on('click', '#notification', function(e){
         e.preventDefault();
        
-        $.get('/getNotification', function(res){
-            var modalBody = $("#notifModal")[0].children[0].children[0].children[1];
-
+        $.get('/getNotification/3', function(res){
+            var modalBody = $("#notifModal")[0].children[0].children[0].children[1].children[1];
             modalBody.innerHTML = res;
+
+        });
+
+        $(document).on('change','#dateValue', function(e){
+            e.preventDefault();
+            var num = this.value;
+
+            $.get("/getNotification/"+num+"", function(res){
+                var modalBody = $("#notifModal")[0].children[0].children[0].children[1].children[1];
+                modalBody.innerHTML = res;
+
+            });
+        });
+    });
+
+    $(document).on('click', '#send-notification', function(e){
+        e.preventDefault();
+        var day = document.getElementById('dateValue').value;
+        $.get("/sendNotification/"+day+"", function(res){
+            alert('Notification sent!');
+            $("#notifModal").modal("hide");
         });
     });
 
