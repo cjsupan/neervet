@@ -2,7 +2,11 @@ const Express = require("express");
 const Router = Express.Router();
 const UserController = require(`./controllers/users`);
 
-Router.get("/", UserController.home);
+Router.get("/", UserController.login);
+Router.post("/login", UserController.validate_login);
+
+Router.get("/home", UserController.home);
+
 Router.get("/appointment", UserController.appointment);
 Router.post("/addAppointment/:id", UserController.validate_appointment);
 Router.get("/deleteAppointment/:id", UserController.delete_appointment);

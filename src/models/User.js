@@ -18,6 +18,18 @@ class User extends main_model{
         });
     }
 
+    async validateLogin(details){
+        let errors = [];
+
+        if(this.empty(details.username)){
+            errors.push('Username should not be blank');
+        }
+        if(this.empty(details.password)){
+            errors.push('Password should not be blank');
+        }
+        return errors;
+    }
+
     async countClient(){
         let query = mysql.format("SELECT COUNT(id) as clients FROM clients");
         let result = await this.executeQuery(query);
@@ -366,5 +378,5 @@ class User extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 }
-let a = new User();
-module.exports = a;
+
+module.exports = new User();

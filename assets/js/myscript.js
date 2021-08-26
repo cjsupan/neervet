@@ -66,7 +66,7 @@ $(document).ready(function(){
     });
 
     //WHEN APPOINTMENTS WAS CLICKED IN SIDENAV
-    document.getElementById('appointment').addEventListener('click', function(e){
+    $(document).on('click','#appointment', function(e){
         e.preventDefault();
         
         getAppointment(this);
@@ -301,7 +301,7 @@ $(document).ready(function(){
         });
     });
 
-    document.getElementById('client').addEventListener('click', function(e){
+    $(document).on('click','#client', function(e){
         e.preventDefault();
         
         getclient(this);

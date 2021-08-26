@@ -51,6 +51,7 @@
 .container-fluid #main-login{
     width: 30%;
     margin: 40px 35%;
+    padding-bottom: 20px;
     background-color: white;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -76,6 +77,11 @@
 #main-login #login-form input{
     width: 100%;
     margin: 10px 0px;
+    display: inline-block;
+}
+
+#main-login #btn-login{
+    width: 100%;
     display: inline-block;
 }
 

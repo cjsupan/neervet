@@ -18,11 +18,18 @@
     <div class='container-fluid'>
         <div id='main-login'>
             <h1 class='display-4'>Login</h1>
-            <form id='login-form'>
+            <form id='login-form' action='/login' method='POST'>
                 <input type='text' name='username' class='form-control' placeholder="Username">
                 <input type='password' name='password' class='form-control' placeholder="Password">
+                <input type='hidden' id='home-hidden' href='/home'>
+                <!-- <button type='button' id='btn-login' class='btn btn-primary' >Login</button> -->
                 <input type='submit' class='btn btn-primary' value='Login'>
             </form>
+            <div id='errors'>
+                <% for(i in errors){ %>
+               <div class='alert alert-warning'><%= errors[i] %></div>
+               <% } %>
+            </div>
         </div>
     </div>
     
