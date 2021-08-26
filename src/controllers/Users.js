@@ -1,21 +1,21 @@
 var user_model = require('../models/User');
 
 class Users{
-
     async login(req, res){
-       
         let result = [];
         res.render('login', {errors: result});
     }
 
     async validate_login(req, res){
         let result = await user_model.validateLogin(req.body);
-        
+       
         if(result.length != 0){
             res.render('login', {errors: result});
-        }else if(result.length === 0){
-            
-            res.redirect('/home');
+        }else{
+            let client = await user_model.countClient();
+            let app = await user_model.countApp();
+
+            res.render('home', {clients: client, app: app});
         }
     }
 
