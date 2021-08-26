@@ -27,9 +27,22 @@
     box-shadow: 0px 5px 5px gray;
 }
 
-.navbar-default a{
+.navbar-default .navbar-brand{
+    margin-right: 70%;
     color: #eee;
     text-decoration: none;
+}
+
+.navbar-default #user-logout{
+    display: inline-block;
+}
+
+.navbar-default #user-logout .lead, .navbar-default #user-logout span{
+    margin: 0px 5px; 
+    color: #eee;
+    display: inline-block;
+    vertical-align: middle;
+    
 }
 
 .container-fluid{
@@ -45,6 +58,28 @@
     width: 15%;
     height: 100%;
     background-color: white;
+    display: inline-block;
+}
+
+.container-fluid .sub-menu #down-arrow{
+    width: 15px;
+    height: 15px;
+    margin-left: 70px;
+    display: inline-block;
+}
+
+.container-fluid .sub-menu ul{
+    background-color:#f2f4f6;
+}
+
+.container-fluid .sub-menu ul li a{
+    font-size: 18px;
+    font-weight: normal;
+    width: 80%;
+    margin-left: 20%;
+    color: #2c343d;
+    text-decoration: none;
+    /* border: 1px solid #d0d0d0; */
     display: inline-block;
 }
 

@@ -27,7 +27,24 @@ class User extends main_model{
         if(this.empty(details.password)){
             errors.push('Password should not be blank');
         }
+
+        if(!this.empty(details.username) && !this.empty(details.password)){
+            let query = mysql.format("SELECT * FROM users WHERE username = ? AND password = ?", [details.username, details.password]);
+            let result = await this.executeQuery(query);
+            let auth = JSON.parse(JSON.stringify(result));
+            
+            if(auth.length === 0){
+                errors.push("User record doesn't exist");
+            }
+        }
         return errors;
+    }
+
+    async getUserLevel(details){
+        let query = mysql.format("SELECT id, username, CONCAT(first_name, ' ', last_name) as name, user_level FROM users WHERE username = ? AND password = ?", [details.username, details.password]);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
     }
 
     async countClient(){

@@ -14,6 +14,9 @@
 <body>
     <nav class="navbar navbar-default">
         <a class="navbar-brand" id='to-dashboard' href="/home">Neervet Animal Clinic</a>
+        <div id='user-logout'>
+            <a class='lead'><%= user %></a><span> | </span><a class='lead' href='/'>Logout</a>
+        </div>
     </nav>
 
     <div id='container' class="container-fluid">
@@ -22,7 +25,14 @@
             <div id='navigation'>
                 <ul>
                     <li class='lead' >Navigation</li>
-                    <li><a id='dashboard' class='lead' href='/'><img src='img/dashboard.png'>Dashboard</a></li>
+                    <li class='sub-menu'>
+                        <a id='admin' class='lead'><img src='img/profile.png'>Admin<img id='down-arrow' src='img/down-arrow.png'></a>
+                        <ul>
+                            <li><a href='/editProfile'>Edit Profile</a></li>
+                            <li><a href='/addUser'>Add User</a></li>
+                        </ul>
+                    </li>
+                    <li><a id='dashboard' class='lead' href='/home'><img src='img/dashboard.png'>Dashboard</a></li>
                     <li><a id='appointment' class='lead' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
                     <li><a id='client' class='lead' href='/client'><img src='img/profile.png'>Clients</a></li>
                 </ul>

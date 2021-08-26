@@ -2,28 +2,48 @@ var user_model = require('../models/User');
 
 class Users{
     async login(req, res){
-        let result = [];
-        res.render('login', {errors: result});
+
+        req.session.errors = [];
+        res.render('login', {errors: req.session.errors});
     }
 
     async validate_login(req, res){
-        let result = await user_model.validateLogin(req.body);
-       
-        if(result.length != 0){
-            res.render('login', {errors: result});
-        }else{
-            let client = await user_model.countClient();
-            let app = await user_model.countApp();
 
-            res.render('home', {clients: client, app: app});
+        let result = await user_model.validateLogin(req.body);
+        req.session.errors = result;
+
+        if(result.length != 0){
+            res.render('login', {errors: req.session.errors});
+
+        }else{
+            
+            let getUserLevel = await user_model.getUserLevel(req.body);
+
+            let userID = getUserLevel[0].id;
+            let userLevel = getUserLevel[0].user_level;
+            let username = getUserLevel[0].username;
+
+            req.session.user_level = userLevel;
+            req.session.user_id = userID;
+            req.session.user_name = username;
+
+            res.redirect('/home');
         }
     }
 
     async home(req, res){
+        console.log(req.session);
         let client = await user_model.countClient();
         let app = await user_model.countApp();
+        let user = req.session.user_name;
 
-        res.render('home', {clients: client, app: app});
+        if(req.session.user_level === 'admin'){
+            res.render('adminhome', {clients: client, app: app, user: req.session.user_name});
+
+        }else if(req.session.user_level === 'subadmin'){
+            res.render('home', {clients: client, app: app, user: req.session.user_name});
+
+        }
        
     }
     async appointment(req, res){
