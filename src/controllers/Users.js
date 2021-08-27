@@ -2,9 +2,8 @@ var user_model = require('../models/User');
 
 class Users{
     async login(req, res){
-
         req.session.errors = [];
-        res.render('login', {errors: req.session.errors});
+        res.render('index', {errors: req.session.errors});
     }
 
     async validate_login(req, res){
@@ -13,7 +12,7 @@ class Users{
         req.session.errors = result;
 
         if(result.length != 0){
-            res.render('login', {errors: req.session.errors});
+            res.render('index', {errors: req.session.errors});
 
         }else{
             
