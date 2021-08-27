@@ -47,6 +47,13 @@ class User extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
+    async getUser(id){
+        let query = mysql.format("SELECT * FROM users WHERE id = ?", id);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
+    }
+
     async countClient(){
         let query = mysql.format("SELECT COUNT(id) as clients FROM clients");
         let result = await this.executeQuery(query);
@@ -156,33 +163,38 @@ class User extends main_model{
 
     async validateClient(details){
         let errors = [];
-        if(this.hasnumber(details.firstname)){
-            errors.push({firstname: 'First name should not contain a number'});
+        if(this.hasnumber(details.firstname) || this.symbol(details.firstname)){
+            errors.push('Invalid First name');
         }
-        if(this.hasnumber(details.lastname)){
-            errors.push({lastname: 'Last name should not contain a number'});
+
+        if(this.hasnumber(details.lastname) || this.symbol(details.lastname)){
+            errors.push('Invalid Last name');
         }
-        if(!this.hasnumber(details.contact)){
-            errors.push('Contact number should only contain a number');
-        }
+
         if(this.empty(details.firstname)){
             errors.push('First name should not be blank');
         }
+
         if(this.empty(details.lastname)){
             errors.push('Last name should not be blank');
         }
+
         if(this.empty(details.contact)){
             errors.push('Contact number should not be blank');
+        }else if(!this.hasnumber(details.contact)){
+            errors.push('Invalid Contact No.');
         }
+
         if(this.empty(details.address)){
             errors.push('Address should not be blank');
         }
+        
         if(this.empty(details.email)){
             errors.push('Email should not be blank');
-        }
-        if(!this.email(details.email)){
+        }else if(!this.email(details.email)){
             errors.push('Email is not valid');
         }
+        
         return errors;
     }
 

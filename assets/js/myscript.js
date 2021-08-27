@@ -5,6 +5,14 @@ $(document).ready(function(){
         $(this).parent(".sub-menu").children("ul").slideToggle("100");
     });
 
+    $(document).on('click', '#edit-profile', function(e){
+        e.preventDefault();
+
+        $.get($(this).attr('href'), function(res){
+            document.getElementById('main').innerHTML = res;
+        });
+    });
+
     // GET ALL APPOINTMENTs
     function getAppointment(app){
         $.get($(app).attr('href'), function(res){

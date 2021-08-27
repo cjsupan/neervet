@@ -7,6 +7,8 @@ Router.post("/login", UserController.validate_login);
 
 Router.get("/home", UserController.home);
 
+Router.get("/editProfile", UserController.edit_profile);
+
 Router.get("/appointment", UserController.appointment);
 Router.post("/addAppointment/:id", UserController.validate_appointment);
 Router.get("/deleteAppointment/:id", UserController.delete_appointment);

@@ -43,7 +43,10 @@
               </button>
             </div>
             <div class="modal-body">
+                    
                 <form id='client-form' action='/addClient' method='POST' autocomplete="nope">
+                    <div id='errors'>
+                    </div>
                     <label for='firstname' id='client-firstname'>First Name: </label>
                     <label for='Lastname' id='client-lastname'>Last Name: </label><br>
                     <input type='text' name='firstname' id='input-firstname' class='form-control client-input'  autocomplete="nope">

@@ -2,6 +2,11 @@ class main{
     hasnumber(name){
         return /\d/.test(name);
     }
+
+    symbol(data){
+        return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(data);
+    }
+
     email(data){
         const useremail =  /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
         return useremail.test(data);

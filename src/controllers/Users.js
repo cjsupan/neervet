@@ -31,10 +31,8 @@ class Users{
     }
 
     async home(req, res){
-        console.log(req.session);
         let client = await user_model.countClient();
         let app = await user_model.countApp();
-        let user = req.session.user_name;
 
         if(req.session.user_level === 'admin'){
             res.render('adminhome', {clients: client, app: app, user: req.session.user_name});
@@ -43,7 +41,12 @@ class Users{
             res.render('home', {clients: client, app: app, user: req.session.user_name});
 
         }
-       
+    }
+
+    async edit_profile(req, res){
+        let result = await user_model.getUser(req.session.user_id);
+
+        res.render('partials/editprofile', {user: result});
     }
     async appointment(req, res){
         let getAppointment = await user_model.getAllAppointment();
@@ -67,6 +70,7 @@ class Users{
 
     async validate_client(req, res){
         let result = await user_model.validateClient(req.body);
+        console.log(result);
         if(result.length > 0){
             res.json(result);
         }else if(result == ''){

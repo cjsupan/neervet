@@ -191,6 +191,19 @@
     display: inline-block;
 }
 
+#main #profile form{
+    width: 80%;
+    margin: 10px 10%;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #profile form input{
+    width: 400px;
+    margin: 10px 0px 10px 10px;
+    display: inline-block;
+}
+
 #main #main-top{
     width: 90%;
     margin: 20px 5%;
@@ -411,10 +424,18 @@
     background-color: #dc3545;
 }
 
+#client-modal .modal-dialog .modal-content{
+    height: 600px;
+}
+
+#client-modal .modal-body{
+    overflow: auto;
+}
+
 #client-modal #client-form{
     width: 100%;
     margin: 0px;
-    padding: 20px;
+    padding: 0px 20px 10px 20px;
     display: inline-block;
 } 
 
@@ -440,6 +461,7 @@
 
 #client-modal #client-form #errors .lead{
     font-size: 15px;
+    margin: 5px 0px;
 }
 
 #main #client-page{
