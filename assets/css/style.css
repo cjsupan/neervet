@@ -57,14 +57,21 @@
     margin: 0px;
     width: 15%;
     height: 100%;
-    background-color: white;
+    background-color: #f8faff;
+    display: inline-block;
+}
+
+.container-fluid .sub-menu a span{
+    width: 50%;
+    height: 20px;
+    overflow: hidden;
     display: inline-block;
 }
 
 .container-fluid .sub-menu #down-arrow{
-    width: 15px;
-    height: 15px;
-    margin-left: 70px;
+    width: 18px;
+    height: 18px;
+    margin: 5px 0px 5px 20px;
     display: inline-block;
 }
 
@@ -73,13 +80,18 @@
 }
 
 .container-fluid .sub-menu ul li a{
-    font-size: 18px;
+    font-size: 17px;
     font-weight: normal;
     width: 80%;
-    margin-left: 20%;
+    margin-left: 10%;
     color: #2c343d;
     text-decoration: none;
-    /* border: 1px solid #d0d0d0; */
+    display: inline-block;
+}
+
+.container-fluid .sub-menu ul li a img{
+    width: 23px;
+    height: 23px;
     display: inline-block;
 }
 
@@ -136,10 +148,18 @@
     text-align: center;
 }
 
+#navigation ul .sub-name{
+    font-size: 14px;
+    margin: 10px 0px 10px 20px;
+    font-family: open-sans;
+    color: #bcbcbc;
+    display: inline-block;
+}
+
 #navigation ul li .lead{
     margin: 0px;
     padding: 5px 0px;
-    font-size: 20px;
+    font-size: 18px;
     border: 0px;
     font-weight: normal;
     text-decoration: none;
@@ -150,7 +170,7 @@
 #navigation ul li .lead:hover{
     background: #f0eeee;
     color: black;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 20px 0px 0px 20px;
     cursor: pointer;
 }
 
@@ -172,7 +192,7 @@
     padding: 0px;
     overflow: auto;
     border-radius: 10px 4px 4px 10px;
-    box-shadow: 0px 0px 10px 2px  gray;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     background-color: white;
     display: inline-block;
     vertical-align: top;
@@ -192,15 +212,28 @@
 }
 
 #main #profile form{
-    width: 80%;
-    margin: 10px 10%;
-    border: 1px solid #d0d0d0;
+    width: 46%;
+    margin: 10px 5%;
+    padding: 20px 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     display: inline-block;
+}
+
+#main #profile form p.lead{
+    font-size: 20px;
+    font-weight: normal;
+    font-family: open-sans;
 }
 
 #main #profile form input{
     width: 400px;
-    margin: 10px 0px 10px 10px;
+    margin: 5px 0px 10px 10px;
+    display: inline-block;
+}
+
+#main #profile form #save-profile{
+    width: 120px;
+    margin: 10px 0px 10px 74%;
     display: inline-block;
 }
 

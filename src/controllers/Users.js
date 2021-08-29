@@ -2,8 +2,20 @@ var user_model = require('../models/User');
 
 class Users{
     async login(req, res){
-        req.session.errors = [];
-        res.render('index', {errors: req.session.errors});
+       
+        if(req.session.user_id === undefined || req.session.user_id === ''  && req.session.user_level === undefined || req.session.user_level === '' ){
+            req.session.errors = [];
+            res.render('index', {errors: req.session.errors});
+        }else{
+            res.redirect('/home');
+        }
+    }
+
+    async logout(req, res){
+        req.session.user_id = undefined;
+        req.session.user_level = undefined;
+        req.session.user_name = undefined;
+        res.redirect('/');
     }
 
     async validate_login(req, res){
@@ -31,6 +43,7 @@ class Users{
     }
 
     async home(req, res){
+        
         let client = await user_model.countClient();
         let app = await user_model.countApp();
 
@@ -46,8 +59,16 @@ class Users{
     async edit_profile(req, res){
         let result = await user_model.getUser(req.session.user_id);
 
-        res.render('partials/editprofile', {user: result});
+        res.render('partials/editprofile', {user: result, id: req.session.user_id});
     }
+
+    async edit_user(req, res){
+
+        let result = await user_model.editUser(req.body, req.params.id);
+        req.session.user_name = req.body.username;
+        res.redirect('/');
+    }
+
     async appointment(req, res){
         let getAppointment = await user_model.getAllAppointment();
         res.render('partials/appointment', {app: getAppointment});

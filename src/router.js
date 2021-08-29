@@ -4,10 +4,12 @@ const UserController = require(`./controllers/users`);
 
 Router.get("/", UserController.login);
 Router.post("/login", UserController.validate_login);
+Router.get("/logout", UserController.logout);
 
 Router.get("/home", UserController.home);
 
 Router.get("/editProfile", UserController.edit_profile);
+Router.post("/editUser/:id", UserController.edit_user);
 
 Router.get("/appointment", UserController.appointment);
 Router.post("/addAppointment/:id", UserController.validate_appointment);

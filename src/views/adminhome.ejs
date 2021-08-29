@@ -15,7 +15,7 @@
     <nav class="navbar navbar-default">
         <a class="navbar-brand" id='to-dashboard' href="/home">Neervet Animal Clinic</a>
         <div id='user-logout'>
-            <a class='lead'><%= user %></a><span> | </span><a class='lead' href='/'>Logout</a>
+            </span><a class='lead' href='/logout'>Logout</a>
         </div>
     </nav>
 
@@ -24,14 +24,16 @@
         <div id='sidenav'>
             <div id='navigation'>
                 <ul>
-                    <li class='lead' >Navigation</li>
+                    
+                    <a class='sub-name'>USER LOGGED</a>
                     <li class='sub-menu'>
-                        <a id='admin' class='lead'><img src='img/profile.png'>Admin<img id='down-arrow' src='img/down-arrow.png'></a>
+                        <a id='admin' class='lead'><img src='img/profile.png'><span><%= user %></span><img id='down-arrow' src='img/down-arrow.png'></a>
                         <ul>
-                            <li><a id='edit-profile' href='/editProfile'>Edit Profile</a></li>
-                            <li><a href='/addUser'>Add User</a></li>
+                            <li><a id='edit-profile' href='/editProfile'><img src='img/edit.png'>Edit Profile</a></li>
+                            <li><a href='/addUser'><img src='img/add.png'>Add User</a></li>
                         </ul>
                     </li>
+                    <a class='sub-name'>SYSTEM</a>
                     <li><a id='dashboard' class='lead' href='/home'><img src='img/dashboard.png'>Dashboard</a></li>
                     <li><a id='appointment' class='lead' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
                     <li><a id='client' class='lead' href='/client'><img src='img/profile.png'>Clients</a></li>

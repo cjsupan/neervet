@@ -314,6 +314,10 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click', '#save-profile', function(){
+        alert('Profile Updated');
+    });
+
     $(document).on('click','#client', function(e){
         e.preventDefault();
         

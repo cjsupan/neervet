@@ -54,6 +54,15 @@ class User extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
+    async editUser(details, id){
+        let date = new Date();
+        let username = details.username.charAt(0).toUpperCase() + details.username.slice(1);
+        details.updated_at = date;
+        details.username = username;
+        let query = mysql.format("UPDATE users SET ? WHERE id = ?", [details, id]);
+        let result = await this.executeQuery(query);
+    }
+
     async countClient(){
         let query = mysql.format("SELECT COUNT(id) as clients FROM clients");
         let result = await this.executeQuery(query);
