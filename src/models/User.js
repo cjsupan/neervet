@@ -54,6 +54,32 @@ class User extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
+    async validateProfile(details){
+        let errors = [];
+
+        if(this.empty(details.first_name)){
+            errors.push('First name should not be blank');
+        }
+        if(this.hasnumber(details.first_name) || this.symbol(details.first_name)){
+            errors.push('Invalid first name');
+        }
+        if(this.empty(details.last_name)){
+            errors.push('Last name should not be blank');
+        }
+        if(this.hasnumber(details.lastname) || this.symbol(details.last_name)){
+            errors.push('Invalid last name');
+        }
+        if(this.empty(details.username)){
+            errors.push('Username should not be blank');
+        }
+        if(this.empty(details.password)){
+            errors.push('Password should not be blank');
+        }
+
+        return errors;
+
+    }
+
     async editUser(details, id){
         let date = new Date();
         let username = details.username.charAt(0).toUpperCase() + details.username.slice(1);
@@ -61,6 +87,37 @@ class User extends main_model{
         details.username = username;
         let query = mysql.format("UPDATE users SET ? WHERE id = ?", [details, id]);
         let result = await this.executeQuery(query);
+    }
+
+    async validateUser(details){
+        let errors = [];
+
+        if(this.empty(details.firstname)){
+            errors.push('First name should not be blank');
+        }
+        if(this.hasnumber(details.firstname) || this.symbol(details.firstname)){
+            errors.push('Invalid first name');
+        }
+        if(this.empty(details.lastname)){
+            errors.push('Last name should not be blank');
+        }
+        if(this.hasnumber(details.lastname) || this.symbol(details.lastname)){
+            errors.push('Invalid last name');
+        }
+        if(this.empty(details.username)){
+            errors.push('Username should not be blank');
+        }
+        if(this.empty(details.password)){
+            errors.push('Password should not be blank');
+        }
+        if(this.empty(details.confirmpassword)){
+            errors.push('Confirm password should not be blank');
+        }
+        if(!this.match(details.password, details.confirmpassword)){
+            errors.push("Password do not match");
+        }
+
+        return errors;
     }
 
     async countClient(){

@@ -5,7 +5,7 @@ class Users{
        
         if(req.session.user_id === undefined || req.session.user_id === ''  && req.session.user_level === undefined || req.session.user_level === '' ){
             req.session.errors = [];
-            res.render('index', {errors: req.session.errors});
+            res.render('index');
         }else{
             res.redirect('/home');
         }
@@ -21,10 +21,9 @@ class Users{
     async validate_login(req, res){
 
         let result = await user_model.validateLogin(req.body);
-        req.session.errors = result;
 
         if(result.length != 0){
-            res.render('index', {errors: req.session.errors});
+            res.json(result);
 
         }else{
             
@@ -38,7 +37,7 @@ class Users{
             req.session.user_id = userID;
             req.session.user_name = username;
 
-            res.redirect('/home');
+            res.json([]);
         }
     }
 
@@ -64,9 +63,28 @@ class Users{
 
     async edit_user(req, res){
 
-        let result = await user_model.editUser(req.body, req.params.id);
-        req.session.user_name = req.body.username;
-        res.redirect('/');
+        let result = await user_model.validateProfile(req.body);
+        if(result.length != 0){
+            res.json(result);
+        }else{
+            let updateUser = await user_model.editUser(req.body, req.params.id);
+            req.session.user_name = req.body.username;
+            res.json([]);
+        }
+    }
+
+    async add_user_page(req, res){
+        res.render('partials/adduser');
+    }
+
+    async validate_user(req, res){
+        let result = await user_model.validateUser(req.body);
+        
+        if(result.length != 0){
+            res.json(result);
+        }else{
+            res.json([]);
+        }
     }
 
     async appointment(req, res){

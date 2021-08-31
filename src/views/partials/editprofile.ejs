@@ -3,6 +3,7 @@
 <div id='profile'>
     
     <form id='edit-user' action="/editUser/<%= id %>" method='POST'>
+        <div id='profile-errors'></div>
         <p class='lead'>Personal Info</p>
         <label for='firstname'>First name: </label>
         <input type='text' name='first_name' class='form-control' value="<%= user[0].first_name %>"><br>

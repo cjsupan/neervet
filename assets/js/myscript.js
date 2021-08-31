@@ -1,5 +1,22 @@
 $(document).ready(function(){
 
+    $(document).on('click', '#login-submit', function(){
+        
+        $.post($('#login-form').attr('action'), $('#login-form').serialize(), function(res){
+
+            if(res.length != 0){
+                let errors = '';
+                for(var i=0; i<res.length; i++){
+                    errors += "<div class='alert alert-warning'>"+ res[i] +"</div>";
+                }
+                document.getElementById('login-errors').innerHTML = errors;
+            }else if(res.length == 0) {
+                location.replace("http://localhost:1337/home");
+            }
+            
+        });
+    });
+
     $('.sub-menu ul').hide();
     $(".sub-menu a").click(function () {
         $(this).parent(".sub-menu").children("ul").slideToggle("100");
@@ -12,6 +29,16 @@ $(document).ready(function(){
             document.getElementById('main').innerHTML = res;
         });
     });
+
+    $(document).on('click', '#add-user', function(e){
+        e.preventDefault();
+
+        $.get($(this).attr('href'), function(res){
+            document.getElementById('main').innerHTML = res;
+        });
+    });
+
+    $(document).on('click', '')
 
     // GET ALL APPOINTMENTs
     function getAppointment(app){
@@ -314,8 +341,44 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('click', '#save-profile', function(){
-        alert('Profile Updated');
+    $(document).on('click', '#save-profile', function(e){
+        e.preventDefault();
+
+        $.post($('#edit-user').attr('action'), $("#edit-user").serialize(), function(res){
+            
+            if(res.length != 0){
+                var errors = '';
+                for(var i=0; i<res.length; i++){
+                    errors += "<div class='alert alert-warning'>"+ res[i] +"</div><br>";
+                    
+                }
+                document.getElementById('profile-errors').innerHTML = errors;
+
+            }else{
+                alert('Profile Updated');
+                location.replace('http://localhost:1337/');
+            }
+            
+        });
+    });
+
+    $(document).on('click', '#save-user', function(e){
+        e.preventDefault();
+        $.post($('#add-user-form').attr('action'), $("#add-user-form").serialize(), function(res){
+            
+            if(res.length != 0){
+                var errors = '';
+                for(var i=0; i<res.length; i++){
+                    errors += "<div class='alert alert-warning'>"+ res[i] +"</div><br>";
+                    
+                }
+                document.getElementById('user-errors').innerHTML = errors;
+
+            }else{
+                alert('User Added');
+            }
+            
+        });
     });
 
     $(document).on('click','#client', function(e){
