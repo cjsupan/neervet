@@ -376,6 +376,7 @@ $(document).ready(function(){
 
             }else{
                 alert('User Added');
+                location.replace('http://localhost:1337/');
             }
             
         });

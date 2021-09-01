@@ -116,8 +116,26 @@ class User extends main_model{
         if(!this.match(details.password, details.confirmpassword)){
             errors.push("Password do not match");
         }
+        let query = mysql.format("SELECT * FROM users WHERE username = ?", details.username);
+        let result = await this.executeQuery(query);
+
+        if(result.length != 0){
+            errors.push('Username already taken');
+        }
 
         return errors;
+    }
+
+    async addUser(details){
+
+        let date = new Date();
+        var firstname = details.firstname.charAt(0).toUpperCase() + details.firstname.slice(1);
+        var lastname = details.lastname.charAt(0).toUpperCase() + details.lastname.slice(1);
+
+        let query = mysql.format("INSERT INTO users (username, password, first_name, last_name, user_level, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)",[details.username, details.password, firstname, lastname, details.userlevel, date, date]);
+        let result = await this.executeQuery(query);
+
+        return result;
     }
 
     async countClient(){

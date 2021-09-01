@@ -46,10 +46,10 @@ class Users{
         let client = await user_model.countClient();
         let app = await user_model.countApp();
 
-        if(req.session.user_level === 'admin'){
+        if(req.session.user_level === 'Admin'){
             res.render('adminhome', {clients: client, app: app, user: req.session.user_name});
 
-        }else if(req.session.user_level === 'subadmin'){
+        }else if(req.session.user_level === 'Subadmin'){
             res.render('home', {clients: client, app: app, user: req.session.user_name});
 
         }
@@ -83,6 +83,7 @@ class Users{
         if(result.length != 0){
             res.json(result);
         }else{
+            let addUser = await user_model.addUser(req.body);
             res.json([]);
         }
     }

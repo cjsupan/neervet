@@ -85,6 +85,7 @@
     font-weight: normal;
     width: 80%;
     margin-left: 10%;
+    padding: 5px 0px;
     color: #2c343d;
     text-decoration: none;
     display: inline-block;
@@ -133,7 +134,7 @@
     display: inline-block;
 }
 
-#main-login #btn-login{
+#main-login #login-submit{
     width: 100%;
     display: inline-block;
 }
@@ -257,7 +258,7 @@
 
 #main #addUser form{
     width: 52%;
-    height: 480px;
+    height: 535px;
     margin: 10px 24%;
     padding: 20px 10px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -280,9 +281,15 @@
     display: inline-block;
 }
 
+#main #addUser form select{
+    width: 250px;
+    margin: 5px 150px 10px 10px;
+    display: inline-block;
+}
+
 #main #addUser form #save-user{
     width: 120px;
-    margin: 10px 0px 10px 74%;
+    margin: 10px 10% 10px 70%;
     display: inline-block;
 }
 
