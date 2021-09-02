@@ -61,6 +61,17 @@ class Users{
         res.render('partials/editprofile', {user: result, id: req.session.user_id});
     }
 
+    async manage_user(req, res){
+        let result = await user_model.getAllUser();
+        res.render('partials/manageusers', {users: result});
+    }
+
+    async delete_user(req, res){
+        let result = await user_model.deleteUser(req.params.id);
+        
+        res.redirect('/');
+    }
+
     async edit_user(req, res){
 
         let result = await user_model.validateProfile(req.body);

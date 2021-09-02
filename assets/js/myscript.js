@@ -30,7 +30,7 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('click', '#add-user', function(e){
+    $(document).on('click', '#manage-user', function(e){
         e.preventDefault();
 
         $.get($(this).attr('href'), function(res){
@@ -140,11 +140,14 @@ $(document).ready(function(){
             function viewClient(client){
                 $.get($(client).attr('href'), function(res){
                     document.getElementById('main').innerHTML = res;
+
                     document.getElementById('client-back').addEventListener('click', function(e){
                         e.preventDefault();
                         let client = document.getElementById('client');
                         getclient(client);
                     });
+
+                    
 
                     //ADD APPOINTMENT
                     document.getElementById('save-appointment').addEventListener('click', function(e){
@@ -379,6 +382,15 @@ $(document).ready(function(){
                 location.replace('http://localhost:1337/');
             }
             
+        });
+    });
+
+    $(document).on('click', '#delete-user', function(e){
+        e.preventDefault();
+
+        $.get($(this).attr('href'), function(){
+            alert("User Deleted");
+            location.reload();
         });
     });
 

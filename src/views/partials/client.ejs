@@ -11,6 +11,7 @@
         <thead class='table-dark'>
             <tr>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Address</th>
                 <th>Contact No.</th>
                 <th>Action</th>
@@ -20,8 +21,9 @@
             <% for(var i=0; i < client.length; i++){ %>
 
                 <tr>
-                    <td><%=client[i].name %></td>
-                    <td><%=client[i].address %></td>
+                    <td class='capitalize'><%=client[i].name %></td>
+                    <td><%=client[i].email %></td>
+                    <td class='capitalize'><%=client[i].address %></td>
                     <td><%=client[i].contact %></td>
                     <td class='td-action' ><a id='<%= client[i].id %>' class='viewClient' href='/viewClient/<%= client[i].id %>'>View</a> | <a class='deleteClient' href="/deleteClient/<%= client[i].id %>">Delete</a></td>
                 </tr>

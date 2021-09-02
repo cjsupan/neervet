@@ -14,7 +14,7 @@
         <thead class='table-dark'>
             <tr>
                 <th>Name</th>
-                <th>Address</th>
+                <th>Email</th>
                 <th>Contact No.</th>
                 <th>Date & Time</th>
                 <th>Action</th>
@@ -24,8 +24,8 @@
             <% for(var i=0; i < app.length; i++){ %>
 
             <tr>
-                <td><%=app[i].name %></td>
-                <td><%=app[i].address %></td>
+                <td class='capitalize'><%=app[i].name %></td>
+                <td><%=app[i].email %></td>
                 <td><%=app[i].contact %></td>
                 <td><%=app[i].date %></td>
                 <td><a class='delete-appointment' href='/deleteAppointment/<%= app[i].id %>'>Delete</a></td>

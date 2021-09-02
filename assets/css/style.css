@@ -81,7 +81,7 @@
 }
 
 .container-fluid .sub-menu ul li a{
-    font-size: 17px;
+    font-size: 15px;
     font-weight: normal;
     width: 80%;
     margin-left: 10%;
@@ -247,47 +247,65 @@
     display: inline-block;
 }
 
-#main #addUser form #user-errors, #main #profile form #profile-errors{
+#main #add-user{
+    margin: 10px 0px 10px 89%;
+    display: inline-block;
+}
+
+#main #manage-user-table{
+    width: 90%;
+    height: 430px;
+    margin: 0px 5%;
+    overflow: auto;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #manage-user-table thead{
+    text-align: center;
+    position: sticky;
+    top: 0;
+} 
+
+#main #manage-user-table tbody .delete{
     text-align: center;
 }
 
-#main #addUser form #user-errors .alert, #main #profile form #profile-errors .alert{
+#main #manageUserModal .modal-body{
+    height: 500px;
+    overflow: auto;
+}
+
+#main #manageUserModal form #user-errors, #main #profile form #profile-errors{
+    text-align: center;
+}
+
+#main #manageUserModal form #user-errors .alert, #main #profile form #profile-errors .alert{
     width: 100%;
     display: inline-block;
 }
 
-#main #addUser form{
-    width: 52%;
-    height: 535px;
-    margin: 10px 24%;
-    padding: 20px 10px;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    overflow: auto;
+#main #manageUserModal form{
+    width: 95%;
+    margin: 10px;
     text-align: right;
     display: inline-block;
 }
 
-#main #addUser form p.lead{
-    margin-left: 20px;
+#main #manageUserModal form p.lead{
     font-size: 20px;
     font-weight: normal;
     font-family: open-sans;
     text-align: left;
 }
 
-#main #addUser form input{
-    width: 350px;
-    margin: 5px 50px 10px 10px;
+#main #manageUserModal form input, #main #manageUserModal form select {
+    width: 230px;
+    margin: 5px 60px 10px 10px;
     display: inline-block;
 }
 
-#main #addUser form select{
-    width: 250px;
-    margin: 5px 150px 10px 10px;
-    display: inline-block;
-}
-
-#main #addUser form #save-user{
+#main #manageUserModal form #save-user{
     width: 120px;
     margin: 10px 10% 10px 70%;
     display: inline-block;
@@ -429,7 +447,7 @@
     text-align: center;
 }
 
-#main #appointment-table td{
+#main #appointment-table .capitalize{
     text-transform: capitalize;
 }
 
@@ -481,7 +499,7 @@
     margin: 0px;
 }
 
-#main #client-table td{
+#main #client-table .capitalize{
     text-transform: capitalize;
 }
 
@@ -646,7 +664,15 @@
 }
 
 #main #appointmentModal #appointment-form{
-    margin: 20px 0px 40px 25%; 
+    width: 90%;
+    margin: 10px 5%; 
+    text-align: right;
+    display: inline-block;
+}
+
+#main #appointmentModal #appointment-form input{
+    width: 250px; 
+    margin: 10px 50px 0px 0px ;
     display: inline-block;
 }
 

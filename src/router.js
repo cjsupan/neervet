@@ -11,8 +11,11 @@ Router.get("/home", UserController.home);
 Router.get("/editProfile", UserController.edit_profile);
 Router.post("/editUser/:id", UserController.edit_user);
 
+Router.get("/manageUser", UserController.manage_user);
+
 Router.get("/addUserPage", UserController.add_user_page);
 Router.post("/addUser", UserController.validate_user);
+Router.get("/deleteuser/:id", UserController.delete_user);
 
 Router.get("/appointment", UserController.appointment);
 Router.post("/addAppointment/:id", UserController.validate_appointment);

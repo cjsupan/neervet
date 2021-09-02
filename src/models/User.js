@@ -83,10 +83,21 @@ class User extends main_model{
     async editUser(details, id){
         let date = new Date();
         let username = details.username.charAt(0).toUpperCase() + details.username.slice(1);
+        var firstname = details.first_name.charAt(0).toUpperCase() + details.first_name.slice(1);
+        var lastname = details.last_name.charAt(0).toUpperCase() + details.last_name.slice(1);
         details.updated_at = date;
         details.username = username;
+        details.first_name = firstname;
+        details.last_name = lastname;
         let query = mysql.format("UPDATE users SET ? WHERE id = ?", [details, id]);
         let result = await this.executeQuery(query);
+    }
+    
+    async getAllUser(){
+        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level FROM users ORDER BY user_level ASC");
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
     }
 
     async validateUser(details){
@@ -138,6 +149,13 @@ class User extends main_model{
         return result;
     }
 
+    async deleteUser(id){
+        let query = mysql.format("DELETE FROM users WHERE id = ?", id);
+        let result = await this.executeQuery(query);
+
+        return result;
+    }
+
     async countClient(){
         let query = mysql.format("SELECT COUNT(id) as clients FROM clients");
         let result = await this.executeQuery(query);
@@ -151,7 +169,7 @@ class User extends main_model{
     }
 
     async getAllAppointment(){
-        let query = mysql.format('SELECT appointments.id, clients.id as clientId, CONCAT(clients.first_name, " ", clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, "%b %e %Y %l:%i %p" ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id ORDER BY appointments.created_at DESC');
+        let query = mysql.format('SELECT appointments.id, clients.email ,clients.id as clientId, CONCAT(clients.first_name, " ", clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, "%b %e %Y %l:%i %p" ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id ORDER BY appointments.created_at DESC');
         let result = await this.executeQuery(query);
         return result;
     }
@@ -189,19 +207,25 @@ class User extends main_model{
         let num = parseInt(day);
         notifdate.setDate(notifdate.getDate() + num);
 
-        let query = mysql.format("SELECT appointments.client_id as id, CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y %l:%i %p') AS datetime FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
+        let query = mysql.format("SELECT appointments.client_id as id, appointments.title , CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y') AS date, DATE_FORMAT(date_and_time, '%l:%i %p') as time FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
         let result = await this.executeQuery(query);
         
         let client = JSON.parse(JSON.stringify(result));
 
         for(var i=0; i<client.length; i++){
+
+            var html = "<h1>Neervet Animal Clinic</h1>";
+                html += "<p>Hi "+client[i].name+"</p><p>This is a reminder for your appointment</p>";
+                html += "<ul><li>Title: "+ client[i].title +"</li>";
+                html += "<li>Date: "+ client[i].date +"</li>";
+                html += "<li>Time: "+ client[i].time +"</li></ul>";
         
             const msg = {
                     to: client[i].email,
                     from: "supancj18@gmail.com",
                     subject: "Appointment - Neervet Animal Clinic",
                     text: "here's the email",
-                    html: "<h1>Neervet Animal Clinic</h1><p>Hi "+client[i].name+"</p><p>This is a reminder for your appointment on "+ client[i].datetime +"</p>"
+                    html: html
                 };
                 var id = client[i].id;
                 sgMail.send(msg).then(() => {
@@ -227,13 +251,15 @@ class User extends main_model{
     async addAppointment(details, id){
         let date = new Date();
         let notify = 0;
-        let query = mysql.format('INSERT INTO appointments (client_id, date_and_time, notification, created_at, updated_at) VALUES(?, ?, ?, ?, ?)', [id, details.datetime, notify, date, date]);
+        var title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
+
+        let query = mysql.format('INSERT INTO appointments (client_id, title, date_and_time, notification, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?)', [id, title, details.datetime, notify, date, date]);
         let result = await this.executeQuery(query);
         return result;
     }
 
     async getAllClient(){
-        let query = mysql.format('SELECT id, CONCAT(first_name, " ",last_name) as name, address, contact  FROM clients ORDER BY created_at DESC');
+        let query = mysql.format('SELECT id, CONCAT(first_name, " ",last_name) as name, email, address, contact  FROM clients ORDER BY created_at DESC');
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
