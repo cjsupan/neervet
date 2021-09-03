@@ -219,6 +219,7 @@ class User extends main_model{
                 html += "<ul><li>Title: "+ client[i].title +"</li>";
                 html += "<li>Date: "+ client[i].date +"</li>";
                 html += "<li>Time: "+ client[i].time +"</li></ul>";
+                
         
             const msg = {
                     to: client[i].email,
