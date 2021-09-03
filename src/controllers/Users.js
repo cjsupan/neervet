@@ -45,12 +45,13 @@ class Users{
         
         let client = await user_model.countClient();
         let app = await user_model.countApp();
+        let subadmin = await user_model.countSubadmin();
 
         if(req.session.user_level === 'Admin'){
-            res.render('adminhome', {clients: client, app: app, user: req.session.user_name});
+            res.render('adminhome', {clients: client, app: app, subadmin: subadmin, user: req.session.user_name});
 
         }else if(req.session.user_level === 'Subadmin'){
-            res.render('home', {clients: client, app: app, user: req.session.user_name});
+            res.render('home', {clients: client, app: app, subadmin: subadmin, user: req.session.user_name});
 
         }
     }
@@ -210,7 +211,8 @@ class Users{
     }
 
     async update_lab(req, res){
-        let result = await user_model.updateLab(req.body, req.params.id);
+
+        let result = await user_model.updateLab(req.body, req.params.id, req.params.clientId);
         res.redirect('/');
     }
 

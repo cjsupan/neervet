@@ -27,6 +27,26 @@ $(document).ready(function(){
 
         $.get($(this).attr('href'), function(res){
             document.getElementById('main').innerHTML = res;
+
+            $(document).on('click', '#view-password', function(){
+                if($("#user-password").attr("type") == "text"){
+                    $("#user-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#user-password").attr("type") == "password"){
+                    $("#user-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
+            
+            $(document).on('click', '#view-confirm-password', function(){
+                if($("#user-confirm-password").attr("type") == "text"){
+                    $("#user-confirm-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#user-confirm-password").attr("type") == "password"){
+                    $("#user-confirm-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
         });
     });
 
@@ -35,6 +55,26 @@ $(document).ready(function(){
 
         $.get($(this).attr('href'), function(res){
             document.getElementById('main').innerHTML = res;
+
+            $(document).on('click', '#view-password', function(){
+                if($("#user-password").attr("type") == "text"){
+                    $("#user-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#user-password").attr("type") == "password"){
+                    $("#user-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
+            
+            $(document).on('click', '#view-confirm-password', function(){
+                if($("#user-confirm-password").attr("type") == "text"){
+                    $("#user-confirm-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#user-confirm-password").attr("type") == "password"){
+                    $("#user-confirm-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
         });
     });
 
@@ -223,8 +263,9 @@ $(document).ready(function(){
                                 var id = this.value;
 
                                 $.get("/getLab/"+id+"", function(res){
-                                
-                                    var action = "/updateLab/"+id+"";
+                                    var client_id = res[0].system_pet_client_id;
+                                    var action = "/updateLab/"+id+"/"+client_id+"";
+                                   
                                     var modalBody = "";
                                         modalBody += "<form id='lab-form' action='"+action+"' method='POST'>";
                                         modalBody += "<label for='heartworm'>Heartworm: </label>";
@@ -257,6 +298,8 @@ $(document).ready(function(){
                                         modalBody += "<input type='text' name='comments' id='comments' class='form-control lab-input' value='"+res[0].comments+"'><br>";
                                         modalBody += "<label for='next_app'>Next appointment: </label>";
                                         modalBody += "<input type='date' name='next_app' id='date' class='form-control lab-input'>";
+                                        modalBody += "<label for='title'>Title: </label>";
+                                        modalBody += "<input type='text' name='title' id='title' class='form-control lab-input'>";
                                         modalBody += "</form>";
                                         $(".lab-modal-body").children().prevObject[0].innerHTML = modalBody;
                                 });

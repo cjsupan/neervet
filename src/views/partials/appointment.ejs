@@ -15,6 +15,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Title</th>
                 <th>Contact No.</th>
                 <th>Date & Time</th>
                 <th>Action</th>
@@ -26,6 +27,7 @@
             <tr>
                 <td class='capitalize'><%=app[i].name %></td>
                 <td><%=app[i].email %></td>
+                <td><%=app[i].title %></td>
                 <td><%=app[i].contact %></td>
                 <td><%=app[i].date %></td>
                 <td><a class='delete-appointment' href='/deleteAppointment/<%= app[i].id %>'>Delete</a></td>

@@ -29,31 +29,37 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="ManageUserModalLabel">Add User</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+            <h5 class="modal-title" id="ManageUserModalLabel">Add User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
             <form id='add-user-form' action="/addUser" method='POST'>
-                <div id='user-errors'></div>
-               <p class='lead'>Personal Info</p>
-               <label for='firstname'>First name: </label>
-               <input type='text' name='firstname' class='form-control'><br>
-               <label for='lastname'>Last name: </label>
-               <input type='text' name='lastname' class='form-control'><br><br>
-               <p class='lead'>Account</p>
-               <label for='username'>Username: </label>
-               <input type='text' name='username' class='form-control'><br>
-               <label for='password'>Password: </label>
-               <input type='password' name='password' class='form-control'><br>
-               <label for='confirmpassword'>Confirm Password: </label>
-               <input type='password' name='confirmpassword' class='form-control'><br>
-               <label for='userlevel'>User level: </label>
-               <select name='userlevel' class='form-control'>
-                   <option value='Subadmin'>Subadmin</option>
-                   <option value='Admin'>Admin</option>
-               </select>
+                    <div id='user-errors'></div>
+                <p class='lead'>Personal Info</p>
+                <label for='firstname'>First name: </label>
+                <input type='text' name='firstname' class='form-control'><br>
+                <label for='lastname'>Last name: </label>
+                <input type='text' name='lastname' class='form-control'><br><br>
+                <p class='lead'>Account</p>
+                <label for='username'>Username: </label>
+                <input type='text' name='username' class='form-control'><br>
+                <label for='password'>Password: </label>
+                <div class='form-group'>
+                    <input type='password' id='user-password' name='password' class='form-control'><img id='view-password' src='img/closeeye.png'><br>
+                </div>
+                
+                <label for='confirmpassword'>Confirm Password: </label>
+                <div class='form-group'>
+                    <input type='password' id='user-confirm-password' name='confirmpassword' class='form-control'><img id='view-confirm-password' src='img/closeeye.png'><br>
+                </div>
+                
+                <label for='userlevel'>User level: </label>
+                <select name='userlevel' class='form-control'>
+                    <option value='Subadmin'>Subadmin</option>
+                    <option value='Admin'>Admin</option>
+                </select>
                
            </form>
         </div>

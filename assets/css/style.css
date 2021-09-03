@@ -241,6 +241,30 @@
     display: inline-block;
 }
 
+#main #profile form .form-group{
+    margin: 5px 50px 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #profile form .form-group input{
+    width: 320px;
+    margin: 0px;
+    border: 0px;
+    border-right: 1px solid #d0d0d0; 
+    border-radius: 5px 0px 0px 5px;
+    display: inline-block;
+}
+
+#main #profile form .form-group img{
+    width: 18px;
+    height: 18px;
+    margin: 0px 5px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
 #main #profile form #save-profile{
     width: 120px;
     margin: 10px 0px 10px 74%;
@@ -289,6 +313,30 @@
     width: 95%;
     margin: 10px;
     text-align: right;
+    display: inline-block;
+}
+
+#main #manageUserModal form .form-group{
+    margin: 5px 60px 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #manageUserModal form .form-group input{
+    width: 200px;
+    margin: 0px;
+    border: 0px;
+    border-right: 1px solid #d0d0d0; 
+    border-radius: 5px 0px 0px 5px;
+    display: inline-block;
+}
+
+#main #manageUserModal form .form-group img{
+    width: 18px;
+    height: 18px;
+    margin: 0px 5px;
+    vertical-align: middle;
     display: inline-block;
 }
 
@@ -917,6 +965,11 @@
 }
 
 #main #labModal .modal-content .modal-body #lab-form #date{
+    width: 250px;
+    margin-left: 15px;
+}
+
+#main #labModal .modal-content .modal-body #lab-form #title{
     width: 250px;
     margin-left: 15px;
 }

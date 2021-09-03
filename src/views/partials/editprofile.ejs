@@ -6,14 +6,23 @@
         <div id='profile-errors'></div>
         <p class='lead'>Personal Info</p>
         <label for='firstname'>First name: </label>
-        <input type='text' name='first_name' class='form-control' value="<%= user[0].first_name %>"><br>
+        <input type='text' name='first_name' class='form-control' value="<%= user[0].first_name %>" title='Please fill this field'><br>
         <label for='lastname'>Last name: </label>
         <input type='text' name='last_name' class='form-control' value="<%= user[0].last_name %>"><br><br>
         <p class='lead'>Account</p>
         <label for='username'>Username: </label>
         <input type='text' name='username' class='form-control' value="<%= user[0].username %>"><br>
         <label for='password'>Password: </label>
-        <input type='password' name='password' class='form-control' value="<%= user[0].password %>"><br>
+
+        <div class='form-group'>
+            <input type='password' id='user-password' name='password' class='form-control' value="<%= user[0].password %>"><img id='view-password' src='img/closeeye.png'><br>
+        </div>
+        <label for='confirmpassword'>Confirm Password: </label>
+        <div class='form-group'>
+            <input type='password' id='user-confirm-password' name='confirmpassword' class='form-control' value="<%= user[0].password %>"><img id='view-confirm-password' src='img/closeeye.png'><br>
+        </div>
+        
+        
         <input type='submit' id='save-profile' class='btn btn-primary' value='Save Profile'>
     </form>
 

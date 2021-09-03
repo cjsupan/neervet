@@ -75,6 +75,9 @@ class User extends main_model{
         if(this.empty(details.password)){
             errors.push('Password should not be blank');
         }
+        if(!this.match(details.password, details.confirmpassword)){
+            errors.push("Password do not match");
+        }
 
         return errors;
 
@@ -168,8 +171,14 @@ class User extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
+    async countSubadmin(){
+        let query = mysql.format("SELECT COUNT(id) as subadmin FROM users WHERE user_level = 'Subadmin'");
+        let result = await this.executeQuery(query);
+        return JSON.parse(JSON.stringify(result));
+    }
+
     async getAllAppointment(){
-        let query = mysql.format('SELECT appointments.id, clients.email ,clients.id as clientId, CONCAT(clients.first_name, " ", clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, "%b %e %Y %l:%i %p" ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id ORDER BY appointments.created_at DESC');
+        let query = mysql.format('SELECT appointments.id, title, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, " ", clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, "%b %e %Y %l:%i %p" ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id ORDER BY appointments.created_at DESC');
         let result = await this.executeQuery(query);
         return result;
     }
@@ -182,9 +191,9 @@ class User extends main_model{
         if(details.from != '' && details.to != ''){
             from = new Date(details.from).toISOString().slice(0, 19).replace('T', ' ');
             to = new Date(details.to).toISOString().slice(0, 19).replace('T', ' ');
-            query = mysql.format("SELECT appointments.id, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p' ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE CONCAT(clients.first_name, '', clients.last_name) LIKE '%"+details.search+"%' AND date_and_time BETWEEN '"+from+"' AND '"+to+"' ORDER BY appointments.created_at DESC");
+            query = mysql.format("SELECT appointments.id, title, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p' ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE CONCAT(clients.first_name, '', clients.last_name) LIKE '%"+details.search+"%' AND date_and_time BETWEEN '"+from+"' AND '"+to+"' ORDER BY appointments.created_at DESC");
         }else{
-            query = mysql.format("SELECT appointments.id, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p' ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE CONCAT(clients.first_name, '', clients.last_name) LIKE '%"+details.search+"%' OR date_and_time BETWEEN '"+from+"' AND '"+to+"' ORDER BY appointments.created_at DESC");
+            query = mysql.format("SELECT appointments.id, title, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p' ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE CONCAT(clients.first_name, '', clients.last_name) LIKE '%"+details.search+"%' OR date_and_time BETWEEN '"+from+"' AND '"+to+"' ORDER BY appointments.created_at DESC");
         }
 
         let result = await this.executeQuery(query);
@@ -219,7 +228,6 @@ class User extends main_model{
                 html += "<ul><li>Title: "+ client[i].title +"</li>";
                 html += "<li>Date: "+ client[i].date +"</li>";
                 html += "<li>Time: "+ client[i].time +"</li></ul>";
-                
         
             const msg = {
                     to: client[i].email,
@@ -504,9 +512,31 @@ class User extends main_model{
         return historyresult;
     }
 
-    async updateLab(details, id){
+    async updateLab(details, id, clientId){
+
         
-        let query = mysql.format("UPDATE laboratory SET ? WHERE id = ? ", [ details, id]);
+
+        let newdetails = {};
+        newdetails.heartworm = details.heartworm;
+        newdetails.skin_scrape = details.skin_scrape;
+        newdetails.ear_mites = details.ear_mites;
+        newdetails.cdv = details.cdv ;
+        newdetails.cpv = details.cpv ;
+        newdetails.fiv = details.fiv ;
+        newdetails.urinalysis = details.urinalysis ;
+        newdetails.fecalysis = details.fecalysis ;
+        newdetails.vaginal_smear = details.vaginal_smear ;
+        newdetails.xray = details.xray ;
+        newdetails.differential = details.differential ;
+        newdetails.definitive = details.definitive ;
+        newdetails.treatment = details.treatment ;
+        newdetails.comments = details.comments;
+
+        let title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
+        let appointment = mysql.format("INSERT INTO appointments (client_id, title, date_and_time) VALUES(?, ?, ?)", [clientId, title, details.next_app]);
+        let addApp = await this.executeQuery(appointment);
+
+        let query = mysql.format("UPDATE laboratory SET ? WHERE id = ? ", [ newdetails, id]);
         let result = await this.executeQuery(query);
         return result;
     }

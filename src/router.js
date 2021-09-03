@@ -28,7 +28,6 @@ Router.post("/addClient", UserController.validate_client);
 Router.get("/deleteClient/:id", UserController.delete_client);
 Router.get("/viewClient/:id", UserController.view_client);
 
-
 Router.post("/addPet/:id", UserController.validate_pet);
 Router.get("/viewPet/:clientid/:petid", UserController.view_pet);
 Router.get("/deletePet/:id", UserController.delete_pet);
@@ -36,7 +35,7 @@ Router.get("/deletePet/:id", UserController.delete_pet);
 Router.post("/addPetRecord/:clientid/:petid", UserController.add_pet_record);
 Router.get("/deletePetRecord/:systemid/:vitalid/:historyid", UserController.delete_pet_record);
 
-Router.post("/updateLab/:id", UserController.update_lab);
+Router.post("/updateLab/:id/:clientId", UserController.update_lab);
 Router.get("/getLab/:id", UserController.get_lab);
 
 Router.get("/getNotification/:number", UserController.get_notification);
