@@ -6,6 +6,11 @@ class Appointments{
         res.render('partials/appointment', {app: getAppointment});
     }
 
+    async appointments_today(req, res){
+        let getAppointmentToday = await appointment_model.getAppointmentsToday();
+        res.render('partials/appointmenttoday', {app: getAppointmentToday});
+    }
+
     async search_app(req, res){
         let getAppointment = await appointment_model.searchApp(req.body);
         res.render('partials/appointment', {app: getAppointment});
@@ -19,6 +24,11 @@ class Appointments{
             let result = await appointment_model.addAppointment(req.body, req.params.id);
             res.json('clear');
         }
+    }
+
+    async complete_appointment(req, res){
+        let result = await appointment_model.completeAppointment(req.params.id);
+        res.redirect('/');
     }
 
     async delete_appointment(req, res){

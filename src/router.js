@@ -22,6 +22,8 @@ Router.get("/deleteuser/:id", UserController.delete_user);
 
 Router.get("/appointment", AppointmentController.appointment);
 Router.post("/addAppointment/:id", AppointmentController.validate_appointment);
+Router.get("/appointmentsToday", AppointmentController.appointments_today);
+Router.get("/completeAppointment/:id", AppointmentController.complete_appointment);
 Router.get("/deleteAppointment/:id", AppointmentController.delete_appointment);
 Router.post("/searchApp", AppointmentController.search_app);
 

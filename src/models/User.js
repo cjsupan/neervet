@@ -84,15 +84,25 @@ class User extends main_model{
     }
 
     async editUser(details, id){
+
         let date = new Date();
         let username = details.username.charAt(0).toUpperCase() + details.username.slice(1);
         var firstname = details.first_name.charAt(0).toUpperCase() + details.first_name.slice(1);
         var lastname = details.last_name.charAt(0).toUpperCase() + details.last_name.slice(1);
+        
+        let newdetails = {};
+        
         details.updated_at = date;
         details.username = username;
         details.first_name = firstname;
         details.last_name = lastname;
-        let query = mysql.format("UPDATE users SET ? WHERE id = ?", [details, id]);
+
+        newdetails.first_name = details.first_name;
+        newdetails.last_name = details.last_name;
+        newdetails.username = details.username;
+        newdetails.updated_at = details.updated_at;
+
+        let query = mysql.format("UPDATE users SET ? WHERE id = ?", [newdetails, id]);
         let result = await this.executeQuery(query);
     }
     

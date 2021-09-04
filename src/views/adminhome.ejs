@@ -36,7 +36,7 @@
                     <a class='sub-name'>SYSTEM</a>
                     <li><a id='dashboard' class='lead' href='/home'><img src='img/dashboard.png'>Dashboard</a></li>
                     <li><a id='appointment' class='lead' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
-                    <li><a id='client' class='lead' href='/client'><img src='img/profile.png'>Clients</a></li>
+                    <li><a id='client' class='lead clients' href='/client'><img src='img/profile.png'>Clients</a></li>
                     <a class='sub-name'>DATABASE</a>
                     <li><a id='backup-restore' class='lead' href='#'><img src='img/database.png'>Backup/Restore</a></li>
                 </ul>
@@ -61,12 +61,13 @@
                     <p class='lead lead-num'>3</p>
                     <p class='lead lead-name'>Cats</p>
                 </div> 
-                <div id='clients' class='main-box'>
+                <div id='clients' class='main-box clients'>
                     <img src='img/profile.png' class='icon'>
                     <p class='lead lead-num'><%= clients[0].clients %></p>
                     <p class='lead lead-name'>Clients</p>
                 </div> 
                 <div id='appointments-today' class='main-box'>
+                    <input type='hidden' id='app-today' href='/appointmentsToday'>
                     <img src='img/appointment.png' class='icon'>
                     <p class='lead lead-num'><%= app[0].apps %></p>
                     <p class='lead lead-name'>Appointments Today</p>

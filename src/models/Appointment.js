@@ -23,6 +23,13 @@ class Appointment extends main_model{
         let result = await this.executeQuery(query);
         return result;
     }
+
+    async getAppointmentsToday(){
+       
+        let query = mysql.format('SELECT appointments.id, title, complete, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, " ", clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, "%b %e %Y %l:%i %p" ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE day(date_and_time) = day(now()) AND month(date_and_time) = month(now()) AND year(date_and_time) = year(now()) ORDER BY appointments.created_at DESC');
+        let result = await this.executeQuery(query);
+        return result;
+    }
     
     async searchApp(details){
         let from = '';
@@ -101,11 +108,21 @@ class Appointment extends main_model{
     async addAppointment(details, id){
         let date = new Date();
         let notify = 0;
+        let complete = 0;
         var title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
     
-        let query = mysql.format('INSERT INTO appointments (client_id, title, date_and_time, notification, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?)', [id, title, details.datetime, notify, date, date]);
+        let query = mysql.format('INSERT INTO appointments (client_id, title, date_and_time, notification, complete, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)', [id, title, details.datetime, notify, complete,date, date]);
         let result = await this.executeQuery(query);
         return result;
+    }
+
+    async completeAppointment(id){
+
+        let update = {};
+        update.complete = 1;
+
+        let query = mysql.format("UPDATE appointments SET ? WHERE id = ?", [update, id]);
+        let result = await this.executeQuery(query);
     }
 
     async deleteAppointment(id){

@@ -17,6 +17,24 @@ $(document).ready(function(){
         });
     });
 
+    $("#login-form").on('keyup', function(e){
+        if(e.keyCode === 13){
+            $.post($('#login-form').attr('action'), $('#login-form').serialize(), function(res){
+
+                if(res.length != 0){
+                    let errors = '';
+                    for(var i=0; i<res.length; i++){
+                        errors += "<div class='alert alert-warning'>"+ res[i] +"</div>";
+                    }
+                    document.getElementById('login-errors').innerHTML = errors;
+                }else if(res.length == 0) {
+                    location.replace("http://localhost:1337/home");
+                }
+                
+            });
+        }
+    })
+
     $('.sub-menu ul').hide();
     $(".sub-menu a").click(function () {
         $(this).parent(".sub-menu").children("ul").slideToggle("100");
@@ -114,6 +132,8 @@ $(document).ready(function(){
             e.preventDefault();
         }
     });
+
+    
     // GET ALL CLIENT WHO NEED TO NOTIFY
     $(document).on('click', '#notification', function(e){
         e.preventDefault();
@@ -123,17 +143,6 @@ $(document).ready(function(){
             modalBody.innerHTML = res;
 
         });
-
-        // $(document).on('change','#dateValue', function(e){
-        //     e.preventDefault();
-            
-
-        //     $.get("/getNotification/", function(res){
-        //         var modalBody = $("#notifModal")[0].children[0].children[0].children[1].children[1];
-        //         modalBody.innerHTML = res;
-
-        //     });
-        // });
     });
 
     $(document).on('click', '#send-notification', function(e){
@@ -148,6 +157,7 @@ $(document).ready(function(){
     //WHEN APPOINTMENTS WAS CLICKED IN SIDENAV
     $(document).on('click','#appointment', function(e){
         e.preventDefault();
+        $('.sub-menu ul').slideUp();
         
         getAppointment(this);
     });
@@ -439,8 +449,66 @@ $(document).ready(function(){
 
     $(document).on('click','#client', function(e){
         e.preventDefault();
-        
+
+        $('.sub-menu ul').slideUp();
         getclient(this);
 
+    });
+
+    $(document).on('click','.main-box', function(e){
+        e.preventDefault();
+        if($(this).attr('id') === 'clients'){
+            $('.sub-menu ul').slideUp();
+        
+            getclient($("#client"));
+        }
+    });
+
+    function getAppointmentToday(app){
+        $.get($(app).attr('href'), function(res){
+            document.getElementById('main').innerHTML = res;
+
+            let complete = document.querySelectorAll('.complete-appointment');
+            for(var i=0; i<complete.length; i++){
+                if(complete[i].value === '1'){
+                    $(complete[i]).prop('disabled', true);
+                }
+            }
+        });
+        
+    }
+    // COMPLETE APPOINTMENT
+    $(document).on('click', '.complete-appointment', function(e){
+        e.preventDefault();
+        if(confirm('Confirm to Complete')){
+            $.get($(this).attr('href'));
+            let appToday = document.getElementById('app-today');
+            getAppointmentToday(appToday);
+        }else{
+            e.preventDefault();
+        }
+    });
+
+    // DELETE APPOINTMENT TODAY
+    $(document).on('click','.delete-appointment-today', function(e){
+        e.preventDefault();
+        if(confirm('Confirm to delete')){
+            $.get($(this).attr('href'));
+            let appToday = document.getElementById('app-today');
+            getAppointmentToday(appToday);
+        }else{
+            e.preventDefault();
+        }
+    });
+
+    $(document).on('click','.main-box', function(e){
+        e.preventDefault();
+        let app = $(this).attr('id') === 'appointments-today';
+        let appToday = document.getElementById('app-today');
+        if(app){
+            $('.sub-menu ul').slideUp();
+
+            getAppointmentToday(appToday);
+        }
     });
 });

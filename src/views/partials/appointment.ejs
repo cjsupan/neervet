@@ -1,4 +1,5 @@
 <h1 class='display-4'>Appointment List</h1>
+<input type='hidden' id='appointment' href='/appointment'>;
 <form id='app-search' action='/searchApp' method='POST' autocomplete="off">
     <input type='text' id='search-appointment' class='form-control form-control-sm' name='search' placeholder='Search Appointment'>
     <label for='from'>From: </label>
@@ -30,7 +31,7 @@
                 <td><%=app[i].title %></td>
                 <td><%=app[i].contact %></td>
                 <td><%=app[i].date %></td>
-                <td><a class='delete-appointment' href='/deleteAppointment/<%= app[i].id %>'>Delete</a></td>
+                <td><button type='button' class='btn btn-danger delete-appointment' href='/deleteAppointment/<%= app[i].id %>'>Delete</button></td>
             </tr>
         <% } %>
         </tbody>
