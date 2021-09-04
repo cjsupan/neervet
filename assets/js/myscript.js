@@ -118,22 +118,22 @@ $(document).ready(function(){
     $(document).on('click', '#notification', function(e){
         e.preventDefault();
        
-        $.get('/getNotification/3', function(res){
+        $.get('/getNotification', function(res){
             var modalBody = $("#notifModal")[0].children[0].children[0].children[1].children[1];
             modalBody.innerHTML = res;
 
         });
 
-        $(document).on('change','#dateValue', function(e){
-            e.preventDefault();
-            var num = this.value;
+        // $(document).on('change','#dateValue', function(e){
+        //     e.preventDefault();
+            
 
-            $.get("/getNotification/"+num+"", function(res){
-                var modalBody = $("#notifModal")[0].children[0].children[0].children[1].children[1];
-                modalBody.innerHTML = res;
+        //     $.get("/getNotification/", function(res){
+        //         var modalBody = $("#notifModal")[0].children[0].children[0].children[1].children[1];
+        //         modalBody.innerHTML = res;
 
-            });
-        });
+        //     });
+        // });
     });
 
     $(document).on('click', '#send-notification', function(e){
