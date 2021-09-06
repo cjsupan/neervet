@@ -1212,3 +1212,26 @@
 #main #petRecordModal #pet-modal-body #pet-error .alert{
     margin-bottom: 5px;
 }
+
+#main #backup-restore-form form{
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0px 20px 25%;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 5px;
+    display: inline-block;
+}
+
+#main #backup-restore-form form #filename{
+    width: 460px;
+    display: inline-block;
+}
+
+#main #backup-restore-form form p.lead{
+    font-family: open-sans;
+}
+
+#main #backup-restore-form form #backup-now, #main #backup-restore-form form #restore-now{
+    margin: 10px 0px 10px 77%;
+    display: inline-block;
+}

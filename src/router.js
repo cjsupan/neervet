@@ -20,6 +20,8 @@ Router.post("/addUser", UserController.validate_user);
 Router.get("/deleteuser/:id", UserController.delete_user);
 
 Router.get("/backuprestore", UserController.backuprestore);
+Router.post("/backup", UserController.validate_backup);
+Router.post("/restore", UserController.restore);
 
 Router.get("/appointment", AppointmentController.appointment);
 Router.post("/addAppointment/:id", AppointmentController.validate_appointment);

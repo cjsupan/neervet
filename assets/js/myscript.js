@@ -457,9 +457,31 @@ $(document).ready(function(){
 
     $(document).on('click', '#backup-restore', function(e){
         e.preventDefault();
-        
+
         $.get($(this).attr('href'), function(res){
             document.getElementById('main').innerHTML = res;
+        });
+    });
+
+    $(document).on('click', '#backup-now', function(e){
+        e.preventDefault();
+        $.post($("#backup-form").attr('action'), $("#backup-form").serialize(), function(res){
+
+            if(res.length != 0){
+                document.getElementById('errors').innerHTML = "<div class='alert alert-warning'>"+ res[0] +"</div>";
+            }else{
+                alert('Backup Successful');
+                location.reload();
+            }    
+        });
+    });
+
+    $(document).on('click', '#restore-now', function(e){
+        e.preventDefault();
+
+        $.post($("#restore-form").attr('action'), $("#restore-form").serialize(), function(){
+            alert('Restore Successful');
+            location.replace('/logout');
         });
     });
 

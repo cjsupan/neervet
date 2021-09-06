@@ -1,6 +1,4 @@
-var user_model = require('../models/User');
-const mysqldump = require('mysqldump');
-
+const user_model = require('../models/User');
 
 class Users{
     async login(req, res){
@@ -109,16 +107,25 @@ class Users{
 
     async backuprestore(req, res){
 
-        // mysqldump({
-        //     connection: {
-        //         host: 'localhost',
-        //         user: 'root',
-        //         password: '',
-        //         database: 'neervet',
-        //     },
-        //     dumpToFile: './dump.sql',
-        // });
-        res.render('partials/backuprestore');
+        let result = await user_model.getFiles();
+        
+        res.render('partials/backuprestore', {restore: result});
+    }
+
+    async validate_backup(req, res){
+        let result = await user_model.validate_backup(req.body);
+        
+        if(result.length != 0){
+            res.json(result);
+        }else{
+            let result = await user_model.backup(req.body);
+            res.json([]);
+        }
+    }
+
+    async restore(req, res){
+        let result = await user_model.restore(req.body);
+        res.redirect('/backuprestore');
     }
 
     

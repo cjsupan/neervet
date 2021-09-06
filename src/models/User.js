@@ -1,6 +1,17 @@
-var connection = require('../config/database');
+const connection = require('../config/database');
 const main_model = require('./Main');
-var mysql = require('mysql');
+const mysql = require('mysql');
+
+const fs = require('fs');
+var spawn = require('child_process').spawn;
+const dbfolder = fs.readdirSync('database/');
+const path = require('path');
+
+const mysqldump = require('mysqldump');
+
+const sqlite3 = require("sqlite3").verbose();
+
+
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey("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");
 
@@ -185,6 +196,126 @@ class User extends main_model{
         let query = mysql.format("SELECT COUNT(id) as subadmin FROM users WHERE user_level = 'Subadmin'");
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
+    }
+
+    async validate_backup(details){
+        let errors = [];
+
+        if(this.empty(details.filename)){
+            errors.push('Filename should not be blank');
+        }
+
+        return errors;
+    }
+
+    async getFiles(){
+        const files = await fs.promises.readdir('database/');
+
+        return files
+            .map(fileName => ({
+            name: fileName,
+            time: fs.statSync(`${'database'}/${fileName}`).mtime.getTime(),
+            }))
+            .sort((a, b) => b.time - a.time)
+            .map(file => file.name);
+    }
+
+    async backup(details){
+
+        var wstream = fs.createWriteStream("database/"+details.filename+".sql");
+
+        var mysqldump = spawn('mysqldump', [
+            '-u',
+            'root',
+            'neervet',
+        ]);
+        
+        mysqldump
+            .stdout
+            .pipe(wstream)
+            .on('finish', function () {
+                console.log('Completed')
+            })
+            .on('error', function (err) {
+                console.log(err)
+            });
+        
+        // mysqldump({
+        //     connection: {
+        //         host: 'localhost',
+        //         user: 'root',
+        //         password: '',
+        //         database: 'neervet',
+        //     },
+        //     dump: { schema: { table: { dropIfExist: true } } },
+        //     dumpToFile: "./database/"+details.filename+".sql",
+        // });
+    }
+
+    async restore(details){
+        // var filepath = "database/"+details.filename+"";
+        // var filename = path.parse(details.filename).name;
+
+        // const dataSql = fs.readFileSync("database/"+details.filename+"").toString();
+
+        // let db = new sqlite3.Database("mydatabase", err => {
+        //     if (err) {
+        //       return console.error(err.message);
+        //     }
+        //     console.log("Connected to the in-memory SQLite database.");
+        //   });
+            
+        //     const dataArr = dataSql.toString().split("");
+        //   // db.serialize ensures that your queries are one after the other depending on which one came first in your `dataArr`
+        //   db.serialize(() => {
+              
+        //     // db.run runs your SQL query against the DB
+        //     db.run("PRAGMA foreign_keys=OFF;");
+        //     db.run("BEGIN TRANSACTION;");
+            
+            
+        //     // Loop through the `dataArr` and db.run each query
+        //     dataArr.forEach(query => {
+        //       if (query) {
+        //         // Add the delimiter back to each query before you run them
+        //         // In my case the it was `);`
+        //         query += ");";
+                
+        //         db.run(query, err => {
+                    
+        //           if (err) throw err;
+        //         });
+        //       }
+        //     });
+        //     db.run("COMMIT;");
+        //   });
+          
+        //   // Close the DB connection
+        //   db.close(err => {
+        //     if (err) {
+        //       return console.error(err.message);
+        //     }
+        //     console.log("Closed the database connection.");
+        //   });
+
+
+
+        // // // New onProgress method, added in version 5.0!
+        // // importer.onProgress(progress=>{
+        // //     var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
+        // //     console.log(`${percent}% Completed`);
+        // // });
+        
+
+        // // importer.import(filepath).then(()=>{
+        // //     var files_imported = importer.getImported();
+
+        // //     console.log('files imported', files_imported);
+
+        // //     console.log(`${files_imported.length} SQL file(s) imported.`);
+        // //     }).catch(err=>{
+        // //     console.error(err);
+        // // });
     }
 }
 
