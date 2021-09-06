@@ -455,6 +455,14 @@ $(document).ready(function(){
 
     });
 
+    $(document).on('click', '#backup-restore', function(e){
+        e.preventDefault();
+        
+        $.get($(this).attr('href'), function(res){
+            document.getElementById('main').innerHTML = res;
+        });
+    });
+
     $(document).on('click','.main-box', function(e){
         e.preventDefault();
         if($(this).attr('id') === 'clients'){

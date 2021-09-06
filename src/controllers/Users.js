@@ -1,4 +1,6 @@
 var user_model = require('../models/User');
+const mysqldump = require('mysqldump');
+
 
 class Users{
     async login(req, res){
@@ -103,6 +105,20 @@ class Users{
             let addUser = await user_model.addUser(req.body);
             res.json([]);
         }
+    }
+
+    async backuprestore(req, res){
+
+        // mysqldump({
+        //     connection: {
+        //         host: 'localhost',
+        //         user: 'root',
+        //         password: '',
+        //         database: 'neervet',
+        //     },
+        //     dumpToFile: './dump.sql',
+        // });
+        res.render('partials/backuprestore');
     }
 
     
