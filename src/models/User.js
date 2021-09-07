@@ -3,13 +3,19 @@ const main_model = require('./Main');
 const mysql = require('mysql');
 
 const fs = require('fs');
-var spawn = require('child_process').spawn;
-const dbfolder = fs.readdirSync('database/');
 const path = require('path');
 
 const mysqldump = require('mysqldump');
 
-const sqlite3 = require("sqlite3").verbose();
+var spawn = require('child_process').spawn;
+
+const host = 'localhost';
+const user = 'root';
+const password = '';
+const database = 'neervet';
+
+const Importer = require('mysql-import');
+const importer = new Importer({host, user, password, database});
 
 
 const sgMail = require("@sendgrid/mail");
@@ -222,100 +228,139 @@ class User extends main_model{
 
     async backup(details){
 
-        var wstream = fs.createWriteStream("database/"+details.filename+".sql");
+        // var wstream = fs.createWriteStream("database/"+details.filename+".sql");
 
-        var mysqldump = spawn('mysqldump', [
-            '-u',
-            'root',
-            'neervet',
-        ]);
+        // var mysqldump = spawn('mysqldump', [
+        //     '-u',
+        //     'root',
+        //     'neervet',
+        // ]);
         
-        mysqldump
-            .stdout
-            .pipe(wstream)
-            .on('finish', function () {
-                console.log('Completed')
-            })
-            .on('error', function (err) {
-                console.log(err)
-            });
+        // mysqldump
+        //     .stdout
+        //     .pipe(wstream)
+        //     .on('finish', function () {
+        //         console.log('Completed')
+        //     })
+        //     .on('error', function (err) {
+        //         console.log(err)
+        //     });
         
-        // mysqldump({
-        //     connection: {
-        //         host: 'localhost',
-        //         user: 'root',
-        //         password: '',
-        //         database: 'neervet',
-        //     },
-        //     dump: { schema: { table: { dropIfExist: true } } },
-        //     dumpToFile: "./database/"+details.filename+".sql",
-        // });
+        mysqldump({
+            connection: {
+                host: 'localhost',
+                user: 'root',
+                password: '',
+                database: 'neervet',
+            },
+            dumpToFile: "./database/"+details.filename+".sql",
+        });
+    }
+
+    async truncate(){
+        console.log('truncate start');
+
+        // let users = mysql.format("ALTER TABLE `neervet`.`users` DROP COLUMN `id`, DROP PRIMARY KEY;");
+        // let usersresult = await this.executeQuery(users);
+        // console.log(usersresult);
+
+        // let usertruncate = mysql.format("TRUNCATE TABLE users");
+        // let usertruncateresult = await this.executeQuery(usertruncate);
+        // console.log(usertruncateresult);
+        
+        // let adduser = mysql.format("ALTER TABLE `neervet`.`users` ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`id`);");
+        // let adduserresult = await this.executeQuery(adduser);
+        // console.log(adduserresult);
+        
+
+        console.log('truncate done');
+        
+        let clients = mysql.format("TRUNCATE TABLE clients", "TRUNCATE TABLE users");
+        let clientresult = await this.executeQuery(clients);
+        console.log(clientresult);
+
+        let appointments = mysql.format("TRUNCATE TABLE appointments");
+        let appointmentresult = await this.executeQuery(appointments);
+        console.log(appointmentresult);
+        
+        let findings = mysql.format("TRUNCATE TABLE findings");
+        let findingsresult = await this.executeQuery(findings);
+        console.log(findingsresult);
+
+        let pets = mysql.format("TRUNCATE TABLE pets");
+        let petsresult = await this.executeQuery(pets);
+        console.log(petsresult);
+
+        let vitalsigns = mysql.format("TRUNCATE TABLE vitalsigns");
+        let vitalsignsresult = await this.executeQuery(vitalsigns);
+        console.log(vitalsignsresult);
+
+        let history = mysql.format("TRUNCATE TABLE history");
+        let historyresult = await this.executeQuery(history);
+        console.log(historyresult);
+
+        let laboratory = mysql.format("TRUNCATE TABLE laboratory");
+        let laboratoryresult = await this.executeQuery(laboratory);
+        console.log(laboratoryresult);
+        
+        let systems = mysql.format("TRUNCATE TABLE systems");
+        let systemsresult = await this.executeQuery(systems);
+        console.log(systemsresult);
+
+        return JSON.parse(JSON.stringify(systemsresult));
     }
 
     async restore(details){
-        // var filepath = "database/"+details.filename+"";
-        // var filename = path.parse(details.filename).name;
+        let errors = [];
+        console.log("import start");
+        var filepath = "database/"+details.filename+"";
+        var filename = path.parse(details.filename).name;
 
-        // const dataSql = fs.readFileSync("database/"+details.filename+"").toString();
-
-        // let db = new sqlite3.Database("mydatabase", err => {
-        //     if (err) {
-        //       return console.error(err.message);
-        //     }
-        //     console.log("Connected to the in-memory SQLite database.");
-        //   });
-            
-        //     const dataArr = dataSql.toString().split("");
-        //   // db.serialize ensures that your queries are one after the other depending on which one came first in your `dataArr`
-        //   db.serialize(() => {
-              
-        //     // db.run runs your SQL query against the DB
-        //     db.run("PRAGMA foreign_keys=OFF;");
-        //     db.run("BEGIN TRANSACTION;");
-            
-            
-        //     // Loop through the `dataArr` and db.run each query
-        //     dataArr.forEach(query => {
-        //       if (query) {
-        //         // Add the delimiter back to each query before you run them
-        //         // In my case the it was `);`
-        //         query += ");";
-                
-        //         db.run(query, err => {
-                    
-        //           if (err) throw err;
-        //         });
-        //       }
-        //     });
-        //     db.run("COMMIT;");
-        //   });
-          
-        //   // Close the DB connection
-        //   db.close(err => {
-        //     if (err) {
-        //       return console.error(err.message);
-        //     }
-        //     console.log("Closed the database connection.");
-        //   });
-
-
-
-        // // // New onProgress method, added in version 5.0!
-        // // importer.onProgress(progress=>{
-        // //     var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
-        // //     console.log(`${percent}% Completed`);
-        // // });
+        // // New onProgress method, added in version 5.0!
+        // importer.onProgress(progress=>{
+        //     var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
+        //     console.log(`${percent}% Completed`);
+        // });
         
+        // importer.import(filepath).then(()=>{
+        //     var files_imported = importer.getImported();
 
-        // // importer.import(filepath).then(()=>{
-        // //     var files_imported = importer.getImported();
+        //     console.log('files imported', files_imported);
 
-        // //     console.log('files imported', files_imported);
+        //     console.log(`${files_imported.length} SQL file(s) imported.`);
+        //     }).catch(err=>{
+        //         console.log(err);
+        //         errors.push('error');
+        // });
+        // console.log('import done');
+        // return errors;
 
-        // //     console.log(`${files_imported.length} SQL file(s) imported.`);
-        // //     }).catch(err=>{
-        // //     console.error(err);
-        // // });
+        var mysqlimport = spawn('', [
+            '-u',
+            'root',
+            'neervet',
+            '--default-character-set=utf8',
+            '--comments',
+            '<"' + details.filename + '"'
+        ]);
+        mysqlimport
+                .stdout
+                .pipe(logFile)
+                .on('data', function(data) {
+                   console.log(data); 
+                })
+                .on('finish', function() {
+                    console.log('finished')
+                })
+                .on('error', function(err) {
+                    console.log(err)
+                });
+        mysqlimport.stderr.on('data', function(data) {
+           console.log('stdout: ' + data);
+        });
+        mysqlimport.on('close', function(code) {
+           console.log('closing code: ' + code);
+        });
     }
 }
 

@@ -124,8 +124,14 @@ class Users{
     }
 
     async restore(req, res){
-        let result = await user_model.restore(req.body);
-        res.redirect('/backuprestore');
+        let result = await user_model.truncate();
+        let restoreimport = await user_model.restore(req.body);
+        if(restoreimport.length != 0){
+            console.log(restoreimport);
+        }else{
+            res.redirect('/logout');
+        }
+        
     }
 
     

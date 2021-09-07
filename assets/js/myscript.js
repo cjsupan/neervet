@@ -481,7 +481,7 @@ $(document).ready(function(){
 
         $.post($("#restore-form").attr('action'), $("#restore-form").serialize(), function(){
             alert('Restore Successful');
-            location.replace('/logout');
+            location.replace('/');
         });
     });
 
