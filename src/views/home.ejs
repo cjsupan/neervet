@@ -45,17 +45,18 @@
             <h1 class='display-4'>Dashboard</h1>
             <div id='main-top'>
                 
-                <div id='clients' class='main-box'>
+                <div id='clients' class='main-box clients'>
                     <img src='img/profile.png' class='icon'>
                     <p class='lead lead-num'><%= clients[0].clients %></p>
                     <p class='lead lead-name'>Clients</p>
-                </div> 
+                </div>  
                 
                 <div id='appointments-today' class='main-box'>
+                    <input type='hidden' id='app-today' href='/appointmentsToday'>
                     <img src='img/appointment.png' class='icon'>
                     <p class='lead lead-num'><%= app[0].apps %></p>
                     <p class='lead lead-name'>Appointments Today</p>
-                </div>  
+                </div>   
 
             </div>
             

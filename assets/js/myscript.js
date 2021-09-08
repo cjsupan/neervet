@@ -457,7 +457,8 @@ $(document).ready(function(){
 
     $(document).on('click', '#backup-restore', function(e){
         e.preventDefault();
-
+        $('.sub-menu ul').slideUp();
+       
         $.get($(this).attr('href'), function(res){
             document.getElementById('main').innerHTML = res;
         });
@@ -479,6 +480,7 @@ $(document).ready(function(){
     $(document).on('click', '#restore-now', function(e){
         e.preventDefault();
 
+        document.getElementById('spin').innerHTML = "<div id='spinner' class='spinner-border text-light' role='status'></div>";
         $.post($("#restore-form").attr('action'), $("#restore-form").serialize(), function(){
             alert('Restore Successful');
             location.replace('/');

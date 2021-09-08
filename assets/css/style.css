@@ -1232,6 +1232,12 @@
 }
 
 #main #backup-restore-form form #backup-now, #main #backup-restore-form form #restore-now{
+    width: 120px;
     margin: 10px 0px 10px 77%;
     display: inline-block;
+}
+
+#main #backup-restore-form form #restore-now #spinner{
+    width: 15px;
+    height: 15px;
 }

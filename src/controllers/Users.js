@@ -68,6 +68,7 @@ class Users{
     }
 
     async manage_user(req, res){
+
         let result = await user_model.getAllUser();
         res.render('partials/manageusers', {users: result});
     }

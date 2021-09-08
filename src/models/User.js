@@ -124,7 +124,7 @@ class User extends main_model{
     }
     
     async getAllUser(){
-        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level FROM users ORDER BY user_level ASC");
+        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level FROM users WHERE NOT user_level = 'Admin' ORDER BY user_level ASC");
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -227,24 +227,6 @@ class User extends main_model{
     }
 
     async backup(details){
-
-        // var wstream = fs.createWriteStream("database/"+details.filename+".sql");
-
-        // var mysqldump = spawn('mysqldump', [
-        //     '-u',
-        //     'root',
-        //     'neervet',
-        // ]);
-        
-        // mysqldump
-        //     .stdout
-        //     .pipe(wstream)
-        //     .on('finish', function () {
-        //         console.log('Completed')
-        //     })
-        //     .on('error', function (err) {
-        //         console.log(err)
-        //     });
         
         mysqldump({
             connection: {
@@ -260,53 +242,34 @@ class User extends main_model{
     async truncate(){
         console.log('truncate start');
 
-        // let users = mysql.format("ALTER TABLE `neervet`.`users` DROP COLUMN `id`, DROP PRIMARY KEY;");
-        // let usersresult = await this.executeQuery(users);
-        // console.log(usersresult);
-
-        // let usertruncate = mysql.format("TRUNCATE TABLE users");
-        // let usertruncateresult = await this.executeQuery(usertruncate);
-        // console.log(usertruncateresult);
-        
-        // let adduser = mysql.format("ALTER TABLE `neervet`.`users` ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`id`);");
-        // let adduserresult = await this.executeQuery(adduser);
-        // console.log(adduserresult);
-        
-
-        console.log('truncate done');
+        let users = mysql.format("DROP TABLE users");
+        let usersresult = await this.executeQuery(users);
         
         let clients = mysql.format("TRUNCATE TABLE clients", "TRUNCATE TABLE users");
         let clientresult = await this.executeQuery(clients);
-        console.log(clientresult);
-
+        
         let appointments = mysql.format("TRUNCATE TABLE appointments");
         let appointmentresult = await this.executeQuery(appointments);
-        console.log(appointmentresult);
         
         let findings = mysql.format("TRUNCATE TABLE findings");
         let findingsresult = await this.executeQuery(findings);
-        console.log(findingsresult);
-
+       
         let pets = mysql.format("TRUNCATE TABLE pets");
         let petsresult = await this.executeQuery(pets);
-        console.log(petsresult);
-
+       
         let vitalsigns = mysql.format("TRUNCATE TABLE vitalsigns");
         let vitalsignsresult = await this.executeQuery(vitalsigns);
-        console.log(vitalsignsresult);
-
+        
         let history = mysql.format("TRUNCATE TABLE history");
         let historyresult = await this.executeQuery(history);
-        console.log(historyresult);
-
+        
         let laboratory = mysql.format("TRUNCATE TABLE laboratory");
         let laboratoryresult = await this.executeQuery(laboratory);
-        console.log(laboratoryresult);
-        
+       
         let systems = mysql.format("TRUNCATE TABLE systems");
         let systemsresult = await this.executeQuery(systems);
-        console.log(systemsresult);
-
+       
+        console.log('truncate done');
         return JSON.parse(JSON.stringify(systemsresult));
     }
 
@@ -316,51 +279,25 @@ class User extends main_model{
         var filepath = "database/"+details.filename+"";
         var filename = path.parse(details.filename).name;
 
-        // // New onProgress method, added in version 5.0!
-        // importer.onProgress(progress=>{
-        //     var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
-        //     console.log(`${percent}% Completed`);
-        // });
+        // New onProgress method, added in version 5.0!
+        importer.onProgress(progress=>{
+            var percent = Math.floor(progress.bytes_processed / progress.total_bytes * 10000) / 100;
+            console.log(`${percent}% Completed`);
+        });
         
-        // importer.import(filepath).then(()=>{
-        //     var files_imported = importer.getImported();
+        importer.import(filepath).then(()=>{
+            var files_imported = importer.getImported();
 
-        //     console.log('files imported', files_imported);
+            console.log('files imported', files_imported);
 
-        //     console.log(`${files_imported.length} SQL file(s) imported.`);
-        //     }).catch(err=>{
-        //         console.log(err);
-        //         errors.push('error');
-        // });
-        // console.log('import done');
-        // return errors;
-
-        var mysqlimport = spawn('', [
-            '-u',
-            'root',
-            'neervet',
-            '--default-character-set=utf8',
-            '--comments',
-            '<"' + details.filename + '"'
-        ]);
-        mysqlimport
-                .stdout
-                .pipe(logFile)
-                .on('data', function(data) {
-                   console.log(data); 
-                })
-                .on('finish', function() {
-                    console.log('finished')
-                })
-                .on('error', function(err) {
-                    console.log(err)
-                });
-        mysqlimport.stderr.on('data', function(data) {
-           console.log('stdout: ' + data);
+            console.log(`${files_imported.length} SQL file(s) imported.`);
+            }).catch(err=>{
+                console.log(err);
+                errors.push('error');
         });
-        mysqlimport.on('close', function(code) {
-           console.log('closing code: ' + code);
-        });
+        console.log('import done');
+        return errors;
+
     }
 }
 

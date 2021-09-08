@@ -165,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 7 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: vitalsigns
@@ -290,6 +290,28 @@ VALUES
     'Admin',
     NULL,
     NULL
+  );
+INSERT INTO
+  `users` (
+    `id`,
+    `username`,
+    `password`,
+    `first_name`,
+    `last_name`,
+    `user_level`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    8,
+    'admin2',
+    'admin2',
+    'Cedrick John',
+    'Supan',
+    'Admin',
+    '2021-09-08 11:54:39',
+    '2021-09-08 11:54:39'
   );
 
 # ------------------------------------------------------------
