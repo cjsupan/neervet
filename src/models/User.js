@@ -7,8 +7,6 @@ const path = require('path');
 
 const mysqldump = require('mysqldump');
 
-var spawn = require('child_process').spawn;
-
 const host = 'localhost';
 const user = 'root';
 const password = '';
@@ -71,7 +69,7 @@ class User extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
-    async validateProfile(details){
+    async validateProfile(details, id){
         let errors = [];
 
         if(this.empty(details.first_name)){
@@ -89,6 +87,19 @@ class User extends main_model{
         if(this.empty(details.username)){
             errors.push('Username should not be blank');
         }
+
+        let user = mysql.format("SELECT * FROM users WHERE username = ?", details.username);
+        let userresult = await this.executeQuery(user);
+        let name1 = JSON.parse(JSON.stringify(userresult));
+       
+        let query = mysql.format("SELECT * FROM users WHERE id = ?", id);
+        let result = await this.executeQuery(query);
+        let name2 = JSON.parse(JSON.stringify(result));
+
+        if(name1[0].id != name2[0].id){
+            errors.push('Username is already taken');
+        }
+
         if(this.empty(details.password)){
             errors.push('Password should not be blank');
         }
@@ -103,14 +114,12 @@ class User extends main_model{
     async editUser(details, id){
 
         let date = new Date();
-        let username = details.username.charAt(0).toUpperCase() + details.username.slice(1);
         var firstname = details.first_name.charAt(0).toUpperCase() + details.first_name.slice(1);
         var lastname = details.last_name.charAt(0).toUpperCase() + details.last_name.slice(1);
         
         let newdetails = {};
         
         details.updated_at = date;
-        details.username = username;
         details.first_name = firstname;
         details.last_name = lastname;
 
@@ -199,9 +208,14 @@ class User extends main_model{
     }
 
     async countSubadmin(){
-        let query = mysql.format("SELECT COUNT(id) as subadmin FROM users WHERE user_level = 'Subadmin'");
+        let query = mysql.format("SELECT COUNT(id) as staff FROM users WHERE user_level = 'Staff'");
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
+    }
+
+    async printRecord(id){
+        let query = mysql.format("");
+        let result = await this.executeQuery(query);
     }
 
     async validate_backup(details){

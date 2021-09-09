@@ -52,7 +52,7 @@
                 <label for='title'>Title: </label>
                 <input type='text' name='title' class='form-control'><br>
                 <label for='Datetime'>Date and Time: </label>
-                <input type='datetime-local' name='datetime' class='form-control' required><br>
+                <input type='datetime-local' id='app-datetime' name='datetime' class='form-control' required><br>
             </form>
             <div id='appointment-error'></div>
         </div>
@@ -80,7 +80,7 @@
                 <label for='examvet'>Examining Vet: </label>
                 <input type='text' id='examvet-input' class='form-control' name='examvet'>
                 <label for='datetime'>Date and Time: </label>
-                <input type='datetime-local' id='datetime-input' class='form-control' name='datetime'><br>
+                <input type='date' id='datetime-input' class='form-control datetime-input' name='datetime'><br>
                 <label for='name'>Patient's Name: </label>
                 <input type='text' id='name-input' class='form-control' name='name'>
                 <label for='species'>Species: </label>
@@ -100,7 +100,7 @@
                 <label for='color'>Color: </label>
                 <input type='text' id='color-input' class='form-control pet-input' name='color'>
                 <label for='birthdate'>Date of Birth: </label>
-                <input type='date' id='birthdate-input' class='form-control' name='birthdate'>
+                <input type='date' id='birthdate-input' class='form-control datetime-input' name='birthdate'>
                 <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History: </label>
                 <label for='currentmed' id='currentmed-label'>Current Medication: </label>
                 <label for='physicalexam' >Physical Exam: </label><br>
@@ -240,11 +240,11 @@
             <div id='pet-error'></div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type='button' id='save-pet' class='btn btn-primary' >Add</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type='button' id='save-pet' class='btn btn-primary' >Add</button>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
 

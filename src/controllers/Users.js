@@ -50,13 +50,13 @@ class Users{
         
         let client = await user_model.countClient();
         let app = await user_model.countApp();
-        let subadmin = await user_model.countSubadmin();
+        let staff = await user_model.countSubadmin();
 
         if(req.session.user_level === 'Admin'){
-            res.render('adminhome', {clients: client, app: app, subadmin: subadmin, user: req.session.user_name});
+            res.render('adminhome', {clients: client, app: app, staff: staff, username: req.session.user_name, userlevel: req.session.user_level});
 
-        }else if(req.session.user_level === 'Subadmin'){
-            res.render('home', {clients: client, app: app, subadmin: subadmin, user: req.session.user_name});
+        }else if(req.session.user_level === 'Staff'){
+            res.render('home', {clients: client, app: app, staff: staff, username: req.session.user_name, userlevel: req.session.user_level});
 
         }
     }
@@ -80,8 +80,7 @@ class Users{
     }
 
     async edit_user(req, res){
-
-        let result = await user_model.validateProfile(req.body);
+        let result = await user_model.validateProfile(req.body, req.params.id);
         if(result.length != 0){
             res.json(result);
         }else{
@@ -104,6 +103,12 @@ class Users{
             let addUser = await user_model.addUser(req.body);
             res.json([]);
         }
+    }
+
+    async print(req, res){
+        let result = await user_model.printRecord(req.params.id);
+        
+        res.render('printpage');
     }
 
     async backuprestore(req, res){

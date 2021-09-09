@@ -18,17 +18,28 @@ class Appointments{
 
     async validate_appointment(req, res){
         let result = await appointment_model.validateAppointment(req.body);
-        if(result.length > 0){
+        if(result.length != 0){
             res.json(result);
         }else if(result == ''){
             let result = await appointment_model.addAppointment(req.body, req.params.id);
-            res.json('clear');
+            res.json([]);
         }
     }
 
     async complete_appointment(req, res){
         let result = await appointment_model.completeAppointment(req.params.id);
         res.redirect('/');
+    }
+
+    async edit_appointment(req, res){
+        let result = await appointment_model.validateAppointment(req.body);
+
+        if(result.length != 0){
+            res.json(result);
+        }else if(result == ''){
+            let result = await appointment_model.updateAppointment(req.body, req.params.id);
+            res.json([]);
+        }
     }
 
     async delete_appointment(req, res){
@@ -43,7 +54,8 @@ class Appointments{
     }
 
     async send_notification(req, res){
-        let result = await appointment_model.sendNotif(req.params.day);
+        let result = await appointment_model.sendNotif();
+
         res.json("/");
     }
 }

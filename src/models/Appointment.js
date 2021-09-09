@@ -2,7 +2,7 @@ var connection = require('../config/database');
 const main_model = require('./Main');
 var mysql = require('mysql');
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey("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");
+sgMail.setApiKey("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");
 
 class Appointment extends main_model{
     constructor(){super()}
@@ -59,10 +59,11 @@ class Appointment extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
     
-    async sendNotif(day){
+    async sendNotif(){
+        
         let notifdate = new Date();
-        let num = parseInt(day);
-        notifdate.setDate(notifdate.getDate() + num);
+       
+        notifdate.setDate(notifdate.getDate() + 1);
     
         let query = mysql.format("SELECT appointments.client_id as id, appointments.title , CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y') AS date, DATE_FORMAT(date_and_time, '%l:%i %p') as time FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
         let result = await this.executeQuery(query);
@@ -99,9 +100,17 @@ class Appointment extends main_model{
     
     async validateAppointment(details){
         let errors = [];
+        if(this.empty(details.title)){
+            errors.push('Title should not be blank');
+        }
         if(this.empty(details.datetime)){
             errors.push('Date and time should not be blank');
         }
+        
+        if(this.empty(details.date_and_time)){
+            errors.push('Date and time should not be blank');
+        }
+
         return errors;
     }
     
@@ -123,6 +132,14 @@ class Appointment extends main_model{
 
         let query = mysql.format("UPDATE appointments SET ? WHERE id = ?", [update, id]);
         let result = await this.executeQuery(query);
+    }
+
+    async updateAppointment(details, id){
+
+        let query = mysql.format("UPDATE appointments SET ? WHERE id = ?", [details, id]);
+        let result = await this.executeQuery(query);
+
+        return result;
     }
 
     async deleteAppointment(id){

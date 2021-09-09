@@ -16,9 +16,11 @@
     <h1 class='display-3'>Health Record</h1>
     <% for(var i=0; i< system.length; i++){ %>
     <div class='date' id='<%= system[i].systemId %>'><span class='date-label'><%= system[i].created_date %></span></div>
+   
     <div class='record <%= system[i].systemId %>'>
         <div class='pet-vitalsign'>
-            <p class='display-4'>Examining Vet: <span class='lead'><%= system[i].examvet %></span></p><br>
+            <p class='display-4'>Examining Vet: <span class='lead'><%= system[i].examvet %></span></p>
+            <button id='print' class='btn btn-primary' data-toggle="modal" data-target="#printModal" href='/print/<%= system[i].systemId %>'><img src='img/print.png'></button><br>
             <p class='display-4'>Weight: <span class='lead'><%= vitalsign[i].weight %></span></p>
             <p class='display-4'>Temp: <span class='lead'><%= vitalsign[i].temp %></span></p>
             <p class='display-4'>Respiratory rate: <span class='lead'><%= vitalsign[i].respiratory_rate %></span></p>
@@ -131,8 +133,20 @@
     <% } %>
 </div>
 
-<!-- LAB MODAL -->
+<!-- PRINT MODAL -->
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="printModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body lab-modal-body">
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
 
+<!-- LAB MODAL -->
 <div class="modal fade" id="labModal" tabindex="-1" role="dialog" aria-labelledby="labModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

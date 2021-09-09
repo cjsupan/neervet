@@ -121,6 +121,53 @@ $(document).ready(function(){
         });
     }
 
+    // EDIT APPOINTMENT
+    $(document).on('click', '.edit-appointment', function(e){
+        e.preventDefault();
+        var id = $(this).val();
+        
+        var body = $('#editAppModal')[0].children[0].children[0].children[1];
+
+        var form = '';
+            form += "<form id='edit-appointment' action='/editAppointment/"+id+"' method='POST'>";
+            form += "<label for='title'>Title: </label>";
+            form += "<input type='text' name='title' class='form-control'><br>";
+            form += "<label for='datetime'>Date and Time: </label>";
+            form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' class='form-control' required><br>";
+            form += "</form>";
+            form += "<div id='appointment-errors'></div>";
+        body.innerHTML = form;
+
+        var dateToday = new Date();
+        var dd = String(dateToday.getDate()).padStart(2, '0');
+        var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = dateToday.getFullYear();
+        var hour = dateToday.getHours();
+        var min = dateToday.getMinutes();
+        var sec = dateToday.getSeconds();
+                    
+        var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+        document.getElementById('edit-app-date').min = today;
+    });
+
+    $(document).on('click', '#update-app', function(e){
+        e.preventDefault();
+        $.post($("#edit-appointment").attr('action'), $('#edit-appointment').serialize(), function(res){
+            if(res != 'clear'){
+                var error = '';
+                for(var i=0; i<res.length; i++){
+                    error += "<div class='alert alert-warning'>"+res[i]+"</div>";
+                }
+                document.getElementById('appointment-errors').innerHTML = error;
+            }else if(res.length === 0){
+                alert('Appointment Updated');
+                $("#editAppModal").modal('hide');
+                getAppointment($("#appointment"));
+                
+            }
+        });
+    });
+
     // DELETE APPOINTMENT
     $(document).on('click','.delete-appointment', function(e){
         e.preventDefault();
@@ -147,8 +194,8 @@ $(document).ready(function(){
 
     $(document).on('click', '#send-notification', function(e){
         e.preventDefault();
-        var day = document.getElementById('dateValue').value;
-        $.get("/sendNotification/"+day+"", function(res){
+        
+        $.get($("#notif").attr('href'), function(res){
             alert('Notification sent!');
             $("#notifModal").modal("hide");
         });
@@ -190,6 +237,22 @@ $(document).ready(function(){
             function viewClient(client){
                 $.get($(client).attr('href'), function(res){
                     document.getElementById('main').innerHTML = res;
+                    var dateToday = new Date();
+                    var dd = String(dateToday.getDate()).padStart(2, '0');
+                    var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = dateToday.getFullYear();
+                    var hour = dateToday.getHours();
+                    var min = dateToday.getMinutes();
+                    var sec = dateToday.getSeconds();
+                    
+                    var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+                    var maxdate = yyyy + '-' + mm + '-' + dd;
+
+                    document.getElementById('app-datetime').min = today;
+                    var x = document.querySelectorAll('.datetime-input');
+                    for(var i=0; i<x.length; i++){
+                        x[i].max = maxdate;
+                    }
 
                     document.getElementById('client-back').addEventListener('click', function(e){
                         e.preventDefault();
@@ -197,17 +260,19 @@ $(document).ready(function(){
                         getclient(client);
                     });
 
-                    
-
                     //ADD APPOINTMENT
                     document.getElementById('save-appointment').addEventListener('click', function(e){
                         e.preventDefault();
+                        var dateToday = new Date().toDateString();
+                        console.log(dateToday);
+                        console.log(document.getElementById('app-datetime'));
+                       
                         $.post($('#appointment-form').attr('action'), $('#appointment-form').serialize(), function(res){
                             
                             if(res != 'clear'){
                                 var error = "<div class='alert alert-warning' role='alert'>"+ res[0] +" </div>";
                                 document.getElementById('appointment-error').innerHTML = error;
-                            }else if(res === 'clear'){
+                            }else if(res.length === [0]){
                                 alert('Appointment added');
                                 $('#appointmentModal').modal('hide');
                             }
@@ -217,6 +282,7 @@ $(document).ready(function(){
                     //ADD PET
                     document.getElementById('save-pet').addEventListener('click', function(e){
                         e.preventDefault();
+                        
                         $.post($('#pet-form').attr('action'), $('#pet-form').serialize(), function(res){
                             if(typeof res === 'string'){
                                 var errors = "";
@@ -256,6 +322,13 @@ $(document).ready(function(){
 
                             document.getElementById('main').innerHTML = res;
                             
+                            $(document).on('click', '#print', function(){
+                                
+                                $.get($(this).attr('href'), function(res){
+
+                                });
+                            });
+
                             //SHOW PET HEALTH RECORD
                             $(".date").on('click', function(){
                                 var record = this.id;
@@ -376,6 +449,8 @@ $(document).ready(function(){
 
         });
     }
+
+    
 
     //SAVE CLIENT
     $(document).on('click','#saveClient', function(){
@@ -509,17 +584,6 @@ $(document).ready(function(){
         });
         
     }
-    // COMPLETE APPOINTMENT
-    $(document).on('click', '.complete-appointment', function(e){
-        e.preventDefault();
-        if(confirm('Confirm to Complete')){
-            $.get($(this).attr('href'));
-            let appToday = document.getElementById('app-today');
-            getAppointmentToday(appToday);
-        }else{
-            e.preventDefault();
-        }
-    });
 
     // DELETE APPOINTMENT TODAY
     $(document).on('click','.delete-appointment-today', function(e){

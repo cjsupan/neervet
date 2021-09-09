@@ -1,13 +1,11 @@
 <h1 class='display-4'>Backup / Restore</h1>
 <div id='backup-restore-form'>
 
-    <form id='backup-form' action='/backup' method='POST'>
+    <div id='backup'>
         <p class='lead'>Backup</p>
         <div id='errors'></div>
-        <label for='filename'>Filename: </label>
-        <input type='date' id='filename' name='filename' class='form-control'>
         <button type='button' id='backup-now' class='btn btn-info'>Backup Now</button>
-    </form>
+    </div>
 
     <form id='restore-form' action='/restore' method='POST'>
         <p class='lead'>Restore</p>

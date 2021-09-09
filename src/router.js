@@ -23,10 +23,13 @@ Router.get("/backuprestore", UserController.backuprestore);
 Router.post("/backup", UserController.validate_backup);
 Router.post("/restore", UserController.restore);
 
+Router.get("/print/:id", UserController.print);
+
 Router.get("/appointment", AppointmentController.appointment);
 Router.post("/addAppointment/:id", AppointmentController.validate_appointment);
 Router.get("/appointmentsToday", AppointmentController.appointments_today);
 Router.get("/completeAppointment/:id", AppointmentController.complete_appointment);
+Router.post("/editAppointment/:id", AppointmentController.edit_appointment);
 Router.get("/deleteAppointment/:id", AppointmentController.delete_appointment);
 Router.post("/searchApp", AppointmentController.search_app);
 
@@ -47,6 +50,6 @@ Router.post("/updateLab/:id/:clientId", PetController.update_lab);
 Router.get("/getLab/:id", PetController.get_lab);
 
 Router.get("/getNotification", AppointmentController.get_notification);
-Router.get("/sendNotification/:day", AppointmentController.send_notification);
+Router.get("/sendNotification", AppointmentController.send_notification);
 
 module.exports = Router;

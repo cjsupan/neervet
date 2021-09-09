@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: clients
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: findings
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `findings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `system_id` int(11) DEFAULT NULL,
   `system_pet_id` int(11) DEFAULT NULL,
-  `system_client_id` int(11) DEFAULT NULL,
+  `system_pet_client_id` int(11) DEFAULT NULL,
   `general_appearance` varchar(500) DEFAULT NULL,
   `teeth_mouth` varchar(500) DEFAULT NULL,
   `eyes` varchar(500) DEFAULT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `findings` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: history
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `history` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: laboratory
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `laboratory` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pets
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `pets` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: systems
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `systems` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: users
@@ -157,15 +157,15 @@ CREATE TABLE IF NOT EXISTS `systems` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `user_level` varchar(45) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 8 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: vitalsigns
@@ -184,42 +184,548 @@ CREATE TABLE IF NOT EXISTS `vitalsigns` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: appointments
 # ------------------------------------------------------------
 
+INSERT INTO
+  `appointments` (
+    `id`,
+    `client_id`,
+    `title`,
+    `date_and_time`,
+    `notification`,
+    `complete`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    1,
+    2,
+    'Php',
+    '2021-09-09 14:59:00',
+    0,
+    0,
+    '2021-09-08 15:00:01',
+    '2021-09-08 15:00:01'
+  );
+INSERT INTO
+  `appointments` (
+    `id`,
+    `client_id`,
+    `title`,
+    `date_and_time`,
+    `notification`,
+    `complete`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    3,
+    'Vaccination',
+    '2021-09-10 10:30:00',
+    0,
+    0,
+    '2021-09-09 10:24:38',
+    '2021-09-09 10:24:38'
+  );
+INSERT INTO
+  `appointments` (
+    `id`,
+    `client_id`,
+    `title`,
+    `date_and_time`,
+    `notification`,
+    `complete`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    3,
+    4,
+    'Vaccination',
+    '2021-09-11 10:46:00',
+    0,
+    0,
+    '2021-09-10 10:46:56',
+    '2021-09-10 10:46:56'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: clients
 # ------------------------------------------------------------
 
+INSERT INTO
+  `clients` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `email`,
+    `address`,
+    `contact`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    1,
+    'Cj',
+    'Cj',
+    'supancj18@gmail.com',
+    'cj',
+    '09352909072',
+    '2021-09-07 18:45:50',
+    '2021-09-07 18:45:50'
+  );
+INSERT INTO
+  `clients` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `email`,
+    `address`,
+    `contact`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    'Manero',
+    'Manero',
+    'supancj18@gmail.com',
+    'manero',
+    '09352909072',
+    '2021-09-07 18:46:03',
+    '2021-09-07 18:46:03'
+  );
+INSERT INTO
+  `clients` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `email`,
+    `address`,
+    `contact`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    3,
+    'Denver ',
+    'Araboy',
+    'denverblaise777@gmail.com',
+    'san juan la union',
+    '09352909072',
+    '2021-09-09 10:23:30',
+    '2021-09-09 10:23:30'
+  );
+INSERT INTO
+  `clients` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `email`,
+    `address`,
+    `contact`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    4,
+    'Marie ann',
+    'Fontanilla',
+    'fontanillama@slc-sflu.edu.ph',
+    'balaoan',
+    '09352909072',
+    '2021-09-10 10:46:36',
+    '2021-09-10 10:46:36'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: findings
 # ------------------------------------------------------------
 
+INSERT INTO
+  `findings` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    2,
+    2,
+    1,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-09-08 15:58:00',
+    '2021-09-08 15:58:47'
+  );
+INSERT INTO
+  `findings` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    3,
+    3,
+    3,
+    3,
+    '',
+    'asdasd',
+    '',
+    'asdasd',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-09-10 10:35:00',
+    '2021-09-10 10:36:45'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: history
 # ------------------------------------------------------------
 
+INSERT INTO
+  `history` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `complaint`,
+    `current_med`,
+    `physical_exam`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    1,
+    2,
+    1,
+    '',
+    '',
+    '',
+    '2021-09-08 15:58:00',
+    '2021-09-08 15:58:47'
+  );
+INSERT INTO
+  `history` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `complaint`,
+    `current_med`,
+    `physical_exam`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    3,
+    3,
+    'asd',
+    'asd',
+    'asd',
+    '2021-09-10 10:35:00',
+    '2021-09-10 10:36:45'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: laboratory
 # ------------------------------------------------------------
 
+INSERT INTO
+  `laboratory` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `heartworm`,
+    `skin_scrape`,
+    `ear_mites`,
+    `cdv`,
+    `cpv`,
+    `fiv`,
+    `vaginal_smear`,
+    `urinalysis`,
+    `fecalysis`,
+    `xray`,
+    `differential`,
+    `definitive`,
+    `treatment`,
+    `comments`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    1,
+    2,
+    2,
+    1,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-09-08 15:58:47',
+    '2021-09-08 15:58:47'
+  );
+INSERT INTO
+  `laboratory` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `heartworm`,
+    `skin_scrape`,
+    `ear_mites`,
+    `cdv`,
+    `cpv`,
+    `fiv`,
+    `vaginal_smear`,
+    `urinalysis`,
+    `fecalysis`,
+    `xray`,
+    `differential`,
+    `definitive`,
+    `treatment`,
+    `comments`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    3,
+    3,
+    3,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-09-10 10:36:45',
+    '2021-09-10 10:36:45'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: pets
 # ------------------------------------------------------------
 
+INSERT INTO
+  `pets` (
+    `id`,
+    `client_id`,
+    `name`,
+    `species`,
+    `breed`,
+    `sex`,
+    `altered`,
+    `color`,
+    `birthdate`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    1,
+    'Michael choi',
+    'canine',
+    'aspin',
+    'Male',
+    'No',
+    'Brown',
+    '2021-09-07 00:00:00',
+    '2021-09-08 15:58:00',
+    '2021-09-08 15:58:47'
+  );
+INSERT INTO
+  `pets` (
+    `id`,
+    `client_id`,
+    `name`,
+    `species`,
+    `breed`,
+    `sex`,
+    `altered`,
+    `color`,
+    `birthdate`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    3,
+    3,
+    'Kali',
+    'canine',
+    'aspin',
+    'Male',
+    'No',
+    'Brown',
+    '2019-01-11 00:00:00',
+    '2021-09-10 10:35:00',
+    '2021-09-10 10:36:45'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: systems
 # ------------------------------------------------------------
 
+INSERT INTO
+  `systems` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `exam_vet`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    2,
+    1,
+    'Ken oliver',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    '2021-09-08 15:58:00',
+    '2021-09-08 15:58:47'
+  );
+INSERT INTO
+  `systems` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `exam_vet`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    3,
+    3,
+    3,
+    'Ken oliver',
+    'Abnormal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Abnormal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    '2021-09-10 10:35:00',
+    '2021-09-10 10:36:45'
+  );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: users
@@ -228,10 +734,10 @@ CREATE TABLE IF NOT EXISTS `vitalsigns` (
 INSERT INTO
   `users` (
     `id`,
-    `username`,
-    `password`,
     `first_name`,
     `last_name`,
+    `username`,
+    `password`,
     `user_level`,
     `created_at`,
     `updated_at`
@@ -239,19 +745,141 @@ INSERT INTO
 VALUES
   (
     3,
-    'admin',
-    'admin',
-    'admin',
+    'Admin',
+    'Admin',
+    'Admin',
     'admin',
     'Admin',
     NULL,
-    NULL
+    '2021-09-08 14:57:07'
+  );
+INSERT INTO
+  `users` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `username`,
+    `password`,
+    `user_level`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    8,
+    'Cedrick John',
+    'Supan',
+    'admin2',
+    'admin2',
+    'Admin',
+    '2021-09-08 11:54:39',
+    '2021-09-08 11:54:39'
+  );
+INSERT INTO
+  `users` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `username`,
+    `password`,
+    `user_level`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    10,
+    'Marie ann',
+    'Fontanilla',
+    'marieann',
+    'marieann',
+    'Admin',
+    '2021-09-09 10:21:32',
+    '2021-09-09 10:21:32'
+  );
+INSERT INTO
+  `users` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `username`,
+    `password`,
+    `user_level`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    11,
+    'Cjsupan',
+    'Cjsupan',
+    'cjsupan',
+    'cjsupan',
+    'Subadmin',
+    '2021-09-10 10:44:42',
+    '2021-09-10 10:44:42'
   );
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: vitalsigns
 # ------------------------------------------------------------
 
+INSERT INTO
+  `vitalsigns` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `weight`,
+    `temp`,
+    `respiratory_rate`,
+    `heart_rate`,
+    `crt`,
+    `mm`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    2,
+    2,
+    1,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-09-08 15:58:00',
+    '2021-09-08 15:58:47'
+  );
+INSERT INTO
+  `vitalsigns` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `weight`,
+    `temp`,
+    `respiratory_rate`,
+    `heart_rate`,
+    `crt`,
+    `mm`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    3,
+    3,
+    3,
+    '15',
+    '38.9',
+    '12',
+    '5',
+    '12',
+    '12',
+    '2021-09-10 10:35:00',
+    '2021-09-10 10:36:45'
+  );
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
