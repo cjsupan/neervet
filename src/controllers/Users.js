@@ -26,16 +26,18 @@ class Users{
             res.json(result);
 
         }else{
-            
-            let getUserLevel = await user_model.getUserLevel(req.body);
 
+            let getUserLevel = await user_model.getUserLevel(req.body);
+            
             let userID = getUserLevel[0].id;
             let userLevel = getUserLevel[0].user_level;
             let username = getUserLevel[0].username;
+            let name = getUserLevel[0].name;
 
             req.session.user_level = userLevel;
             req.session.user_id = userID;
             req.session.user_name = username;
+            req.session.name = name;
 
             res.json([]);
         }
@@ -103,12 +105,6 @@ class Users{
             let addUser = await user_model.addUser(req.body);
             res.json([]);
         }
-    }
-
-    async print(req, res){
-        let result = await user_model.printRecord(req.params.id);
-        
-        res.render('printpage');
     }
 
     async backuprestore(req, res){

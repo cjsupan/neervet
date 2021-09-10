@@ -51,21 +51,21 @@ class Pet extends main_model{
             
         let petid = petresult.insertId;
 
-        let vitalsign = mysql.format("INSERT INTO vitalsigns (pet_id, pet_client_id, weight, temp, respiratory_rate, heart_rate, crt, mm, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [petid, id, details.weight, details.temp, details.resprate, details.heartrate, details.crt, details.mm, details.datetime, date]);
-        let vitalsignresult = await this.executeQuery(vitalsign); 
-
         let systems = mysql.format("INSERT INTO systems (pet_id, pet_client_id, exam_vet, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [petid, id, examvet, details.generalApp, details.teethmouth, details.eyes, details.ears, details.skincoat, details.heartlungs, details.digestive, details.musculoskeletal, details.nervous, details.lymph, details.urogenitals, details.datetime, date]);
         let systemresult = await this.executeQuery(systems);
 
         let systemid = systemresult.insertId;
-            
+
+        let vitalsign = mysql.format("INSERT INTO vitalsigns (system_id, system_pet_id, system_pet_client_id, weight, temp, respiratory_rate, heart_rate, crt, mm, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petid, id, details.weight, details.temp, details.resprate, details.heartrate, details.crt, details.mm, details.datetime, date]);
+        let vitalsignresult = await this.executeQuery(vitalsign); 
+        
         let findings = mysql.format("INSERT INTO findings (system_id, system_pet_id, system_pet_client_id, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petid, id, details.genappfindings, details.teethmouthfindings, details.eyesfindings, details.earsfindings, details.skincoatfindings, details.heartlungsfindings, details.digestivefindings, details.musculoskeletalfindings, details.nervousfindings, details.lymphfindings, details.urogenitalsfindings, details.datetime, date]);
         let findingsresult = await this.executeQuery(findings);
 
         let laboratory = mysql.format("INSERT INTO laboratory (system_id, system_pet_id, system_pet_client_id, heartworm, skin_scrape, ear_mites, cdv, cpv, fiv, vaginal_smear, urinalysis, fecalysis, xray, differential, definitive, treatment, comments, created_at, updated_at) VALUES(?, ?, ?, '', '', '', '', '', '', '', '', '', '', '', '', '', '', ?, ?)", [systemid, petid, id, date, date]);
         let labresult = await this.executeQuery(laboratory);
 
-        let history = mysql.format("INSERT INTO history (pet_id, pet_client_id, complaint, current_med, physical_exam, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)",[petid, id, details.complainthistory, details.currentmed, details.physicalexam, details.datetime, date]);
+        let history = mysql.format("INSERT INTO history (system_id, system_pet_id, system_pet_client_id, complaint, current_med, physical_exam, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[systemid, petid, id, details.complainthistory, details.currentmed, details.physicalexam, details.datetime, date]);
         let historyresult = await this.executeQuery(history);
         return history;
     }
@@ -77,10 +77,10 @@ class Pet extends main_model{
         let system = mysql.format("DELETE FROM systems WHERE pet_id =?", id);
         let systemresult = await this.executeQuery(system);
 
-        let history = mysql.format("DELETE FROM history WHERE pet_id =?", id);
+        let history = mysql.format("DELETE FROM history WHERE system_pet_id =?", id);
         let historyresult = await this.executeQuery(history);
 
-        let vitalsign = mysql.format("DELETE FROM vitalsigns WHERE pet_id =?", id);
+        let vitalsign = mysql.format("DELETE FROM vitalsigns WHERE system_pet_id =?", id);
         let vitalresult = await this.executeQuery(vitalsign);
 
         let findings = mysql.format("DELETE FROM findings WHERE system_pet_id =?", id);
@@ -93,31 +93,40 @@ class Pet extends main_model{
     }
 
     async pet_info(id){
-        let petInfo = mysql.format("SELECT clients.id as clientId, pets.id as petId, CONCAT(clients.first_name, ' ', clients.last_name) as owner, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c/%e/%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age FROM clients LEFT JOIN pets ON clients.id = pets.client_id WHERE pets.id = ?", id);
+        let petInfo = mysql.format("SELECT clients.id as clientId, pets.id as petId, CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c/%e/%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age FROM clients LEFT JOIN pets ON clients.id = pets.client_id WHERE pets.id = ?", id);
         let result = await this.executeQuery(petInfo);
         return JSON.parse(JSON.stringify(result));
     }
 
-    async pet_system(id){
-        let query = mysql.format("SELECT pets.id as petId, systems.id as systemId, systems.exam_vet as examvet, systems.general_appearance, systems.teeth_mouth, systems.eyes, systems.ears, systems.skin_coat, systems.heart_lungs, systems.digestive, systems.musculoskeletal, systems.nervous, systems.lymph, systems.urogenitals,  DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date, findings.general_appearance as findings_genapp, findings.teeth_mouth as findings_teeth, findings.eyes as findings_eyes, findings.ears as findings_ears, findings.skin_coat as findings_skin, findings.heart_lungs as findings_heart, findings.digestive as findings_digestive, findings.musculoskeletal as findings_muscu, findings.nervous as findings_nervous, findings.lymph as findings_lymph, findings.urogenitals as findings_uro FROM pets LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN findings ON systems.id = findings.system_id WHERE pets.id = ? ORDER BY systems.created_at DESC", id);
+    async get_health_record(id){
+        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, exam_vet,  DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date FROM systems WHERE pet_id = ? ORDER BY created_at DESC", id);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    async pet_system(petid, systemid){
+        let query = mysql.format("SELECT pets.id as petId, systems.id as systemId, systems.exam_vet as examvet, systems.general_appearance, systems.teeth_mouth, systems.eyes, systems.ears, systems.skin_coat, systems.heart_lungs, systems.digestive, systems.musculoskeletal, systems.nervous, systems.lymph, systems.urogenitals,  DATE_FORMAT(findings.created_at, '%c/%e/%Y') as created_date, findings.general_appearance as findings_genapp, findings.teeth_mouth as findings_teeth, findings.eyes as findings_eyes, findings.ears as findings_ears, findings.skin_coat as findings_skin, findings.heart_lungs as findings_heart, findings.digestive as findings_digestive, findings.musculoskeletal as findings_muscu, findings.nervous as findings_nervous, findings.lymph as findings_lymph, findings.urogenitals as findings_uro FROM pets LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN findings ON systems.id = findings.system_id WHERE pets.id = ? AND systems.id = ? ORDER BY systems.created_at DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
 
-    async pet_vitalsign(id){
-        let query = mysql.format("SELECT * FROM vitalsigns WHERE pet_id = ? ORDER BY created_at DESC", id);
+    async pet_vitalsign(petid, systemid){
+        let query = mysql.format("SELECT * FROM vitalsigns WHERE system_pet_id = ? AND system_id = ? ORDER BY created_at DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
 
-    async pet_history(id){
-        let query = mysql.format("SELECT * FROM history WHERE pet_id = ? ORDER BY created_at DESC", id);
+    async pet_history(petid, systemid){
+        let query = mysql.format("SELECT * FROM history WHERE system_pet_id = ? AND system_id = ? ORDER BY created_at DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
+
         return JSON.parse(JSON.stringify(result));
+        
     }
 
-    async pet_lab(id){
-        let query = mysql.format("SELECT * FROM laboratory WHERE system_pet_id = ? ORDER BY system_id DESC", id);
+    async pet_lab(petid, systemid){
+        let query = mysql.format("SELECT * FROM laboratory WHERE system_pet_id = ? AND system_id = ? ORDER BY system_id DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
@@ -131,17 +140,18 @@ class Pet extends main_model{
         let systemsresult = await this.executeQuery(systems);
 
         let systemid = systemsresult.insertId;
+        console.log(systemid);
 
-        let vitalsigns = mysql.format("INSERT INTO vitalsigns (pet_id, pet_client_id, weight, temp, respiratory_rate, heart_rate, crt, mm, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [petId, clientId, details.weight, details.temp, details.resprate, details.heartrate, details.crt, details.mm, details.datetime, date]);
+        let vitalsigns = mysql.format("INSERT INTO vitalsigns (system_id, system_pet_id, system_pet_client_id, weight, temp, respiratory_rate, heart_rate, crt, mm, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.weight, details.temp, details.resprate, details.heartrate, details.crt, details.mm, details.datetime, date]);
         let vitalsignresult = await this.executeQuery(vitalsigns);
 
-        let findings = mysql.format("INSERT INTO findings (system_id, system_pet_id, system_client_id, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.genappfindings, details.teethmouthfindings, details.eyesfindings, details.earsfindings, details.skincoatfindings, details.heartlungsfindings, details.digestivefindings, details.musculoskeletalfindings, details.nervousfindings, details.lymphfindings, details.urogenitalsfindings, details.datetime, date]);
+        let findings = mysql.format("INSERT INTO findings (system_id, system_pet_id, system_pet_client_id, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.genappfindings, details.teethmouthfindings, details.eyesfindings, details.earsfindings, details.skincoatfindings, details.heartlungsfindings, details.digestivefindings, details.musculoskeletalfindings, details.nervousfindings, details.lymphfindings, details.urogenitalsfindings, details.datetime, date]);
         let findingsresult = await this.executeQuery(findings);
 
-        let lab = mysql.format("INSERT INTO laboratory (system_id, system_pet_id, system_pet_client_id, heartworm, skin_scrape, ear_mites, cdv, cpv, fiv, vaginal_smear, urinalysis, fecalysis, xray, differential, definitive, treatment, comments, next_app, created_at, updated_at) VALUES(?, ?, ?, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ?, ?)", [systemid, petId, clientId, date, date]);
+        let lab = mysql.format("INSERT INTO laboratory (system_id, system_pet_id, system_pet_client_id, heartworm, skin_scrape, ear_mites, cdv, cpv, fiv, vaginal_smear, urinalysis, fecalysis, xray, differential, definitive, treatment, comments, created_at, updated_at) VALUES(?, ?, ?, '', '', '', '', '', '', '', '', '', '', '', '', '', '', ?, ?)", [systemid, petId, clientId, date, date]);
         let labresult = await this.executeQuery(lab);
 
-        let history = mysql.format("INSERT INTO history (pet_id, pet_client_id, complaint, current_med, physical_exam, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)",[petId, clientId, details.complainthistory, details.currentmed, details.physicalexam, details.datetime, date]);
+        let history = mysql.format("INSERT INTO history (system_id, system_pet_id, system_pet_client_id, complaint, current_med, physical_exam, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[systemid, petId, clientId, details.complainthistory, details.currentmed, details.physicalexam, details.datetime, date]);
         let historyresult = await this.executeQuery(history);
 
 
@@ -155,7 +165,7 @@ class Pet extends main_model{
         let findings = mysql.format("DELETE FROM findings WHERE system_id = ?", systemid);
         let findingsresult = await this.executeQuery(findings);
 
-        let vital = mysql.format("DELETE FROM vitalsigns WHERE id =?", vitalid);
+        let vital = mysql.format("DELETE FROM vitalsigns WHERE id = ?", vitalid);
         let vitalresult = await this.executeQuery(vital);
 
         let history = mysql.format("DELETE FROM history WHERE id = ? ", historyid);
@@ -197,6 +207,13 @@ class Pet extends main_model{
 
         return JSON.parse(JSON.stringify(result));
     }
+
+    // async getRecord(petid, systemid){
+    //     let query = mysql.format("SELECT pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c/%e/%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age, CONCAT(clients.first_name, ' ', clients.last_name) as owner_name, clients.email, clients.address, clients.contact, systems.exam_vet, systems.general_appearance, systems.teeth_mouth, systems.eyes, systems.ears, systems.skin_coat, systems.heart_lungs, systems.digestive, systems.musculoskeletal, systems.nervous, systems.lymph, systems.urogenitals, DATE_FORMAT(systems.created_at, '%c/%e/%Y') as addate, findings.general_appearance as find_gen_app, findings.teeth_mouth as findings_teeth, findings.eyes as findings_eyes, findings.ears as findings_ears, findings.skin_coat as findings_skin, findings.heart_lungs as findings_heart, findings.digestive as findings_digestive, findings.musculoskeletal as findings_muscu, findings.nervous as findings_nervous, findings.lymph as findings_lymph, findings.urogenitals as findings_uro, vitalsigns.weight, vitalsigns.temp, vitalsigns.respiratory_rate, vitalsigns.heart_rate, vitalsigns.crt, vitalsigns.mm, history.complaint, history.current_med, history.physical_exam, laboratory.heartworm, laboratory.skin_scrape, laboratory.ear_mites, laboratory.cdv, laboratory.cpv, laboratory.fiv, laboratory.vaginal_smear, laboratory.urinalysis, laboratory.fecalysis, laboratory.xray, laboratory.differential, laboratory.definitive, laboratory.treatment, laboratory.comments FROM pets LEFT JOIN clients ON pets.client_id = clients.id LEFT JOIN systems ON clients.id = systems.pet_client_id LEFT JOIN findings ON systems.id = findings.system_id LEFT JOIN vitalsigns ON pets.id = vitalsigns.pet_id LEFT JOIN history ON vitalsigns.pet_id = history.pet_id LEFT JOIN laboratory ON systems.id = laboratory.system_id WHERE pets.id = ? AND systems.id = ? GROUP BY systems.id", [petid, systemid]);
+    //     let result = await this.executeQuery(query);
+        
+    //     return JSON.parse(JSON.stringify(result));
+    // }
 }
 
 module.exports = new Pet();

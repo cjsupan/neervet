@@ -1,9 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-</head>
-<body>
-    <h1>asdasdasd</h1>
+<div id='head'>
+    <h1 class='display-3'>NEERVET ANIMAL CLINIC</h1>
+    <p class='display-3'>Leoncia Bldg., 118 Poblacion, Bacnotan, La Union</p>
+</div>
+<div id='left'>
+
+    <p class='lead' id='exam-vet'>Examining Vet: <span class='lead'><%= system[0].examvet %></span></p>
+    <p class='lead' id='owner'>Client's name: <span class='lead'><%= pet[0].owner %></span></p><br>
+    <p class='lead' id='address'>Address: <span class='lead'><%= pet[0].address %></span></p><br>
+    <p class='lead' id='contact'>Contact No.: <span class='lead'><%= pet[0].contact %></span></p><br>
+    <p class='lead' id='complaint'>Complaint/Concerns/History:</p><br>
+    <textarea id='complaint-textarea' class='form-control' readonly><%= history[0].complaint %></textarea><br>
+
+</div>
+<div id='right'>
+
+    <p class='lead' id='addate'>Date: <span class='lead'><%= system[0].created_date %></span></p>
+    <p class='lead' id='petname'>Patient's name: <span class='lead'><%= pet[0].name %></span></p>
+    <p class='lead' id='age'>Age: <span class='lead'><%= pet[0].age %></span></p><br>
+    <p class='lead' id='species'>Species: <span class='lead'><%= pet[0].species %></span></p>
+    <p class='lead' id='breed'>Breed: <span class='lead'><%= pet[0].breed %></span></p>
+    <p class='lead' id='sex'>Sex: <span class='lead'><%= pet[0].sex %></span></p><br>
+    <p class='lead' id='birtdate'>Date of Birth: <span class='lead'><%= pet[0].birthdate %></span></p>
+    <p class='lead' id='color'>Color: <span class='lead'><%= pet[0].color %></span></p><br>
+    <p class='display-3'>Vital signs</p><br>
+    <p class='lead' id='weight'>Weight/BCS: <span class='lead'><%= vitalsign[0].weight %></span></p>
+    <p class='lead' id='temp'>Temp: <span class='lead'><%= vitalsign[0].temp %></span></p>
+    <p class='lead' id='resp'>Resp. rate: <span class='lead'><%= vitalsign[0].respiratory_rate %></span></p>
+    <p class='lead' id='heart'>Heart rate: <span class='lead'><%= vitalsign[0].heart_rate %></span></p>
+    <p class='lead' id='crt'>CRT: <span class='lead'><%= vitalsign[0].crt %></span></p>
+    <p class='lead' id='mm'>MM: <span class='lead'><%= vitalsign[0].mm %></span></p>
+
+</div>
+<div id='mid'>
+
+    <p class='lead' id='currentmed'>Current Medication:</p>
+    <p class='lead' id='physical'>Physical Exam:</p><br>
+    <textarea id='current-textarea' class='form-control' readonly><%= history[0].current_med %></textarea>
+    <textarea id='physical-textarea' class='form-control' readonly><%= history[0].physical_exam %></textarea><br>
+    <div id='system-table'>
+        <table class='table table-bordered table-sm'>
+            <thead class='table-dark'>
+                <tr>
+                    <th>System</th>
+                    <th>Condition</th>
+                    <th>Findings/Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>General Appearance</td>
+                    <td><%= system[0].general_appearance %></td>
+                    <td><%= system[0].findings_genapp %></td>
+                </tr>
+                <tr>
+                    <td>Teeth/Mouth</td>
+                    <td><%= system[0].teeth_mouth %></td>
+                    <td><%= system[0].findings_teeth %></td>
+                </tr>
+                <tr>
+                    <td>Eyes</td>
+                    <td><%= system[0].eyes %></td>
+                    <td><%= system[0].findings_eyes %></td>
+                </tr>
+                <tr>
+                    <td>Ears</td>
+                    <td><%= system[0].ears %></td>
+                    <td><%= system[0].findings_ears %></td>
+                </tr>
+                <tr>
+                    <td>Skin/Coat</td>
+                    <td><%= system[0].skin_coat %></td>
+                    <td><%= system[0].findings_skin %></td>
+                </tr>
+                <tr>
+                    <td>Heart/Lungs</td>
+                    <td><%= system[0].heart_lungs %></td>
+                    <td><%= system[0].findings_heart %></td>
+                </tr>
+                <tr>
+                    <td>Digestive</td>
+                    <td><%= system[0].digestive %></td>
+                    <td><%= system[0].findings_digestive %></td>
+                </tr>
+                <tr>
+                    <td>Musculoskeletal</td>
+                    <td><%= system[0].musculoskeletal %></td>
+                    <td><%= system[0].findings_muscu %></td>
+                </tr>
+                <tr>
+                    <td>Nervous</td>
+                    <td><%= system[0].nervous %></td>
+                    <td><%= system[0].findings_nervous %></td>
+                </tr>
+                <tr>
+                    <td>Lymph nodes</td>
+                    <td><%= system[0].lymph %></td>
+                    <td><%= system[0].findings_lymph %></td>
+                </tr>
+                <tr>
+                    <td>Urogenitals</td>
+                    <td><%= system[0].urogenitals %></td>
+                    <td><%= system[0].findings_uro %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     
-</body>
-</html>
+    
+    
+</div>
+<p id='laboratory' class='display-3'>Laboratory Test:</p>
+<div id='lab'>
+    <p class='lead' id='heartworm'>Heartworm test: <span class='lead'><%= lab[0].heartworm  %></span></p>
+    <p class='lead'>Skin scrape: <span class='lead'><%= lab[0].skin_scrape  %></span></p>
+    <p class='lead' id='earmites'>Ear mites/Ear cytology: <span class='lead'><%= lab[0].ear_mites  %></span></p>
+    <p class='lead'>CDV: <span class='lead'><%= lab[0].cdv  %></span></p>
+    <p class='lead'>CPV: <span class='lead'><%= lab[0].cpv  %></span></p>
+    <p class='lead' id='fiv'>FIV/FeLV test: <span class='lead'><%= lab[0].fiv  %></span></p><br>
+    <p class='lead lab-text'>Urinalysis:</p>
+    <p class='lead lab-text'>Fecalysis:</p>
+    <p class='lead'>Vaginal Smear:</p><br>
+    <textarea class='form-control' readonly><%= lab[0].urinalysis %></textarea>
+    <textarea class='form-control' readonly><%= lab[0].fecalysis %></textarea>
+    <textarea class='form-control' readonly><%= lab[0].vaginal_smear %></textarea><br>
+    <p class='lead'>X-ray:</p><br>
+    <textarea id='xray' class='form-control' readonly><%= lab[0].xray %></textarea>
+</div>
+<p class='lead diagnosis'>Differential diagnosis: <span class='lead'><%= lab[0].differential %></span></p>
+<p class='lead diagnosis'>Definitive diagnosis: <span class='lead'><%= lab[0].definitive%></span></p><br>
+<p class='lead'>Treatment and Prescribed Medicine: </p><br>
+<textarea id='treatment' class='form-control' readonly><%= lab[0].treatment %></textarea><br>
+<p class='lead' id='prepared'>Prepared by: <span class='lead'><%= user %></span> </p>
+<p class='lead' id=''><span><%=  %></span></p>

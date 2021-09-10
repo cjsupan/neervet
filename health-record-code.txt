@@ -1,0 +1,121 @@
+<!-- <div id='health-record'>
+    <h1 class='display-3'>Health Record</h1>
+    <% for(var i=0; i< system.length; i++){ %>
+    <div class='date' id='<%= system[i].systemId %>'><span class='date-label'><%= system[i].created_date %></span></div>
+   
+    <div class='record <%= system[i].systemId %>'>
+        <div class='pet-vitalsign'>
+            <p class='display-4'>Examining Vet: <span class='lead'><%= system[i].examvet %></span></p>
+            <input type='hidden' id='getprint' href='/print/<%= pet[0].petId %>/<%= system[i].systemId %>' >
+            <button id='print' class='btn btn-primary' data-toggle="modal" data-target="#printModal"><img src='img/print.png'></button><br>
+            <p class='display-4'>Weight: <span class='lead'><%= vitalsign[i].weight %></span></p>
+            <p class='display-4'>Temp: <span class='lead'><%= vitalsign[i].temp %></span></p>
+            <p class='display-4'>Respiratory rate: <span class='lead'><%= vitalsign[i].respiratory_rate %></span></p>
+            <p class='display-4'>Heart rate: <span class='lead'><%= vitalsign[i].heart_rate %></span></p>
+            <p class='display-4'>CRT: <span class='lead'><%= vitalsign[i].crt %></span></p>
+            <p class='display-4'>MM: <span class='lead'><%= vitalsign[i].mm %></span></p><br>
+            <p class='display-3'>Complaints/Concern/History:</p>
+            <p class='display-3'>Current Medication</p>
+            <p class='display-3' id='physicalexam-label'>Physical Exam:</p><br>
+            <textarea readonly id='complaint'><%= history[i].complaint %></textarea>
+            <textarea readonly id='currentmed'><%= history[i].current_med %></textarea>
+            <textarea readonly><%= history[i].physical_exam %></textarea><br>
+
+            <table class='table table-bordered table-sm'>
+                <thead class='table-dark'>
+                    <tr>
+                        <th>System</th>
+                        <th>Condition</th>
+                        <th>Findings/Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>General Appearance</td>
+                        <td><%= system[i].general_appearance %></td>
+                        <td><%= system[i].findings_genapp %></td>
+                    </tr>
+                    <tr>
+                        <td>Teeth/Mouth</td>
+                        <td><%= system[i].teeth_mouth %></td>
+                        <td><%= system[i].findings_teeth %></td>
+                    </tr>
+                    <tr>
+                        <td>Eyes</td>
+                        <td><%= system[i].eyes %></td>
+                        <td><%= system[i].findings_eyes %></td>
+                    </tr>
+                    <tr>
+                        <td>Ears</td>
+                        <td><%= system[i].ears %></td>
+                        <td><%= system[i].findings_ears %></td>
+                    </tr>
+                    <tr>
+                        <td>Skin/Coat</td>
+                        <td><%= system[i].skin_coat %></td>
+                        <td><%= system[i].findings_skin %></td>
+                    </tr>
+                    <tr>
+                        <td>Heart/Lungs</td>
+                        <td><%= system[i].heart_lungs %></td>
+                        <td><%= system[i].findings_heart %></td>
+                    </tr>
+                    <tr>
+                        <td>Digestive</td>
+                        <td><%= system[i].digestive %></td>
+                        <td><%= system[i].findings_digestive %></td>
+                    </tr>
+                    <tr>
+                        <td>Musculoskeletal</td>
+                        <td><%= system[i].musculoskeletal %></td>
+                        <td><%= system[i].findings_muscu %></td>
+                    </tr>
+                    <tr>
+                        <td>Nervous</td>
+                        <td><%= system[i].nervous %></td>
+                        <td><%= system[i].findings_nervous %></td>
+                    </tr>
+                    <tr>
+                        <td>Lymph nodes</td>
+                        <td><%= system[i].lymph %></td>
+                        <td><%= system[i].findings_lymph %></td>
+                    </tr>
+                    <tr>
+                        <td>Urogenitals</td>
+                        <td><%= system[i].urogenitals %></td>
+                        <td><%= system[i].findings_uro %></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        <div id='laboratory' >
+            <p class='display-3'>Laboratory test</p>
+            <button type='button' class='btn btn-primary edit-lab' data-toggle="modal" data-target="#labModal" value='<%= lab[i].id %>'>Edit</button><br>
+            <p class='display-4'>Heartworm test: <span class='lead'><%= lab[i].heartworm %></span></p>
+            <p class='display-4'>Skin scrape: <span class='lead'><%= lab[i].skin_scrape %></span></p>
+            <p class='display-4'>Ear mites/Ear cytology: <span class='lead'><%= lab[i].ear_mites %></span></p><br>
+            <p class='display-4'>CDV: <span class='lead'><%= lab[i].cdv %></span></p>
+            <p class='display-4'>CPV: <span class='lead'><%= lab[i].cpv %></span></p>
+            <p class='display-4'>FIV/FeLV test: <span class='lead'><%= lab[i].fiv %></span></p><br>
+            <p class='display-4 lab-textarea'>Urinalysis: </p>
+            <p class='display-4 lab-textarea'>Fecalysis: </p>
+            <p class='display-4 lab-textarea'>Vaginal smear: </p><br>
+            <textarea readonly><%= lab[i].urinalysis %></textarea>
+            <textarea readonly><%= lab[i].fecalysis %></textarea>
+            <textarea readonly><%= lab[i].vaginal_smear %></textarea><br>
+            <p class='display-4 lab-textarea'>Xray: </p><br>
+            <textarea class='xray' readonly><%= lab[i].xray %></textarea><br>
+            <p class='display-4'>Differential diagnosis: <span class='lead'><%= lab[i].differential %></span></p></br>
+            <p class='display-4 definitive'>Definitive diagnosis:</p>
+            <textarea readonly><%= lab[i].definitive %></textarea><br>
+            <p class='display-4'>Treatment and Prescribed Medicine: </p><br>
+            <textarea class='treatment' readonly><%= lab[i].treatment %></textarea><br>
+            <p class='display-4'>Comments/Remarks: <span class='lead'><%= lab[i].comments %></span></p><br>
+            <p class='display-4'>Next Appointment: <span class='lead'><%= lab[i].next_app %></span></p>
+
+        </div>
+        
+    </div>
+    <% } %>
+</div> -->

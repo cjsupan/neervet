@@ -213,11 +213,6 @@ class User extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
-    async printRecord(id){
-        let query = mysql.format("");
-        let result = await this.executeQuery(query);
-    }
-
     async validate_backup(details){
         let errors = [];
 

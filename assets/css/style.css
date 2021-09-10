@@ -96,7 +96,7 @@
 
 .container-fluid{
     width: 100%;
-    height: 601px;
+    height: 611px;
     margin: 0px;
     padding: 0px;
     background-color: #d0d0d0;
@@ -243,8 +243,8 @@
 
 .container-fluid #main{
     width: 83%;
-    height: calc(100% - 20px);
-    margin: 10px 10px;
+    height: calc(100% - 30px);
+    margin: 10px 10px 0px 10px;
     padding: 0px;
     overflow: auto;
     border-radius: 10px 4px 4px 10px;
@@ -1058,93 +1058,22 @@
     font-weight: normal;
 }
 
-#main #health-record{
+#main .h1-healthrecord{
     width: 95%;
     margin: 10px 2%;
-    background-color: white; 
     display: inline-block;
 }
 
-#main #health-record .date{
-    font-size: 20px;
-    width: 100%;
-    height: 40px;
-    margin-bottom: 8px;
-    text-align: center;
-    border-radius: 10px;
-    background-color: #A0DAA9;
-    position: sticky;
-    top: 50px;
-    cursor: pointer;
-    display: inline-block;
-}
-
-#main #health-record .record #print{
-    float: right;
-}
-
-#main #health-record .record #print img{
-    width: 25px;
-    height: 25px;
-    display: inline-block;
-}
-
-#main #health-record .date .date-label{
-    padding-top: 5px;
-    display: inline-block;  
-}
-
-#main #health-record .record{
-    border: 2px solid #d0d0d0;
-    margin-bottom: 10px; 
-    display: none;
-}
-
-#main #health-record .record .pet-vitalsign {
+#main #healthRecordTable{
     width: 95%;
-    margin: 10px 2%; 
-    /* border: 1px solid #848C8C; */
+    height: 400px;
+    margin: 10px 2%;
+    border: 1px solid #d0d0d0;
     display: inline-block;
 }
 
-#main #health-record .record .pet-vitalsign p{
-    padding: 10px 0px 0px 20px;
-    font-size: 18px;
-    display: inline-block;
-}
-
-#main #health-record .record .pet-vitalsign .display-3{
-    padding: 10px 0px 0px 20px;
-    margin-right: 50px; 
-    font-size: 18px;
-    font-weight: normal;
-    display: inline-block;
-}
-
-#main #health-record .record .pet-vitalsign #physicalexam-label{
-    margin-left: 75px; 
-}
-
-#main #health-record .record .pet-vitalsign p .lead{
-    font-size: 20px;
-    font-weight: normal;
-}
-
-#main #health-record .record .pet-vitalsign textarea{
-    width: 250px;
-    font-size: 18px;
-    resize: none;
-    font-weight: normal;
-    display: inline-block;
-    vertical-align: top;
-}
-
-#main #health-record .record .pet-vitalsign #complaint{
-    margin: 0px 50px 20px 20px;
-}
-
-#main #health-record .record .pet-vitalsign #currentmed{
-    margin-right: 50px;
+#main #healthRecordTable .btn-view{
+    text-align: center;
 }
 
 #main #add-pet-record{
@@ -1276,6 +1205,221 @@
     margin-bottom: 5px;
 }
 
+#viewHealthRecordModal .modal-content{
+    height: 600px;
+    
+}
+
+#viewHealthRecordModal .modal-dialog .modal-body{
+    height: 600px;
+    overflow: auto;
+}
+
+#main #print-content{
+    width: 100%;
+    height: 600px;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+}
+
+#main #print-content #left{
+    width: 55%;
+    height: 290px;
+    margin-top: 10px;
+    vertical-align: top;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #print-content #right{
+    width: 44%;
+    height: 290px;
+    margin-top: 10px;
+    vertical-align: top;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #print-content #left p.lead, #main #print-content #right p.lead{
+    font-size: 15px;
+    margin-bottom: 10px;
+    padding: 0px;
+    display: inline-block;
+}
+
+#main #print-content span{
+    font-size: 15px;
+}
+
+#main #print-content #left #contact{
+    margin-bottom: 30px;
+}
+
+#main #print-content #left #complaint-textarea{
+    width: 80%;
+    height: 80px;
+    resize: none;
+    outline: none;
+    background-color: transparent; 
+    display: inline-block;
+}
+
+#main #print-content #right #petname{
+    width: 220px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+#main #print-content #right #addate{
+    margin-left: 57%;
+}
+
+#main #print-content #right #species, #main #print-content #right #breed{
+    margin-right: 20px;
+}
+
+
+#main #print-content #right #color{
+    margin-left: 30px;
+}
+
+#main #print-content #right p.display-3{
+    width: 100%;
+    font-size: 18px;
+    border-bottom: 1px solid #d0d0d0;
+    text-align: center;
+    display: inline-block;
+}
+
+#main #print-content #right #weight, #main #print-content #right #resp, #main #print-content #right #crt{
+    width: 150px;
+    margin-right: 40px;
+}
+
+#main #print-content #head{
+    margin-bottom: 10px; 
+    border-bottom: 1px solid black; 
+    display: none;
+}
+
+#main #print-content #head h1{
+    font-size: 20px;
+    border: 0px;
+}
+
+#main #print-content #head p.display-3{
+    font-size: 18px;
+    text-align: center;
+}
+
+#main #print-content p.lead{
+    font-size: 15px;
+    font-weight: normal;
+    font-family: open-sans;
+    text-align: left;
+   
+    display: inline-block;
+}
+
+#main #print-content p.lead span{
+    text-transform: capitalize;
+}
+
+#main #print-content #exam-vet{
+    width: 500px;
+    margin-right: 15%;
+}
+
+#main #print-content #mid{
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #print-content #mid p.lead{
+    font-size: 15px;
+    margin-bottom: 10px;
+    padding: 0px;
+    display: inline-block;
+}
+
+#main #print-content #mid #currentmed, #main #print-content #mid #currentmed{
+    width: 40%;
+}
+
+#main #print-content #mid #current-textarea, #main #print-content #mid #physical-textarea{
+    width: 40%;
+    height: 80px;
+    resize: none;
+    background-color: transparent;
+    display: inline-block;
+}
+
+#main #print-content #mid #current-textarea, #main #print-content #mid #currentmed {
+    margin-right: 40px;
+}
+
+#main #print-content #mid #system-table{
+    width: 100%;
+    height: 405px;
+    margin: 10px 0px;
+    display: inline-block;
+}
+
+#main #print-content #laboratory{
+    font-size: 18px;
+    text-align: center;
+}
+
+#main #print-content #lab p.lead{
+    width: 200px;
+    display: inline-block;
+}
+
+#main #print-content #lab p.lab-text{
+    margin-right: 45px;
+}
+
+#main #print-content #lab textarea{
+    width: 220px;
+    height: 60px;
+    margin-right: 25px;
+    resize: none;
+    background-color: transparent;
+    display: inline-block;
+}
+
+#main #print-content #lab #xray{
+    width: 50%;
+    height: 60px;
+    resize: none;
+    background-color: transparent;
+    display: inline-block;
+}
+
+#main #print-content .diagnosis{
+    width: 100%;
+   
+    display: inline-block;
+}
+
+#main #print-content #treatment{
+    width: 100%;
+    height: 60px;
+    resize: none;
+    background-color: transparent;
+    display: inline-block;
+}
+
+#main #print-content #mid #comments{
+    width: 100%;
+    background-color: transparent;
+    display: inline-block;
+}
+
 #main #backup-restore-form #backup, #main #backup-restore-form #restore-form{
     width: 50%;
     padding: 10px;
@@ -1302,4 +1446,209 @@
 #main #backup-restore-form form #restore-now #spinner{
     width: 15px;
     height: 15px;
+}
+
+@media print{
+
+    #head{
+        width: 100%;
+        margin-bottom: 10px; 
+        text-align: center;
+        border-bottom: 1px solid black; 
+        display: inline-block;
+    }    
+
+    #head h1{
+        font-size: 20px;
+        border: 0px;
+    }
+    
+    #head p.display-3{
+        font-size: 18px;
+    }
+
+    #left{
+        width: 55%;
+        height: 290px;
+        margin: 10px 0px;
+        vertical-align: top;
+        display: inline-block;
+    }
+    
+    #right{
+        width: 44%;
+        height: 290px;
+        margin: 10px 0px;
+        vertical-align: top;
+        display: inline-block;
+    }
+    
+    #left p.lead, #right p.lead{
+        font-size: 15px;
+        margin-bottom: 10px;
+        padding: 0px;
+        display: inline-block;
+    }
+    
+    span{
+        font-size: 15px;
+    }
+    
+    #left #contact{
+        margin-bottom: 50px;
+    }
+    
+    #left #complaint-textarea{
+        width: 80%;
+        height: 60px;
+        resize: none;
+        outline: none;
+        background-color: transparent; 
+        display: inline-block;
+    
+    }
+    
+    #right #addate{
+        margin-left: 57%;
+    }
+    
+    #right #species{
+        margin-right: 20px;
+    }
+    
+    #right #color{
+        margin-left: 30px;
+    }
+    
+    #right p.display-3{
+        width: 100%;
+        font-size: 18px;
+        border-bottom: 1px solid #d0d0d0;
+        text-align: center;
+        display: inline-block;
+    }
+    
+    #right #weight, #right #resp, #right #crt{
+        width: 150px;
+        margin-right: 40px;
+    } 
+    
+    p.lead{
+        font-size: 15px;
+        font-weight: normal;
+        font-family: open-sans;
+        text-align: left;
+        display: inline-block;
+    }
+    
+    p.lead span{
+        text-transform: capitalize;
+    }
+    
+    #exam-vet{
+        width: 500px;
+        margin-right: 15%;
+    }
+    
+    #mid{
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        display: inline-block;
+    }
+    
+    #mid p.lead{
+        font-size: 15px;
+        margin-bottom: 10px;
+        padding: 0px;
+        display: inline-block;
+    }
+    
+    #mid #currentmed, #mid #currentmed{
+        width: 40%;
+    }
+    
+    #mid #current-textarea, #mid #physical-textarea{
+        width: 40%;
+        height: 60px;
+        resize: none;
+        background-color: transparent;
+        display: inline-block;
+    }
+    
+    #mid #current-textarea, #mid #currentmed {
+        margin-right: 40px;
+    }
+    
+    #mid #system-table{
+        width: 100%;
+        height: 405px;
+        margin-top: 10px ;
+        display: inline-block;
+    }
+    
+    #laboratory{
+        font-size: 18px;
+        text-align: center;
+    }
+    
+    #lab p.lead{
+        width: 120px;
+        margin-right: 20px;
+        display: inline-block;
+    }
+
+    #lab #heartworm, #lab #fiv{
+        width: 150px;
+        margin-right: 20px;
+    }
+
+    #lab #earmites{
+        width: 210px;
+        margin-right: 10px;
+    }
+    
+    #lab p.lab-text{
+        margin-right: 45px;
+    }
+    
+    #lab textarea{
+        width: 220px;
+        height: 60px;
+        margin-right: 25px;
+        resize: none;
+        background-color: transparent;
+        display: inline-block;
+    }
+    
+    #lab #xray{
+        width: 50%;
+        height: 60px;
+        resize: none;
+        background-color: transparent;
+        display: inline-block;
+    }
+    
+    .diagnosis{
+        width: 100%;
+        display: inline-block;
+    }
+    
+    #treatment{
+        width: 100%;
+        height: 60px;
+        resize: none;
+        background-color: transparent;
+        display: inline-block;
+    }
+    
+    #comments{
+        width: 100%;
+        background-color: transparent;
+        display: inline-block;
+    }
+
+    #prepared{
+        margin: 30px 0px 0px 60%;
+    }
 }

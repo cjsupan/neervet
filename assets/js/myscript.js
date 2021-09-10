@@ -321,13 +321,22 @@ $(document).ready(function(){
                         $.get($(pet).attr('href'), function(res){
 
                             document.getElementById('main').innerHTML = res;
-                            
-                            $(document).on('click', '#print', function(){
-                                
-                                $.get($(this).attr('href'), function(res){
 
-                                });
-                            });
+                            
+                            var dateToday = new Date();
+                            var dd = String(dateToday.getDate()).padStart(2, '0');
+                            var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+                            var yyyy = dateToday.getFullYear();
+                            var hour = dateToday.getHours();
+                            var min = dateToday.getMinutes();
+                            var sec = dateToday.getSeconds();
+                            
+                            var maxdate = yyyy + '-' + mm + '-' + dd;
+
+                            var x = document.querySelectorAll('.datetime-input');
+                            for(var i=0; i<x.length; i++){
+                                x[i].max = maxdate;
+                            }
 
                             //SHOW PET HEALTH RECORD
                             $(".date").on('click', function(){
@@ -450,7 +459,19 @@ $(document).ready(function(){
         });
     }
 
+    $(document).on('click', '#print-now', function(){
+        var restorepage = document.body.innerHTML;
+        var printcontent = document.getElementById('print-content').innerHTML;
+        document.body.innerHTML = printcontent;
+        window.print();
+        history.go(-1); 
+    });
     
+    $(document).on('click', '#view-health', function(){
+        $.get($(this).attr('href'), function(res){
+            document.getElementById('print-content').innerHTML = res;
+        });
+    });
 
     //SAVE CLIENT
     $(document).on('click','#saveClient', function(){

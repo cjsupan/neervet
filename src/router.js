@@ -23,8 +23,6 @@ Router.get("/backuprestore", UserController.backuprestore);
 Router.post("/backup", UserController.validate_backup);
 Router.post("/restore", UserController.restore);
 
-Router.get("/print/:id", UserController.print);
-
 Router.get("/appointment", AppointmentController.appointment);
 Router.post("/addAppointment/:id", AppointmentController.validate_appointment);
 Router.get("/appointmentsToday", AppointmentController.appointments_today);
@@ -48,6 +46,8 @@ Router.get("/deletePetRecord/:systemid/:vitalid/:historyid", PetController.delet
 
 Router.post("/updateLab/:id/:clientId", PetController.update_lab);
 Router.get("/getLab/:id", PetController.get_lab);
+
+Router.get("/getHealth/:petid/:systemid", PetController.get_health);
 
 Router.get("/getNotification", AppointmentController.get_notification);
 Router.get("/sendNotification", AppointmentController.send_notification);
