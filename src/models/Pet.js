@@ -125,7 +125,13 @@ class Pet extends main_model{
         
     }
 
-    async pet_lab(petid, systemid){
+    async pet_lab(petid){
+        let query = mysql.format("SELECT * FROM laboratory WHERE system_pet_id = ? ORDER BY created_at DESC", petid);
+        let result = await this.executeQuery(query);
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    async get_pet_lab(petid, systemid){
         let query = mysql.format("SELECT * FROM laboratory WHERE system_pet_id = ? AND system_id = ? ORDER BY system_id DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
@@ -140,7 +146,6 @@ class Pet extends main_model{
         let systemsresult = await this.executeQuery(systems);
 
         let systemid = systemsresult.insertId;
-        console.log(systemid);
 
         let vitalsigns = mysql.format("INSERT INTO vitalsigns (system_id, system_pet_id, system_pet_client_id, weight, temp, respiratory_rate, heart_rate, crt, mm, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.weight, details.temp, details.resprate, details.heartrate, details.crt, details.mm, details.datetime, date]);
         let vitalsignresult = await this.executeQuery(vitalsigns);
@@ -174,7 +179,7 @@ class Pet extends main_model{
         return historyresult;
     }
 
-    async updateLab(details, id, clientId){
+    async updateLab(details, clientid, petid, systemid){
 
         let newdetails = {};
         newdetails.heartworm = details.heartworm;
@@ -193,10 +198,13 @@ class Pet extends main_model{
         newdetails.comments = details.comments;
 
         let title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
-        let appointment = mysql.format("INSERT INTO appointments (client_id, title, date_and_time) VALUES(?, ?, ?)", [clientId, title, details.next_app]);
-        let addApp = await this.executeQuery(appointment);
+        if(details.next_app != ''){
+            let appointment = mysql.format("INSERT INTO appointments (client_id, title, date_and_time) VALUES(?, ?, ?)", [clientid, title, details.next_app]);
+            let addApp = await this.executeQuery(appointment);
+        }
+        
 
-        let query = mysql.format("UPDATE laboratory SET ? WHERE id = ? ", [ newdetails, id]);
+        let query = mysql.format("UPDATE laboratory SET ? WHERE system_id = ? AND system_id = ? ", [ newdetails, petid, systemid]);
         let result = await this.executeQuery(query);
         return result;
     }

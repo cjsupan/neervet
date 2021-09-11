@@ -236,7 +236,9 @@ $(document).ready(function(){
             // VIEW CLIENT PAGE/INFORMATION
             function viewClient(client){
                 $.get($(client).attr('href'), function(res){
+
                     document.getElementById('main').innerHTML = res;
+                    
                     var dateToday = new Date();
                     var dd = String(dateToday.getDate()).padStart(2, '0');
                     var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -322,7 +324,6 @@ $(document).ready(function(){
 
                             document.getElementById('main').innerHTML = res;
 
-                            
                             var dateToday = new Date();
                             var dd = String(dateToday.getDate()).padStart(2, '0');
                             var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -350,58 +351,14 @@ $(document).ready(function(){
                                     scrollTop: pos
                                 },600);
                             });
-                            //EDIT LAB RECORD
-                            $(".edit-lab").on('click', function(){
-                                var id = this.value;
-
-                                $.get("/getLab/"+id+"", function(res){
-                                    var client_id = res[0].system_pet_client_id;
-                                    var action = "/updateLab/"+id+"/"+client_id+"";
-                                   
-                                    var modalBody = "";
-                                        modalBody += "<form id='lab-form' action='"+action+"' method='POST'>";
-                                        modalBody += "<label for='heartworm'>Heartworm: </label>";
-                                        modalBody += "<input type='text' name='heartworm' class='form-control lab-input' value='"+res[0].heartworm+"'>";
-                                        modalBody += "<label for='skinscrape'>Skin scrape: </label>";
-                                        modalBody += "<input type='text' name='skin_scrape' class='form-control lab-input' value='"+res[0].skin_scrape+"'>";
-                                        modalBody += "<label for='earmites'>Ear mites/Ear cytology: </label>";
-                                        modalBody += "<input type='text' name='ear_mites' class='form-control lab-input' value='"+res[0].ear_mites+"'><br>";
-                                        modalBody += "<label for='cdv'>CDV: </label>";
-                                        modalBody += "<input type='text' name='cdv' class='form-control lab-input' value='"+res[0].cdv+"'>";
-                                        modalBody += "<label for='cpv'>CPV: </label>";
-                                        modalBody += "<input type='text' name='cpv' class='form-control lab-input' value='"+res[0].cpv+"'>";
-                                        modalBody += "<label for='fiv'>FIV/FeLV test: </label>";
-                                        modalBody += "<input type='text' name='fiv' class='form-control lab-input' value='"+res[0].fiv+"'><br>";
-                                        modalBody += "<label for='urinalysis' class='lab-textarea'>Urinalysis: </label>";
-                                        modalBody += "<label for='fecalysis' class='lab-textarea'>Fecalysis: </label>";
-                                        modalBody += "<label for='vaginalsmear' class='lab-textarea'>Vaginal smear: </label><br>";
-                                        modalBody += "<textarea name='urinalysis' class='form-control'></textarea>";
-                                        modalBody += "<textarea name='fecalysis' class='form-control'></textarea>";
-                                        modalBody += "<textarea name='vaginal_smear' class='form-control'></textarea><br>";
-                                        modalBody += "<label for='xray' class='lab-textarea'>Xray: </label><br>";
-                                        modalBody += "<textarea name='xray' id='xray' class='form-control'></textarea><br><br>";
-                                        modalBody += "<label for='differential'>Differential diagnosis: </label>";
-                                        modalBody += "<input type='text' name='differential' id='differential' class='form-control lab-input' value='"+res[0].differential+"'><br>";
-                                        modalBody += "<label for='definitive' id='def-lab' class='lab-textarea'>Definitive diagnosis: </label>";
-                                        modalBody += "<textarea name='definitive' id='definitive' class='form-control'></textarea><br><br>";
-                                        modalBody += "<label for='treatment' id='treatment-label' class='lab-textarea'>Treatment and Prescribed Medicine: </label><br>";
-                                        modalBody += "<textarea name='treatment' id='treatment' class='form-control'></textarea><br>";
-                                        modalBody += "<label for='comments'>Comments/Remarks: </label>";
-                                        modalBody += "<input type='text' name='comments' id='comments' class='form-control lab-input' value='"+res[0].comments+"'><br>";
-                                        modalBody += "<label for='next_app'>Next appointment: </label>";
-                                        modalBody += "<input type='date' name='next_app' id='date' class='form-control lab-input'>";
-                                        modalBody += "<label for='title'>Title: </label>";
-                                        modalBody += "<input type='text' name='title' id='title' class='form-control lab-input'>";
-                                        modalBody += "</form>";
-                                        $(".lab-modal-body").children().prevObject[0].innerHTML = modalBody;
-                                });
-                            });
 
                             //SAVE LAB RECORD
                             $("#save-lab").on('click', function(){
-                                $.post($('#lab-form').attr('action'), $('#lab-form').serialize());
+                                $.post($('#record-form').attr('action'), $('#lab-form').serialize());
                                 alert('laboratory Updated');
+                
                                 $('#labModal').modal('hide');
+                                $('#viewHealthRecordModal').modal('hide');
                                 let pet = document.getElementById('pet-stay');
                                 viewPet(pet);
                             });
@@ -459,18 +416,38 @@ $(document).ready(function(){
         });
     }
 
+    //EDIT LAB RECORD
+    $(document).on('click','#edit-lab', function(){
+        var id = this.value;
+        document.getElementById('edit-lab').setAttribute('href', "/getLab/"+id+"");
+        console.log(document.getElementById('edit-lab-record'));
+        $.get($('#edit-lab').attr('href'), function(res){
+            
+            document.getElementById('labModalBody').innerHTML = res;
+            // var client_id = res[0].system_pet_client_id;
+            // var action = "/updateLab/"+id+"/"+client_id+"";
+            document.getElementById('record-form').setAttribute('action', "updateLab/"+id+"");
+           
+            
+        });
+    });
+
     $(document).on('click', '#print-now', function(){
         var restorepage = document.body.innerHTML;
         var printcontent = document.getElementById('print-content').innerHTML;
         document.body.innerHTML = printcontent;
         window.print();
-        history.go(-1); 
+        location.reload();
+
     });
     
     $(document).on('click', '#view-health', function(){
         $.get($(this).attr('href'), function(res){
             document.getElementById('print-content').innerHTML = res;
+            
         });
+        var petIdsystemId = $(this).val();
+        document.getElementById('edit-lab').value = petIdsystemId;
     });
 
     //SAVE CLIENT

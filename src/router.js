@@ -44,8 +44,8 @@ Router.get("/deletePet/:id", PetController.delete_pet);
 Router.post("/addPetRecord/:clientid/:petid", PetController.add_pet_record);
 Router.get("/deletePetRecord/:systemid/:vitalid/:historyid", PetController.delete_pet_record);
 
-Router.post("/updateLab/:id/:clientId", PetController.update_lab);
-Router.get("/getLab/:id", PetController.get_lab);
+Router.get("/getLab/:clientid/:petid/:systemid", PetController.get_lab);
+Router.post("/updateLab/:clientid/:petid/:systemid", PetController.update_lab);
 
 Router.get("/getHealth/:petid/:systemid", PetController.get_health);
 

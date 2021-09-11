@@ -904,79 +904,44 @@
     margin-bottom: 5px;
 }
 
-#main #health-record .record #laboratory{
-    width: 95%;
-    margin: 10px 2%;
-    display: inline-block;
-}
-
-#main #health-record .record #laboratory .display-3{
-    width: 100%;
-    font-size: 25px;
-    padding-bottom: 5px;
-    text-align: center;
-    border-bottom: 2px solid #d0d0d0;
-    display: inline-block;
-}
-
-#laboratory .edit-lab{
-    float: right;
-    margin: 0px 10px;
-}
-
-#laboratory .display-4{
-    font-size: 18px;
-    margin-right: 100px;
-    display: inline-block;
-}
-
-#laboratory .display-4 .lead{
-    font-size: 20px;
-    font-weight: normal;
-}
-
-#laboratory .lab-textarea{
-    margin-right: 230px; 
-}
-
-#laboratory textarea{
-    width: 300px;
-    height: 80px;
-    resize: none;
-    border: 1px solid #d0d0d0;
-    border-radius: 5px;
-}
-
-#laboratory .xray{
-    width: 70%;
-}
-
-#laboratory .treatment{
-    width: 100%;
-}
-
-#laboratory .definitive{
-    margin: 0px;
-    vertical-align: top;
-}
-
 #main #labModal .modal-content .modal-body .lab-input{
     width: 100px;
     margin: 0px 30px 10px 0px;
     display: inline-block;
 }
 
-#main #labModal .modal-content .modal-body #lab-form label{
+#labModal .modal-content{
+    height: 600px;
+    
+}
+
+#labModal .modal-dialog .modal-body{
+    height: 600px;
+    overflow: auto;
+}
+
+#main #record-form .vitalsign-label{
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+}
+
+#main #record-form .vitalsign-input{
+    width: 100px;
+    margin-right: 20px;
+    display: inline-block;
+}
+
+#main #labModal .modal-content .modal-body #record-form label{
     margin-right: 5px;
 }
 
-#main #labModal .modal-content .modal-body #lab-form .lab-textarea{
+#main #labModal .modal-content .modal-body #record-form .lab-textarea{
     width: 150px;
     margin-right: 80px;
     display: inline-block;
 }
 
-#main #labModal .modal-content .modal-body #lab-form textarea{
+#main #labModal .modal-content .modal-body #record-form textarea{
     width: 200px;
     height: 80px;
     margin-right: 30px;
@@ -986,42 +951,42 @@
     display: inline-block;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #xray{
+#main #labModal .modal-content .modal-body #record-form #xray{
     width: 70%;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #differential{
+#main #labModal .modal-content .modal-body #record-form #differential{
     width: 250px;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #def-lab{
+#main #labModal .modal-content .modal-body #record-form #def-lab{
     margin: 0px;
     vertical-align: top;
     display: inline-block;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #definitive{
+#main #labModal .modal-content .modal-body #record-form #definitive{
     margin-left: 8px;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #treatment-label{
+#main #labModal .modal-content .modal-body #record-form #treatment-label{
     width: 300px;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #treatment{
+#main #labModal .modal-content .modal-body #record-form #treatment{
     width: 100%;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #comments{
+#main #labModal .modal-content .modal-body #record-form #comments{
     width: 250px;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #date{
+#main #labModal .modal-content .modal-body #record-form #date{
     width: 250px;
     margin-left: 15px;
 }
 
-#main #labModal .modal-content .modal-body #lab-form #title{
+#main #labModal .modal-content .modal-body #record-form #title{
     width: 250px;
     margin-left: 15px;
 }
@@ -1070,6 +1035,10 @@
     margin: 10px 2%;
     border: 1px solid #d0d0d0;
     display: inline-block;
+}
+
+#main #healthRecordTable thead{
+    text-align: center;
 }
 
 #main #healthRecordTable .btn-view{
@@ -1228,7 +1197,6 @@
     height: 290px;
     margin-top: 10px;
     vertical-align: top;
-    border: 1px solid #d0d0d0;
     display: inline-block;
 }
 
@@ -1237,7 +1205,6 @@
     height: 290px;
     margin-top: 10px;
     vertical-align: top;
-    border: 1px solid #d0d0d0;
     display: inline-block;
 }
 
@@ -1335,7 +1302,6 @@
     width: 100%;
     margin: 0px;
     padding: 0px;
-    border: 1px solid #d0d0d0;
     display: inline-block;
 }
 
@@ -1367,6 +1333,10 @@
     height: 405px;
     margin: 10px 0px;
     display: inline-block;
+}
+
+#main #print-content #mid #system-table thead{
+    text-align: center;
 }
 
 #main #print-content #laboratory{
