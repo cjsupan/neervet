@@ -70,6 +70,54 @@ class Pet extends main_model{
         return history;
     }
 
+    async validate_info(details){
+        
+        let errors = [];
+
+        if(this.empty(details.name)){
+            errors.push('Name Should not be blank');
+        }else if(this.hasnumber(details.name) || this.symbol(details.name)){
+            errors.push('Invalid name');
+        }
+
+        if(this.empty(details.birthdate)){
+            errors.push('Birthdate should not be blank');
+        }
+
+        if(this.empty(details.species)){
+            errors.push('Species should not be blank');
+        }else if(this.hasnumber(details.species) || this.symbol(details.species)){
+            errors.push('Invalid species');
+        }
+
+        if(this.empty(details.breed)){
+            errors.push('Breed should not be blank');
+        }else if(this.hasnumber(details.breed) || this.symbol(details.breed)){
+            errors.push('Invalid breed');
+        }
+
+        if(this.empty(details.sex)){
+            errors.push('Sex should not be blank');
+        }else if(this.hasnumber(details.sex) || this.symbol(details.sex)){
+            errors.push('Invalid sex');
+        }
+
+        if(this.empty(details.color)){
+            errors.push('Color should not be blank');
+        }else if(this.hasnumber(details.color) || this.symbol(details.color)){
+            errors.push('Invalid color');
+        }
+
+        return errors;
+    }
+
+    async update_info(details, id){
+        let query = mysql.format("UPDATE pets SET ? WHERE id = ? ", [details, id]);
+        let result = await this.executeQuery(query);
+
+        return result;
+    }
+
     async deletePet(id){
         let query = mysql.format("DELETE FROM pets WHERE id=?", id);
         let result = await this.executeQuery(query);
@@ -181,21 +229,73 @@ class Pet extends main_model{
 
     async updateLab(details, clientid, petid, systemid){
 
-        let newdetails = {};
-        newdetails.heartworm = details.heartworm;
-        newdetails.skin_scrape = details.skin_scrape;
-        newdetails.ear_mites = details.ear_mites;
-        newdetails.cdv = details.cdv ;
-        newdetails.cpv = details.cpv ;
-        newdetails.fiv = details.fiv ;
-        newdetails.urinalysis = details.urinalysis ;
-        newdetails.fecalysis = details.fecalysis ;
-        newdetails.vaginal_smear = details.vaginal_smear ;
-        newdetails.xray = details.xray ;
-        newdetails.differential = details.differential ;
-        newdetails.definitive = details.definitive ;
-        newdetails.treatment = details.treatment ;
-        newdetails.comments = details.comments;
+        let system = {};
+        system.general_appearance = details.general_appearance;
+        system.teeth_mouth = details.teeth_mouth;
+        system.eyes = details.eyes;
+        system.ears = details.ears;
+        system.skin_coat = details.skin_coat;
+        system.heart_lungs = details.heart_lungs;
+        system.digestive = details.digestive;
+        system.musculoskeletal = details.musculoskeletal;
+        system.nervous = details.nervous;
+        system.lymph = details.lymph;
+        system.urogenitals = details.urogenitals;
+
+        let systemquery = mysql.format("UPDATE systems SET ? WHERE id = ? AND pet_id = ?", [system, systemid, petid]);
+        let systemqueryresult = await this.executeQuery(systemquery);
+
+        let history = {};
+        history.complaint = details.complaint;
+        history.current_med = details.current_med;
+        history.physical_exam = details.physical_exam;
+
+        let historyquery = mysql.format("UPDATE history SET ? WHERE system_pet_id = ? AND system_id = ?", [history, petid, systemid]);
+        let historyqueryresult = await this.executeQuery(historyquery);
+
+        let vitalsign = {};
+        vitalsign.weight = details.weight;
+        vitalsign.temp = details.temp;
+        vitalsign.respiratory_rate = details.respiratory_rate;
+        vitalsign.heart_rate = details.heart_rate;
+        vitalsign.crt = details.crt;
+        vitalsign.mm = details.mm;
+
+        let vitalsignquery = mysql.format("UPDATE vitalsigns SET ? WHERE system_pet_id = ? AND system_id = ?", [vitalsign, petid, systemid]);
+        let vitalsignqueryresult = await this.executeQuery(vitalsignquery);
+
+        let findings = {};
+        findings.general_appearance = details.findings_genapp;
+        findings.teeth_mouth = details.findings_teeth;
+        findings.eyes = details.findings_eyes;
+        findings.ears = details.findings_ears;
+        findings.skin_coat = details.findings_skin;
+        findings.heart_lungs = details.findings_heart;
+        findings.digestive = details.findings_digestive;
+        findings.musculoskeletal = details.findings_muscu;
+        findings.nervous = details.findings_nervous;
+        findings.lymph = details.findings_lymph;
+        findings.urogenitals = details.findings_uro;
+
+        let findingsquery = mysql.format("UPDATE findings SET ? WHERE system_pet_id = ? AND system_id = ? ", [findings, petid, systemid]);
+        let findingsqueryresult = await this.executeQuery(findingsquery);
+
+        let lab = {};
+        lab.heartworm = details.heartworm;
+        lab.skin_scrape = details.skin_scrape;
+        lab.ear_mites = details.ear_mites;
+        lab.cdv = details.cdv ;
+        lab.cpv = details.cpv ;
+        lab.fiv = details.fiv ;
+        lab.urinalysis = details.urinalysis ;
+        lab.fecalysis = details.fecalysis ;
+        lab.vaginal_smear = details.vaginal_smear ;
+        lab.xray = details.xray ;
+        lab.diagnosis_procedure = details.diagnosis_procedure;
+        lab.differential = details.differential ;
+        lab.definitive = details.definitive ;
+        lab.treatment = details.treatment ;
+        lab.comments = details.comments;
 
         let title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
         if(details.next_app != ''){
@@ -203,10 +303,10 @@ class Pet extends main_model{
             let addApp = await this.executeQuery(appointment);
         }
         
+        let labquery = mysql.format("UPDATE laboratory SET ? WHERE system_pet_id = ? AND system_id = ? ", [ lab, petid, systemid]);
+        let labresult = await this.executeQuery(labquery);
 
-        let query = mysql.format("UPDATE laboratory SET ? WHERE system_id = ? AND system_id = ? ", [ newdetails, petid, systemid]);
-        let result = await this.executeQuery(query);
-        return result;
+        return labresult;
     }
 
     async getLab(id){

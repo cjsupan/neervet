@@ -1,7 +1,8 @@
 <h1 class='display-4'>Pet Information</h1>
-<button type='button' id='pet-back' class='btn btn-secondary'>Back</button><br>
+<button type='button' id='pet-back' class='btn btn-secondary'>Back</button>
 <input type='hidden' id='back-to-client' href='/viewClient/<%= client %>'>
 <input type='hidden' id='pet-stay' href='/viewPet/<%= client %>/<%= pet[0].petId %>'>
+<button type='button' id='edit-pet' class='btn btn-primary' data-toggle="modal" data-target="#editPetModal">Edit Profile</button>
 
 <div id='pet-page'>
     <p class='display-4'>Name: <span class='lead'><%= pet[0].name %></span></p>
@@ -38,6 +39,44 @@
     </table>
 </div>
 
+<!-- EDIT PET INFO -->
+
+<div class="modal fade" id="editPetModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="editPetModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editPetModalLabel">Edit Pet Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form id='edit-pet-info' action='/editPetInfo/<%= pet[0].petId %>' method='POST'>
+            <label for='name'>Name: </label>
+            <input type='text' id='name' name='name' class='form-control' value='<%= pet[0].name %>' required><br>
+            <label for='birthdate'>Date of Birth: </label>
+            <input type='date' id='birthdate' name='birthdate' class='form-control datetime-input' value='<%= pet[0].birthdate %>' required><br>
+            <label for='species'>Species: </label>
+            <input type='text' name='species' class='form-control' value='<%= pet[0].species %>' required>
+            <label for='breed'>Breed: </label>
+            <input type='text' id='breed' name='breed' class='form-control' value='<%= pet[0].breed %>' required><br>
+            <label for='sex'>Sex: </label>
+            <input type='text' name='sex' class='form-control' value='<%= pet[0].sex %>' required>
+            <label for='color'>Color: </label>
+            <input type='text' name='color' class='form-control' value='<%= pet[0].color %>' required>
+            <div id='pet-info-errors'></div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id='save-pet-info' class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- VIEW RECORD -->
 <div class="modal fade" id="viewHealthRecordModal" tabindex="-1" role="dialog" aria-labelledby="viewRecordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -64,7 +103,7 @@
 
 <!-- LAB MODAL -->
 <div class="modal fade" id="labModal" tabindex="-1" role="dialog" aria-labelledby="labModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="labModalLabel">Edit Record</h5>

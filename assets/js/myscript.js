@@ -354,13 +354,15 @@ $(document).ready(function(){
 
                             //SAVE LAB RECORD
                             $("#save-lab").on('click', function(){
-                                $.post($('#record-form').attr('action'), $('#lab-form').serialize());
-                                alert('laboratory Updated');
+                                $.post($('#record-form').attr('action'), $('#record-form').serialize(), function(res){
+                                    alert('laboratory Updated');
                 
-                                $('#labModal').modal('hide');
-                                $('#viewHealthRecordModal').modal('hide');
-                                let pet = document.getElementById('pet-stay');
-                                viewPet(pet);
+                                    $('#labModal').modal('hide');
+                                    $('#viewHealthRecordModal').modal('hide');
+                                    let pet = document.getElementById('pet-stay');
+                                    viewPet(pet);
+                                });
+                                
                             });
 
                             $('#pet-back').on('click', function(e){
@@ -389,6 +391,27 @@ $(document).ready(function(){
                         viewPet(this);
 
                     });
+                    //SAVE PET INFORMATION
+                    $(document).on('click', '#save-pet-info', function(){
+                        $.post($('#edit-pet-info').attr('action'), $('#edit-pet-info').serialize(), function(res){
+
+                            if(res.length != 0){
+                                let errors = '';
+                                for(var i=0; i<res.length; i++){
+                                    errors += "<div class='alert alert-warning'>"+res[0]+"</div>";
+                                }
+                                document.getElementById('pet-info-errors').innerHTML = errors;
+                            }else if(res.length === 0){
+                                alert('Pet Information Updated');
+                                $("#editPetModal").modal('hide');
+                                $("#editPetModal").prependTo("body");
+                                document.getElementById('pet-info-errors').innerHTML = '';
+                                var stay = document.getElementById('pet-stay');
+                                viewPet(stay);
+                            }
+                            
+                        });
+                    });
                 });
             }
 
@@ -416,6 +439,8 @@ $(document).ready(function(){
         });
     }
 
+    
+
     //EDIT LAB RECORD
     $(document).on('click','#edit-lab', function(){
         var id = this.value;
@@ -424,11 +449,9 @@ $(document).ready(function(){
         $.get($('#edit-lab').attr('href'), function(res){
             
             document.getElementById('labModalBody').innerHTML = res;
-            // var client_id = res[0].system_pet_client_id;
-            // var action = "/updateLab/"+id+"/"+client_id+"";
+    
             document.getElementById('record-form').setAttribute('action', "updateLab/"+id+"");
            
-            
         });
     });
 

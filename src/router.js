@@ -39,6 +39,7 @@ Router.get("/viewClient/:id", ClientController.view_client);
 
 Router.post("/addPet/:id", PetController.validate_pet);
 Router.get("/viewPet/:clientid/:petid", PetController.view_pet);
+Router.post("/editPetInfo/:id", PetController.edit_pet_info);
 Router.get("/deletePet/:id", PetController.delete_pet);
 
 Router.post("/addPetRecord/:clientid/:petid", PetController.add_pet_record);

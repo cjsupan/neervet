@@ -32,6 +32,17 @@ class Pets{
         res.redirect('/');
     }
 
+    async edit_pet_info(req, res){
+        let validate = await pet_model.validate_info(req.body);
+
+        if(validate.length != 0){
+            res.json(validate);
+        }else{
+            let update = await pet_model.update_info(req.body, req.params.id);
+            res.json([]);
+        }
+    }
+
     async delete_pet_record(req, res){
         let result = await pet_model.deletePetRecord(req.params.systemid, req.params.vitalid, req.params.historyid);
         res.redirect('/');
@@ -39,7 +50,7 @@ class Pets{
 
     async update_lab(req, res){
         let result = await pet_model.updateLab(req.body, req.params.clientid, req.params.petid, req.params.systemid);
-        res.redirect('/');
+        res.json(result);
     }
 
     async get_lab(req, res){
@@ -53,24 +64,23 @@ class Pets{
         
         let petLab = await pet_model.get_pet_lab(req.params.petid, req.params.systemid);
 
-        res.render('editlab', {pet: petInfo, system: petSystem, vitalsign: petVitalsign, history: petHistory, lab: petLab});
+        res.render('partials/editrecord', {pet: petInfo, system: petSystem, vitalsign: petVitalsign, history: petHistory, lab: petLab});
     }
 
     async get_health(req, res){
        
         let petInfo = await pet_model.pet_info(req.params.petid);
-        // console.log('pet Info', petInfo);
 
         let petSystem = await pet_model.pet_system(req.params.petid, req.params.systemid);
-        // console.log('pet system', petSystem);
+        
         let petVitalsign = await pet_model.pet_vitalsign(req.params.petid, req.params.systemid);
-        // console.log('pet vitalsign', petVitalsign);
+        
         let petHistory = await pet_model.pet_history(req.params.petid, req.params.systemid);
-        // console.log('pet history', petHistory);
+        
         let petLab = await pet_model.get_pet_lab(req.params.petid, req.params.systemid);
-        // console.log('pet lab', petLab);
+        
 
-        res.render('printpage', {pet: petInfo, system: petSystem, vitalsign: petVitalsign, history: petHistory, lab: petLab ,user: req.session.name});
+        res.render('partials/healthrecord', {pet: petInfo, system: petSystem, vitalsign: petVitalsign, history: petHistory, lab: petLab ,user: req.session.name});
     }
 }
 
