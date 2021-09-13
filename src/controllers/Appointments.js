@@ -20,7 +20,7 @@ class Appointments{
         let result = await appointment_model.validateAppointment(req.body);
         if(result.length != 0){
             res.json(result);
-        }else if(result == ''){
+        }else if(result.length === 0 ){
             let result = await appointment_model.addAppointment(req.body, req.params.id);
             res.json([]);
         }
@@ -29,6 +29,11 @@ class Appointments{
     async complete_appointment(req, res){
         let result = await appointment_model.completeAppointment(req.params.id);
         res.redirect('/');
+    }
+
+    async get_app_info(req, res){
+        let result = await appointment_model.getAppInfo(req.params.id);
+        res.json(result);
     }
 
     async edit_appointment(req, res){

@@ -103,10 +103,7 @@ class Appointment extends main_model{
         if(this.empty(details.title)){
             errors.push('Title should not be blank');
         }
-        if(this.empty(details.datetime)){
-            errors.push('Date and time should not be blank');
-        }
-        
+
         if(this.empty(details.date_and_time)){
             errors.push('Date and time should not be blank');
         }
@@ -120,7 +117,7 @@ class Appointment extends main_model{
         let complete = 0;
         var title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
     
-        let query = mysql.format('INSERT INTO appointments (client_id, title, date_and_time, notification, complete, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)', [id, title, details.datetime, notify, complete,date, date]);
+        let query = mysql.format('INSERT INTO appointments (client_id, title, date_and_time, notification, complete, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)', [id, title, details.date_and_time, notify, complete,date, date]);
         let result = await this.executeQuery(query);
         return result;
     }
@@ -132,6 +129,13 @@ class Appointment extends main_model{
 
         let query = mysql.format("UPDATE appointments SET ? WHERE id = ?", [update, id]);
         let result = await this.executeQuery(query);
+    }
+
+    async getAppInfo(id){
+        let query = mysql.format("SELECT *, DATE_FORMAT(date_and_time, '%b %e %Y') AS date FROM appointments WHERE id = ?", id);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
     }
 
     async updateAppointment(details, id){

@@ -124,36 +124,38 @@ $(document).ready(function(){
     // EDIT APPOINTMENT
     $(document).on('click', '.edit-appointment', function(e){
         e.preventDefault();
-        var id = $(this).val();
-        
-        var body = $('#editAppModal')[0].children[0].children[0].children[1];
 
-        var form = '';
-            form += "<form id='edit-appointment' action='/editAppointment/"+id+"' method='POST'>";
-            form += "<label for='title'>Title: </label>";
-            form += "<input type='text' name='title' class='form-control'><br>";
-            form += "<label for='datetime'>Date and Time: </label>";
-            form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' class='form-control' required><br>";
-            form += "</form>";
-            form += "<div id='appointment-errors'></div>";
-        body.innerHTML = form;
+        var id = $(this).val();
+        var body = $('#editAppModal')[0].children[0].children[0].children[1];
 
         var dateToday = new Date();
         var dd = String(dateToday.getDate()).padStart(2, '0');
-        var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var mm = String(dateToday.getMonth() + 1).padStart(2, '0');
         var yyyy = dateToday.getFullYear();
         var hour = dateToday.getHours();
         var min = dateToday.getMinutes();
         var sec = dateToday.getSeconds();
                     
         var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
-        document.getElementById('edit-app-date').min = today;
+        
+        $.get($("#app-id").attr('href'), function(res){
+            var form = '';
+                form += "<form id='edit-appointment' action='/editAppointment/"+id+"' method='POST'>";
+                form += "<label for='title'>Title: </label>";
+                form += "<input type='text' name='title' class='form-control' value="+res[0].title+"><br>";
+                form += "<label for='datetime'>Date and Time: </label>";
+                form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' min='"+today+"' class='form-control' required><br>";
+                form += "</form>";
+                form += "<div id='appointment-errors'></div>";
+            body.innerHTML = form;
+        });
+        
     });
 
     $(document).on('click', '#update-app', function(e){
         e.preventDefault();
         $.post($("#edit-appointment").attr('action'), $('#edit-appointment').serialize(), function(res){
-            if(res != 'clear'){
+            if(res.length != 0){
                 var error = '';
                 for(var i=0; i<res.length; i++){
                     error += "<div class='alert alert-warning'>"+res[i]+"</div>";
@@ -266,20 +268,24 @@ $(document).ready(function(){
                     document.getElementById('save-appointment').addEventListener('click', function(e){
                         e.preventDefault();
                         var dateToday = new Date().toDateString();
-                        console.log(dateToday);
-                        console.log(document.getElementById('app-datetime'));
                        
                         $.post($('#appointment-form').attr('action'), $('#appointment-form').serialize(), function(res){
                             
-                            if(res != 'clear'){
-                                var error = "<div class='alert alert-warning' role='alert'>"+ res[0] +" </div>";
-                                document.getElementById('appointment-error').innerHTML = error;
-                            }else if(res.length === [0]){
+                            if(res.length != 0){
+                                var errors = '';
+
+                                for(var i=0; i<res.length; i++){
+                                    errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
+                                }
+                                
+                                document.getElementById('appointment-error').innerHTML = errors;
+                            }else if(res.length === 0){
                                 alert('Appointment added');
                                 $('#appointmentModal').modal('hide');
                             }
                         });
                     });
+
 
                     //ADD PET
                     document.getElementById('save-pet').addEventListener('click', function(e){
@@ -413,6 +419,7 @@ $(document).ready(function(){
                         });
                     });
                 });
+                
             }
 
             //DELETE CLIENT
@@ -435,11 +442,29 @@ $(document).ready(function(){
                 viewClient(this);
                 
             });
+            // EDIT PROFILE
+            $(document).on('click', '#save-client-info', function(){
+                $.post($("#edit-client-form").attr('action'), $("#edit-client-form").serialize(), function(res){
+
+                    if(res.length != 0){
+                        let errors = '';
+                        for(var i=0; i<res.length; i++){
+                            errors += "<div class='alert alert-warning'>"+res[i]+"</div>";
+                        }
+                        document.getElementById('client-errors').innerHTML = errors;
+                    }else{
+                        alert("Profile Updated");
+                        $("#editClientModal").modal('hide');
+                        var stay = document.getElementById("client-stay");
+                        viewClient(stay);
+                    }
+
+                });
+            });
 
         });
     }
 
-    
 
     //EDIT LAB RECORD
     $(document).on('click','#edit-lab', function(){
@@ -457,20 +482,29 @@ $(document).ready(function(){
 
     $(document).on('click', '#print-now', function(){
         var restorepage = document.body.innerHTML;
-        var printcontent = document.getElementById('print-content').innerHTML;
+        var printcontent = document.getElementById('pet-report').innerHTML;
         document.body.innerHTML = printcontent;
         window.print();
         location.reload();
 
     });
     
-    $(document).on('click', '#view-health', function(){
+    //VIEW PET HEALTH RECORD
+    $(document).on('click', '.view-health', function(){
         $.get($(this).attr('href'), function(res){
-            document.getElementById('print-content').innerHTML = res;
+            document.getElementById('record-content').innerHTML = res;
             
         });
         var petIdsystemId = $(this).val();
         document.getElementById('edit-lab').value = petIdsystemId;
+    });
+
+    // VIEW PET REPORT
+    $(document).on('click', '.view-report', function(){
+        console.log(document.getElementById('pet-report'));
+        $.get($(this).attr('href'), function(res){
+            document.getElementById('pet-report').innerHTML = res;
+        });
     });
 
     //SAVE CLIENT

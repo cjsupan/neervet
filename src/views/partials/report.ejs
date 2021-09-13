@@ -1,0 +1,13 @@
+<div id='head'>
+    <img src='img/logo.png'><br>
+    <h1 class='display-1'>Clinical Report</h1>
+</div>
+ <p class='lead'>Date of Examination: <span class='lead'><%= report[0].exam_date %></span></p>
+ <p class='lead'>Examining Vet: <span class='lead'>Dr. <%= report[0].exam_vet%></span></p>
+ <p class='lead'>Client Information: <span class='lead'><%= report[0].owner %>; <%= report[0].address %>; <%= report[0].contact %></span></p>
+ <p class='lead'>Patient Information: <span class='lead'><%= report[0].name %>; <%= report[0].sex %>; <%= report[0].breed %>; <%= report[0].age %>; <%= report[0].weight %>; <%= report[0].color %></span></p>
+ <p class='lead'>Presenting Signs/ Complaint: <span class='lead'><%= report[0].complaint %></span></p>
+ <p class='lead'>Diagnostic Procedure: <span class='lead'><%= report[0].diagnosis_procedure %></span></p>
+ <p class='lead'>Definitive Diagnosis: <span class='lead'><%= report[0].difinitive %></span></p>
+ <p class='lead'>Treatment: <span class='lead'><%= report[0].treatment %></span></p>
+ <p class='lead'>Take Home Medicine: <span class='lead'></span></p>

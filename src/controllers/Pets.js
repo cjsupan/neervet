@@ -17,6 +17,12 @@ class Pets{
         res.redirect('/');
     }
 
+    async get_report(req, res){
+        let report = await pet_model.getReport(req.params.petid, req.params.systemid);
+        
+        res.render('partials/report', {report: report});
+    }
+
     async view_pet(req, res){
         let petInfo = await pet_model.pet_info(req.params.petid);
 

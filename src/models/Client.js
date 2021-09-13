@@ -31,19 +31,19 @@ class Client extends main_model{
 
     async validateClient(details){
         let errors = [];
-        if(this.hasnumber(details.firstname) || this.symbol(details.firstname)){
+        if(this.hasnumber(details.first_name) || this.symbol(details.first_name)){
             errors.push('Invalid First name');
         }
 
-        if(this.hasnumber(details.lastname) || this.symbol(details.lastname)){
+        if(this.hasnumber(details.last_name) || this.symbol(details.last_name)){
             errors.push('Invalid Last name');
         }
 
-        if(this.empty(details.firstname)){
+        if(this.empty(details.first_name)){
             errors.push('First name should not be blank');
         }
 
-        if(this.empty(details.lastname)){
+        if(this.empty(details.last_name)){
             errors.push('Last name should not be blank');
         }
 
@@ -76,6 +76,13 @@ class Client extends main_model{
         return result;
     }
 
+    async updateClient(details, id){
+        let query = mysql.format("UPDATE clients SET ? WHERE id = ?", [details, id]);
+        let result = await this.executeQuery(query);
+
+        return result;
+    }
+
     async deleteClient(id){
         let query = mysql.format('DELETE FROM clients WHERE id = ?', id);
         let result = await this.executeQuery(query);
@@ -102,7 +109,7 @@ class Client extends main_model{
     }
 
     async viewClient(id){
-        let query = mysql.format('SELECT id, CONCAT(first_name, " ",last_name) as name, address, contact  FROM clients WHERE id=?', id);
+        let query = mysql.format('SELECT id, first_name, last_name,  CONCAT(first_name, " ",last_name) as name, email, address, contact  FROM clients WHERE id = ?', id);
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }

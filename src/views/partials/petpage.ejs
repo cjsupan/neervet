@@ -2,10 +2,10 @@
 <button type='button' id='pet-back' class='btn btn-secondary'>Back</button>
 <input type='hidden' id='back-to-client' href='/viewClient/<%= client %>'>
 <input type='hidden' id='pet-stay' href='/viewPet/<%= client %>/<%= pet[0].petId %>'>
-<button type='button' id='edit-pet' class='btn btn-primary' data-toggle="modal" data-target="#editPetModal">Edit Profile</button>
 
 <div id='pet-page'>
-    <p class='display-4'>Name: <span class='lead'><%= pet[0].name %></span></p>
+    <p class='display-4' id='name'>Name: <span class='lead'><%= pet[0].name %></span></p>
+    <button type='button' id='edit-pet' class='btn btn-primary btn-sm' data-toggle="modal" data-target="#editPetModal">Edit Profile</button>
     <p class='display-4'>Age: <span class='lead'><%= pet[0].age %></span></p>
     <p class='display-4'>Birthday: <span class='lead'><%= pet[0].birthdate %></span></p>
     <p class='display-4'>Sex: <span class='lead'><%= pet[0].sex %></span></p>
@@ -30,8 +30,8 @@
                 <td><%= system[i].exam_vet %></td>
                 <td><%= system[i].created_date %></td>
                 <td class='btn-view'>
-                    <button id='view-health' class='btn btn-success' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
-                    
+                    <button class='btn btn-success view-health' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
+                    <button type='button' class='btn btn-primary view-report' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">Report</button>
                 </td>
             </tr>
             <% }%>
@@ -40,7 +40,6 @@
 </div>
 
 <!-- EDIT PET INFO -->
-
 <div class="modal fade" id="editPetModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="editPetModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -88,7 +87,7 @@
                 </button>
             </div>
             <div id='print-modal' class="modal-body print-modal-body">
-                <div id='print-content'>
+                <div id='record-content'>
 
                 </div>
             </div>
@@ -99,6 +98,27 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- VIEW PET REPORT -->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reportModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id='pet-report' class="modal-body ">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id='print-now' class="btn btn-primary">Print</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- LAB MODAL -->

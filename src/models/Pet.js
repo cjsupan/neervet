@@ -170,18 +170,19 @@ class Pet extends main_model{
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
-        
     }
 
     async pet_lab(petid){
         let query = mysql.format("SELECT * FROM laboratory WHERE system_pet_id = ? ORDER BY created_at DESC", petid);
         let result = await this.executeQuery(query);
+
         return JSON.parse(JSON.stringify(result));
     }
 
     async get_pet_lab(petid, systemid){
         let query = mysql.format("SELECT * FROM laboratory WHERE system_pet_id = ? AND system_id = ? ORDER BY system_id DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
+
         return JSON.parse(JSON.stringify(result));
     }
 
@@ -206,7 +207,6 @@ class Pet extends main_model{
 
         let history = mysql.format("INSERT INTO history (system_id, system_pet_id, system_pet_client_id, complaint, current_med, physical_exam, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[systemid, petId, clientId, details.complainthistory, details.currentmed, details.physicalexam, details.datetime, date]);
         let historyresult = await this.executeQuery(history);
-
 
         return historyresult;
     }
@@ -298,6 +298,7 @@ class Pet extends main_model{
         lab.comments = details.comments;
 
         let title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
+        
         if(details.next_app != ''){
             let appointment = mysql.format("INSERT INTO appointments (client_id, title, date_and_time) VALUES(?, ?, ?)", [clientid, title, details.next_app]);
             let addApp = await this.executeQuery(appointment);
@@ -314,6 +315,43 @@ class Pet extends main_model{
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
+    }
+
+    async getReport(petid, systemid){
+        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.sex, pets.breed, DATE_FORMAT(pets.birthdate, '%Y-%m-%d') as birthdate, pets.color, systems.id as systemid, systems.exam_vet, vitalsigns.weight, history.complaint, laboratory.diagnosis_procedure, laboratory.definitive, laboratory.treatment, DATE_FORMAT(laboratory.created_at, '%M %d, %Y') as exam_date FROM clients LEFT JOIN pets ON clients.id = pets.client_id LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN vitalsigns ON systems.pet_id = vitalsigns.system_pet_id LEFT JOIN history  ON vitalsigns.system_pet_id = history.system_pet_id LEFT JOIN laboratory ON history.system_pet_id = laboratory.system_pet_id WHERE pets.id = ? AND systems.id = ? GROUP BY pets.id", [petid, systemid]);
+        let result = await this.executeQuery(query);
+        let info = JSON.parse(JSON.stringify(result));
+
+        var years = new Date(new Date() - new Date(info[0].birthdate)).getFullYear() - 1970;
+
+        if(years <= 0){
+            let newdate = info[0].birthdate;
+            let newnewdate = newdate.split('-');
+
+            var start_date = new Date(newnewdate[0], newnewdate[1], newnewdate[2]);
+            var year = new Date().getFullYear();
+            var month = new Date().getMonth();
+            var day = new Date().getDay();
+
+            var end_date = new Date(new Date(year, month, day));
+            var total_months = (end_date.getFullYear() - start_date.getFullYear())*12 + (end_date.getMonth() - start_date.getMonth());
+            
+            if(total_months > 1){
+                info[0].age = total_months.toString() + ' Months Old';
+            }else{
+                info[0].age = total_months.toString() + ' Month Old';
+            }
+            
+        }else{
+            if(years > 1 ){
+                info[0].age = years.toString() + " years old";
+            }
+            else{
+                info[0].age = years.toString() + " year old";
+            }
+        }
+
+        return info;
     }
 
     // async getRecord(petid, systemid){

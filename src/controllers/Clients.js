@@ -24,6 +24,17 @@ class Clients{
         }
     }
 
+    async update_client(req, res){
+        let validate = await client_model.validateClient(req.body);
+        
+        if(validate.length != 0){
+            res.json(validate);
+        }else{
+            let update = await client_model.updateClient(req.body, req.params.id);
+            res.json([]);
+        }
+    }
+
     async delete_client(req, res){
         let result = await client_model.deleteClient(req.params.id);
         res.redirect('/');

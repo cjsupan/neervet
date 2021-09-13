@@ -31,6 +31,7 @@
                 <td><%=app[i].title %></td>
                 <td><%=app[i].contact %></td>
                 <td><%=app[i].date %></td>
+                <input type='hidden' id='app-id' href='/getAppInfo/<%= app[i].id %>'>
                 <td><button type='button' class='btn btn-success edit-appointment' value='<%= app[i].id %>' data-toggle="modal" data-target="#editAppModal">Edit</button><button type='button' class='btn btn-danger delete-appointment' href='/deleteAppointment/<%= app[i].id %>'>Delete</button></td>
             </tr>
         <% } %>
