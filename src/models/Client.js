@@ -69,8 +69,8 @@ class Client extends main_model{
     async addClient(details){
 
         let date = new Date();
-        var firstname = details.firstname.charAt(0).toUpperCase() + details.firstname.slice(1);
-        var lastname = details.lastname.charAt(0).toUpperCase() + details.lastname.slice(1);
+        var firstname = details.first_name.charAt(0).toUpperCase() + details.first_name.slice(1);
+        var lastname = details.last_name.charAt(0).toUpperCase() + details.last_name.slice(1);
         let query = mysql.format('INSERT INTO clients (first_name, last_name, email, contact, address, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)', [firstname, lastname, details.email, details.contact, details.address, date, date]);
         let result = await this.executeQuery(query);
         return result;

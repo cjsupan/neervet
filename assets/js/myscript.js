@@ -397,6 +397,7 @@ $(document).ready(function(){
                         viewPet(this);
 
                     });
+
                     //SAVE PET INFORMATION
                     $(document).on('click', '#save-pet-info', function(){
                         $.post($('#edit-pet-info').attr('action'), $('#edit-pet-info').serialize(), function(res){
@@ -418,6 +419,8 @@ $(document).ready(function(){
                             
                         });
                     });
+
+                   
                 });
                 
             }
@@ -465,6 +468,12 @@ $(document).ready(function(){
         });
     }
 
+     // PRINT REPORT
+     $(document).on('click', '#print-now', function(){
+                        
+        $("#pet-report").printThis();
+
+    });
 
     //EDIT LAB RECORD
     $(document).on('click','#edit-lab', function(){
@@ -474,20 +483,22 @@ $(document).ready(function(){
         $.get($('#edit-lab').attr('href'), function(res){
             
             document.getElementById('labModalBody').innerHTML = res;
+            var dateToday = new Date();
+            var dd = String(dateToday.getDate()).padStart(2, '0');
+            var mm = String(dateToday.getMonth() + 1).padStart(2, '0');
+            var yyyy = dateToday.getFullYear();
+            var hour = dateToday.getHours();
+            var min = dateToday.getMinutes();
+            var sec = dateToday.getSeconds();
+                        
+            var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+            document.getElementById('next-app').min = today;
     
             document.getElementById('record-form').setAttribute('action', "updateLab/"+id+"");
            
         });
     });
 
-    $(document).on('click', '#print-now', function(){
-        var restorepage = document.body.innerHTML;
-        var printcontent = document.getElementById('pet-report').innerHTML;
-        document.body.innerHTML = printcontent;
-        window.print();
-        location.reload();
-
-    });
     
     //VIEW PET HEALTH RECORD
     $(document).on('click', '.view-health', function(){

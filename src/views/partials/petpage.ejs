@@ -30,8 +30,8 @@
                 <td><%= system[i].exam_vet %></td>
                 <td><%= system[i].created_date %></td>
                 <td class='btn-view'>
-                    <button class='btn btn-success view-health' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
-                    <button type='button' class='btn btn-primary view-report' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">Report</button>
+                    <button type='button' class='btn btn-success view-health' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
+                    <button type='button' class='btn btn-primary view-report' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">Report</button>
                 </td>
             </tr>
             <% }%>
@@ -105,7 +105,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="reportModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="reportModalLabel">Report</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -170,7 +170,7 @@
                     <label for='weight'>Weight/BCS: </label>
                     <input type='text' name='weight' class='form-control vitalsign'>
                     <label for='temp'>Temp: </label>
-                    <input type='text' name='temp' class='form-control vitalsign'>
+                    <input type='number' name='temp' class='form-control vitalsign'>
                     <label for='resprate'>Resp. rate: </label>
                     <input type='text' name='resprate' class='form-control vitalsign'>
                     <label for='heartrate'>Heart rate: </label>

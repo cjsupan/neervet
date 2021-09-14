@@ -1,17 +1,17 @@
 <form id='record-form' action='' method='POST'>
 
     <label for='weight' class='vitalsign-label'>Weight: </label>
-    <input type='number' name='weight' class='form-control vitalsign-input' value='<%= vitalsign[0].weight %>'>
+    <input type='text' name='weight' class='form-control vitalsign-input' value='<%= vitalsign[0].weight %>'>
     <label for='temp' class='vitalsign-label'>Temp: </label>
-    <input type='number' name='temp' class='form-control vitalsign-input' value='<%= vitalsign[0].temp %>'>
+    <input type='text' name='temp' class='form-control vitalsign-input' value='<%= vitalsign[0].temp %>'>
     <label for='resp' id='resp' class='vitalsign-label'>Respiratory rate: </label>
-    <input type='number' name='respiratory_rate' class='form-control vitalsign-input' value='<%= vitalsign[0].respiratory_rate %>'>
+    <input type='text' name='respiratory_rate' class='form-control vitalsign-input' value='<%= vitalsign[0].respiratory_rate %>'>
     <label for='heart' id='heart' class='vitalsign-label'>Heart rate: </label>
-    <input type='number' name='heart_rate' class='form-control vitalsign-input' value='<%= vitalsign[0].heart_rate %>'>
+    <input type='text' name='heart_rate' class='form-control vitalsign-input' value='<%= vitalsign[0].heart_rate %>'>
     <label for='crt' class='vitalsign-label'>CRT: </label>
-    <input type='number' name='crt' class='form-control vitalsign-input' value='<%= vitalsign[0].crt %>'>
+    <input type='text' name='crt' class='form-control vitalsign-input' value='<%= vitalsign[0].crt %>'>
     <label for='mm' class='vitalsign-label'>MM: </label>
-    <input type='number' name='mm' class='form-control vitalsign-input' value='<%= vitalsign[0].mm %>'><br>
+    <input type='text' name='mm' class='form-control vitalsign-input' value='<%= vitalsign[0].mm %>'><br>
     <label for='complaint'>Complaints/Concerns/History: </label><br>
     <textarea id='complaint' name='complaint' class='form-control' ><%= history[0].complaint %></textarea><br>
     <label for='current_med' id='currentmed-label'>Current Medication: </label>
@@ -244,9 +244,15 @@
     <label for='differential'>Differential diagnosis: </label>
     <input type='text' name='differential' id='differential' class='form-control lab-input' value='<%= lab[0].differential %>'><br>
     <label for='definitive' id='def-lab' class='lab-textarea'>Definitive diagnosis: </label>
-    <textarea name='definitive' id='definitive' class='form-control'><%= lab[0].differential %></textarea><br><br>
-    <label for='treatment' id='treatment-label' class='lab-textarea'>Treatment and Prescribed Medicine: </label><br>
-    <textarea name='treatment' id='treatment' class='form-control'><%= lab[0].definitive %></textarea><br>
+    <textarea name='definitive' id='definitive' class='form-control'><%= lab[0].difinitive %></textarea><br><br>
+    <label for='treatment' id='treatment-label' class='lab-textarea'>Treatment: </label>
+    <label for='prescribed' id='prescribed-label' class='lab-textarea'>Precribed Medicine: </label><br>
+    <textarea name='treatment' id='treatment' class='form-control'><%= lab[0].treatment %></textarea>
+    <textarea name='prescribed' id='prescribed' class='form-control'><%= lab[0].prescribed_med %></textarea><br>
     <label for='comments'>Comments/Remarks: </label>
     <input type='text' name='comments' id='comments' class='form-control lab-input' value='<%= lab[0].comments %>'><br>
+    <label for='next_app'>Next Appointment: </label>
+    <input type='datetime-local' id='next-app' name='next_app' class='form-control'>
+    <label for='title'>Title: </label>
+    <input type='text' id='title' name='title' class='form-control'>
 </form>

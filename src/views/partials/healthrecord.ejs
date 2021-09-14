@@ -130,7 +130,9 @@
 <textarea id='diagnosis-procedure' class='form-control' readonly><%= lab[0].diagnosis_procedure %></textarea>
 <p class='lead diagnosis'>Differential diagnosis: <span class='lead'><%= lab[0].differential %></span></p>
 <p class='lead diagnosis'>Definitive diagnosis: <span class='lead'><%= lab[0].definitive%></span></p><br>
-<p class='lead'>Treatment and Prescribed Medicine: </p><br>
-<textarea id='treatment' class='form-control' readonly><%= lab[0].treatment %></textarea><br>
+<p id='treatment-label' class='lead'>Treatment: </p>
+<p id='prescribed-label' class='lead'>Prescribed Medicine: </p><br>
+<textarea id='treatment' class='form-control' readonly><%= lab[0].treatment %></textarea>
+<textarea id='prescribed' class='form-control' readonly><%= lab[0].prescribed_med %></textarea><br>
 <p class='lead'>Comments/Remarks: </p><br>
 <textarea id='comments' class='form-control' readonly><%= lab[0].comments %></textarea>

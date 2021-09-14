@@ -202,7 +202,7 @@ class Pet extends main_model{
         let findings = mysql.format("INSERT INTO findings (system_id, system_pet_id, system_pet_client_id, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.genappfindings, details.teethmouthfindings, details.eyesfindings, details.earsfindings, details.skincoatfindings, details.heartlungsfindings, details.digestivefindings, details.musculoskeletalfindings, details.nervousfindings, details.lymphfindings, details.urogenitalsfindings, details.datetime, date]);
         let findingsresult = await this.executeQuery(findings);
 
-        let lab = mysql.format("INSERT INTO laboratory (system_id, system_pet_id, system_pet_client_id, heartworm, skin_scrape, ear_mites, cdv, cpv, fiv, vaginal_smear, urinalysis, fecalysis, xray, differential, definitive, treatment, comments, created_at, updated_at) VALUES(?, ?, ?, '', '', '', '', '', '', '', '', '', '', '', '', '', '', ?, ?)", [systemid, petId, clientId, date, date]);
+        let lab = mysql.format("INSERT INTO laboratory (system_id, system_pet_id, system_pet_client_id, heartworm, skin_scrape, ear_mites, cdv, cpv, fiv, vaginal_smear, urinalysis, fecalysis, xray, differential, definitive, treatment, prescribed_med, comments, created_at, updated_at) VALUES(?, ?, ?, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ?, ?)", [systemid, petId, clientId, date, date]);
         let labresult = await this.executeQuery(lab);
 
         let history = mysql.format("INSERT INTO history (system_id, system_pet_id, system_pet_client_id, complaint, current_med, physical_exam, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[systemid, petId, clientId, details.complainthistory, details.currentmed, details.physicalexam, details.datetime, date]);
@@ -294,7 +294,8 @@ class Pet extends main_model{
         lab.diagnosis_procedure = details.diagnosis_procedure;
         lab.differential = details.differential ;
         lab.definitive = details.definitive ;
-        lab.treatment = details.treatment ;
+        lab.treatment = details.treatment;
+        lab.prescribed_med = details.prescribed;
         lab.comments = details.comments;
 
         let title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
@@ -318,7 +319,8 @@ class Pet extends main_model{
     }
 
     async getReport(petid, systemid){
-        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.sex, pets.breed, DATE_FORMAT(pets.birthdate, '%Y-%m-%d') as birthdate, pets.color, systems.id as systemid, systems.exam_vet, vitalsigns.weight, history.complaint, laboratory.diagnosis_procedure, laboratory.definitive, laboratory.treatment, DATE_FORMAT(laboratory.created_at, '%M %d, %Y') as exam_date FROM clients LEFT JOIN pets ON clients.id = pets.client_id LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN vitalsigns ON systems.pet_id = vitalsigns.system_pet_id LEFT JOIN history  ON vitalsigns.system_pet_id = history.system_pet_id LEFT JOIN laboratory ON history.system_pet_id = laboratory.system_pet_id WHERE pets.id = ? AND systems.id = ? GROUP BY pets.id", [petid, systemid]);
+        
+        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.sex, pets.breed, DATE_FORMAT(pets.birthdate, '%Y-%m-%d') as birthdate, pets.color, systems.id as systemid, systems.exam_vet, vitalsigns.weight, history.complaint, laboratory.diagnosis_procedure, laboratory.definitive, laboratory.treatment, laboratory.prescribed_med ,DATE_FORMAT(laboratory.created_at, '%M %d, %Y') as exam_date FROM clients LEFT JOIN pets ON clients.id = pets.client_id LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN vitalsigns ON systems.pet_id = vitalsigns.system_pet_id LEFT JOIN history  ON vitalsigns.system_pet_id = history.system_pet_id LEFT JOIN laboratory ON history.system_pet_id = laboratory.system_pet_id WHERE laboratory.system_pet_id = ? AND laboratory.system_id = ? GROUP BY pets.id", [petid, systemid]);
         let result = await this.executeQuery(query);
         let info = JSON.parse(JSON.stringify(result));
 
