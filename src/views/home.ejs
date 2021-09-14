@@ -5,17 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Neervet Animal Clinic</title>
-    <link rel="icon" href="img/web-icon.png">
+    <link rel="icon" href="img/logo.png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <script src='js/printThis.js'></script>
     <script src="js/myscript.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-default">
+        <div id='logo'></div>
         <a class="navbar-brand" id='to-dashboard' href="/home">Neervet Animal Clinic</a>
-        <div id='user-logout'>
-            </span><a class='lead' href='/logout'>Logout</a>
+        <div id='user-nav'>
+            <p class='lead'>Welcome, </p>
+            <a class='text-info dropdown-toggle' id='userDropdown' role='button' data-toggle='dropdown'><%= username%> <span id='username'> (<%= userlevel %>)</span></a>
+            <ul class='dropdown-menu' aria-labelledby="userDropdown">
+                <li> <a id='edit-profile' class="dropdown-item" href="/editProfile">Edit Profile</a></li>
+                <li> <a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
         </div>
     </nav>
 
@@ -24,19 +31,10 @@
         <div id='sidenav'>
             <div id='navigation'>
                 <ul>
-                    
-                    <a class='sub-name'>USER LOGGED</a>
-                    <li class='sub-menu'>
-                        <a id='admin' class='lead'><img src='img/profile.png'><%= user %><img id='down-arrow' src='img/down-arrow.png'></a>
-                        <ul>
-                            <li><a id='edit-profile' href='/editProfile'><img src='img/edit.png'>Edit Profile</a></li>
-                            
-                        </ul>
-                    </li>
-                    <a class='sub-name'>SYSTEM</a>
-                    <li><a id='dashboard' class='lead' href='/'><img src='img/dashboard.png'>Dashboard</a></li>
-                    <li><a id='appointment' class='lead' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
-                    <li><a id='client' class='lead' href='/client'><img src='img/profile.png'>Clients</a></li>
+                        <a class='sub-name'>SYSTEM</a>
+                        <li><a id='dashboard' class='lead' href='/home'><img src='img/dashboard.png'>Dashboard</a></li>
+                        <li><a id='client' class='lead clients' href='/client'><img src='img/clients.png'>Manage Clients</a></li>
+                        <li><a id='appointment' class='lead' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
                 </ul>
             </div>
             
@@ -44,31 +42,19 @@
         <div id='main'>
             <h1 class='display-4'>Dashboard</h1>
             <div id='main-top'>
-                <div id='subadmin' class='main-box'>
+                
+                <div id='clients' class='main-box clients'>
                     <img src='img/people.png' class='icon'>
-                    <p class='lead lead-num'>1</p>
-                    <p class='lead lead-name'>Subadmin</p>
-                </div>
-                <div id='dogs' class='main-box'>
-                    <img src='img/dogs.png' class='icon'>
-                    <p class='lead lead-num'>2</p>
-                    <p class='lead lead-name'>Dogs</p>
-                </div>
-                <div id='cats' class='main-box'>
-                    <img src='img/cats.png' class='icon'>    
-                    <p class='lead lead-num'>3</p>
-                    <p class='lead lead-name'>Cats</p>
-                </div> 
-                <div id='clients' class='main-box'>
-                    <img src='img/profile.png' class='icon'>
                     <p class='lead lead-num'><%= clients[0].clients %></p>
                     <p class='lead lead-name'>Clients</p>
-                </div> 
+                </div>  
+                
                 <div id='appointments-today' class='main-box'>
-                    <img src='img/appointment.png' class='icon'>
+                    <input type='hidden' id='app-today' href='/appointmentsToday'>
+                    <img src='img/apptoday.png' class='icon'>
                     <p class='lead lead-num'><%= app[0].apps %></p>
                     <p class='lead lead-name'>Appointments Today</p>
-                </div>  
+                </div>   
 
             </div>
             

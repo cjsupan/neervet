@@ -1,148 +1,137 @@
 <h1 class='display-4'>Pet Information</h1>
-<button type='button' id='pet-back' class='btn btn-secondary'>Back</button><br>
+<button type='button' id='pet-back' class='btn btn-secondary'>Back</button>
 <input type='hidden' id='back-to-client' href='/viewClient/<%= client %>'>
 <input type='hidden' id='pet-stay' href='/viewPet/<%= client %>/<%= pet[0].petId %>'>
 
 <div id='pet-page'>
-    <p class='display-4'>Patient's name: <span class='lead'><%= pet[0].name %></span></p>
+    <p class='display-4' id='name'>Name: <span class='lead'><%= pet[0].name %></span></p>
+    <button type='button' id='edit-pet' class='btn btn-primary btn-sm' data-toggle="modal" data-target="#editPetModal">Edit Profile</button>
     <p class='display-4'>Age: <span class='lead'><%= pet[0].age %></span></p>
     <p class='display-4'>Birthday: <span class='lead'><%= pet[0].birthdate %></span></p>
-    <p class='display-4'>Gender: <span class='lead'><%= pet[0].sex %></span></p>
+    <p class='display-4'>Sex: <span class='lead'><%= pet[0].sex %></span></p>
     <p class='display-4'>Color: <span class='lead'><%= pet[0].color %></span></p>
     <p class='display-4'>Owner's name: <span class='lead'><%= pet[0].owner %></span></p>
 </div>
 <button type='button' id='add-pet-record' class='btn btn-primary' data-toggle="modal" data-target="#petRecordModal"> <span>+</span> Record</button><br>
-<div id='health-record'>
-    <h1 class='display-3'>Health Record</h1>
-    <% for(var i=0; i< system.length; i++){ %>
-    <div class='date' id='<%= system[i].systemId %>'><span class='date-label'><%= system[i].created_date %></span></div>
-    <div class='record <%= system[i].systemId %>'>
-        <div class='pet-vitalsign'>
-            <p class='display-4'>Examining Vet: <span class='lead'><%= system[i].examvet %></span></p><br>
-            <p class='display-4'>Weight: <span class='lead'><%= vitalsign[i].weight %></span></p>
-            <p class='display-4'>Temp: <span class='lead'><%= vitalsign[i].temp %></span></p>
-            <p class='display-4'>Respiratory rate: <span class='lead'><%= vitalsign[i].respiratory_rate %></span></p>
-            <p class='display-4'>Heart rate: <span class='lead'><%= vitalsign[i].heart_rate %></span></p>
-            <p class='display-4'>CRT: <span class='lead'><%= vitalsign[i].crt %></span></p>
-            <p class='display-4'>MM: <span class='lead'><%= vitalsign[i].mm %></span></p><br>
-            <p class='display-3'>Complaints/Concern/History:</p>
-            <p class='display-3'>Current Medication</p>
-            <p class='display-3' id='physicalexam-label'>Physical Exam:</p><br>
-            <textarea readonly id='complaint'><%= history[i].complaint %></textarea>
-            <textarea readonly id='currentmed'><%= history[i].current_med %></textarea>
-            <textarea readonly><%= history[i].physical_exam %></textarea><br>
-
-            <table class='table table-bordered table-sm'>
-                <thead class='table-dark'>
-                    <tr>
-                        <th>System</th>
-                        <th>Condition</th>
-                        <th>Findings/Comment</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>General Appearance</td>
-                        <td><%= system[i].general_appearance %></td>
-                        <td><%= system[i].findings_genapp %></td>
-                    </tr>
-                    <tr>
-                        <td>Teeth/Mouth</td>
-                        <td><%= system[i].teeth_mouth %></td>
-                        <td><%= system[i].findings_teeth %></td>
-                    </tr>
-                    <tr>
-                        <td>Eyes</td>
-                        <td><%= system[i].eyes %></td>
-                        <td><%= system[i].findings_eyes %></td>
-                    </tr>
-                    <tr>
-                        <td>Ears</td>
-                        <td><%= system[i].ears %></td>
-                        <td><%= system[i].findings_ears %></td>
-                    </tr>
-                    <tr>
-                        <td>Skin/Coat</td>
-                        <td><%= system[i].skin_coat %></td>
-                        <td><%= system[i].findings_skin %></td>
-                    </tr>
-                    <tr>
-                        <td>Heart/Lungs</td>
-                        <td><%= system[i].heart_lungs %></td>
-                        <td><%= system[i].findings_heart %></td>
-                    </tr>
-                    <tr>
-                        <td>Digestive</td>
-                        <td><%= system[i].digestive %></td>
-                        <td><%= system[i].findings_digestive %></td>
-                    </tr>
-                    <tr>
-                        <td>Musculoskeletal</td>
-                        <td><%= system[i].musculoskeletal %></td>
-                        <td><%= system[i].findings_muscu %></td>
-                    </tr>
-                    <tr>
-                        <td>Nervous</td>
-                        <td><%= system[i].nervous %></td>
-                        <td><%= system[i].findings_nervous %></td>
-                    </tr>
-                    <tr>
-                        <td>Lymph nodes</td>
-                        <td><%= system[i].lymph %></td>
-                        <td><%= system[i].findings_lymph %></td>
-                    </tr>
-                    <tr>
-                        <td>Urogenitals</td>
-                        <td><%= system[i].urogenitals %></td>
-                        <td><%= system[i].findings_uro %></td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-        </div>
-        <div id='laboratory' >
-            <p class='display-3'>Laboratory test</p>
-            <button type='button' class='btn btn-primary edit-lab' data-toggle="modal" data-target="#labModal" value='<%= lab[i].id %>'>Edit</button><br>
-            <p class='display-4'>Heartworm test: <span class='lead'><%= lab[i].heartworm %></span></p>
-            <p class='display-4'>Skin scrape: <span class='lead'><%= lab[i].skin_scrape %></span></p>
-            <p class='display-4'>Ear mites/Ear cytology: <span class='lead'><%= lab[i].ear_mites %></span></p><br>
-            <p class='display-4'>CDV: <span class='lead'><%= lab[i].cdv %></span></p>
-            <p class='display-4'>CPV: <span class='lead'><%= lab[i].cpv %></span></p>
-            <p class='display-4'>FIV/FeLV test: <span class='lead'><%= lab[i].fiv %></span></p><br>
-            <p class='display-4 lab-textarea'>Urinalysis: </p>
-            <p class='display-4 lab-textarea'>Fecalysis: </p>
-            <p class='display-4 lab-textarea'>Vaginal smear: </p><br>
-            <textarea readonly><%= lab[i].urinalysis %></textarea>
-            <textarea readonly><%= lab[i].fecalysis %></textarea>
-            <textarea readonly><%= lab[i].vaginal_smear %></textarea><br>
-            <p class='display-4 lab-textarea'>Xray: </p><br>
-            <textarea class='xray' readonly><%= lab[i].xray %></textarea><br>
-            <p class='display-4'>Differential diagnosis: <span class='lead'><%= lab[i].differential %></span></p></br>
-            <p class='display-4 definitive'>Definitive diagnosis:</p>
-            <textarea readonly><%= lab[i].definitive %></textarea><br>
-            <p class='display-4'>Treatment and Prescribed Medicine: </p><br>
-            <textarea class='treatment' readonly><%= lab[i].treatment %></textarea><br>
-            <p class='display-4'>Comments/Remarks: <span class='lead'><%= lab[i].comments %></span></p><br>
-            <p class='display-4'>Next Appointment: <span class='lead'><%= lab[i].next_app %></span></p>
-
-        </div>
-        
-    </div>
-    <% } %>
+<h1 class='display-3 h1-healthrecord'>Health Records</h1>
+<div id='healthRecordTable'>
+    
+    <table class=' table table-bordered'>
+        <thead class='table-dark'>
+            <tr>
+                <th>Examining Vet</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(var i=0; i< system.length; i++){%>
+            <tr>
+                <td><%= system[i].exam_vet %></td>
+                <td><%= system[i].created_date %></td>
+                <td class='btn-view'>
+                    <button type='button' class='btn btn-success view-health' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
+                    <button type='button' class='btn btn-primary view-report' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">Report</button>
+                </td>
+            </tr>
+            <% }%>
+        </tbody>
+    </table>
 </div>
 
-<!-- LAB MODAL -->
+<!-- EDIT PET INFO -->
+<div class="modal fade" id="editPetModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="editPetModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editPetModalLabel">Edit Pet Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
-<div class="modal fade" id="labModal" tabindex="-1" role="dialog" aria-labelledby="labModalLabel" aria-hidden="true">
+        <form id='edit-pet-info' action='/editPetInfo/<%= pet[0].petId %>' method='POST'>
+            <label for='name'>Name: </label>
+            <input type='text' id='name' name='name' class='form-control' value='<%= pet[0].name %>' required><br>
+            <label for='birthdate'>Date of Birth: </label>
+            <input type='date' id='birthdate' name='birthdate' class='form-control datetime-input' value='<%= pet[0].birthdate %>' required><br>
+            <label for='species'>Species: </label>
+            <input type='text' name='species' class='form-control' value='<%= pet[0].species %>' required>
+            <label for='breed'>Breed: </label>
+            <input type='text' id='breed' name='breed' class='form-control' value='<%= pet[0].breed %>' required><br>
+            <label for='sex'>Sex: </label>
+            <input type='text' name='sex' class='form-control' value='<%= pet[0].sex %>' required>
+            <label for='color'>Color: </label>
+            <input type='text' name='color' class='form-control' value='<%= pet[0].color %>' required>
+            <div id='pet-info-errors'></div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id='save-pet-info' class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW RECORD -->
+<div class="modal fade" id="viewHealthRecordModal" tabindex="-1" role="dialog" aria-labelledby="viewRecordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="labModalLabel">Update Laboratory</h5>
+                <h5 class="modal-title" id="viewRecordModalLabel">Record</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body lab-modal-body">
+            <div id='print-modal' class="modal-body print-modal-body">
+                <div id='record-content'>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id='edit-lab' class='btn btn-primary edit-lab' data-toggle="modal" data-target="#labModal">Edit</button>
+                <!-- <button type="button" id='print-now' class="btn btn-primary">Print</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW PET REPORT -->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reportModalLabel">Report</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id='pet-report' class="modal-body ">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id='print-now' class="btn btn-primary">Print</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAB MODAL -->
+<div class="modal fade" id="labModal" tabindex="-1" role="dialog" aria-labelledby="labModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labModalLabel">Edit Record</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id='labModalBody' class="modal-body lab-modal-body">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -168,7 +157,7 @@
                 <label for='examvet'>Examining Vet: </label>
                 <input type='text' id='examvet-input' class='form-control' name='examvet'>
                 <label for='datetime'>Date and Time: </label>
-                <input type='datetime-local' id='datetime-input' class='form-control' name='datetime'><br>
+                <input type='date' id='datetime-input' class='form-control datetime-input' name='datetime'><br>
                 <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History: </label>
                 <label for='currentmed' id='currentmed-label'>Current Medication: </label>
                 <label for='physicalexam' >Physical Exam: </label><br>
@@ -181,7 +170,7 @@
                     <label for='weight'>Weight/BCS: </label>
                     <input type='text' name='weight' class='form-control vitalsign'>
                     <label for='temp'>Temp: </label>
-                    <input type='text' name='temp' class='form-control vitalsign'>
+                    <input type='number' name='temp' class='form-control vitalsign'>
                     <label for='resprate'>Resp. rate: </label>
                     <input type='text' name='resprate' class='form-control vitalsign'>
                     <label for='heartrate'>Heart rate: </label>

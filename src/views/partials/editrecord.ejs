@@ -1,0 +1,258 @@
+<form id='record-form' action='' method='POST'>
+
+    <label for='weight' class='vitalsign-label'>Weight: </label>
+    <input type='text' name='weight' class='form-control vitalsign-input' value='<%= vitalsign[0].weight %>'>
+    <label for='temp' class='vitalsign-label'>Temp: </label>
+    <input type='text' name='temp' class='form-control vitalsign-input' value='<%= vitalsign[0].temp %>'>
+    <label for='resp' id='resp' class='vitalsign-label'>Respiratory rate: </label>
+    <input type='text' name='respiratory_rate' class='form-control vitalsign-input' value='<%= vitalsign[0].respiratory_rate %>'>
+    <label for='heart' id='heart' class='vitalsign-label'>Heart rate: </label>
+    <input type='text' name='heart_rate' class='form-control vitalsign-input' value='<%= vitalsign[0].heart_rate %>'>
+    <label for='crt' class='vitalsign-label'>CRT: </label>
+    <input type='text' name='crt' class='form-control vitalsign-input' value='<%= vitalsign[0].crt %>'>
+    <label for='mm' class='vitalsign-label'>MM: </label>
+    <input type='text' name='mm' class='form-control vitalsign-input' value='<%= vitalsign[0].mm %>'><br>
+    <label for='complaint'>Complaints/Concerns/History: </label><br>
+    <textarea id='complaint' name='complaint' class='form-control' ><%= history[0].complaint %></textarea><br>
+    <label for='current_med' id='currentmed-label'>Current Medication: </label>
+    <label for='physical'>Physical Exam: </label><br>
+    <textarea id='current_med' name='current_med' class='form-control' ><%= history[0].current_med %></textarea>
+    <textarea id='physical' name='physical_exam' class='form-control'><%= history[0].physical_exam %></textarea><br>
+    <div id='system-table'>
+        <table class='table table-bordered table-sm'>
+            <thead class='table-dark'>
+                <tr>
+                    <th>System</th>
+                    <th>Condition</th>
+                    <th id='system-findings'>Findings/Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>General Appearance</td>
+                    <td>
+                        <select name='general_appearance' class='form-control'>
+                            <% if(system[0].general_appearance === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].general_appearance %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].general_appearance %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_genapp' class='form-control'><%= system[0].findings_genapp %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Teeth/Mouth</td>
+                    <td>
+                        <select name='teeth_mouth' class='form-control'>
+                            <% if(system[0].teeth_mouth === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].teeth_mouth %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].teeth_mouth %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_teeth' class='form-control'><%= system[0].findings_teeth %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Eyes</td>
+                    <td>
+                        <select name='eyes' class='form-control'>
+                            <% if(system[0].eyes === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].eyes %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].eyes %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_eyes' class='form-control'><%= system[0].findings_eyes %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ears</td>
+                    <td>
+                        <select name='ears' class='form-control'>
+                            <% if(system[0].ears === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].ears %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].ears %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_ears' class='form-control'><%= system[0].findings_ears %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Skin/Coat</td>
+                    <td>
+                        <select name='skin_coat' class='form-control'>
+                            <% if(system[0].skin_coat === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].skin_coat %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].skin_coat %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_skin' class='form-control'><%= system[0].findings_skin %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Heart/Lungs</td>
+                    <td>
+                        <select name='heart_lungs' class='form-control'>
+                            <% if(system[0].heart_lungs === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].heart_lungs %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].heart_lungs %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_heart' class='form-control'><%= system[0].findings_heart %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Digestive</td>
+                    <td>
+                        <select name='digestive' class='form-control'>
+                            <% if(system[0].digestive === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].digestive %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].digestive %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_digestive' class='form-control'><%= system[0].findings_digestive %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Musculoskeletal</td>
+                    <td>
+                        <select name='musculoskeletal' class='form-control'>
+                            <% if(system[0].musculoskeletal === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].musculoskeletal %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].musculoskeletal %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_muscu' class='form-control'><%= system[0].muscu %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nervous</td>
+                    <td>
+                        <select name='nervous' class='form-control'>
+                            <% if(system[0].nervous === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].nervous %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].nervous %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_nervous' class='form-control'><%= system[0].findings_nervous %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Lymph nodes</td>
+                    <td>
+                        <select name='lymph' class='form-control'>
+                            <% if(system[0].lymph === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].lymph %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].lymph %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_lymph' class='form-control'><%= system[0].findings_lymph %></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Urogenitals</td>
+                    <td>
+                        <select name='urogenitals' class='form-control'>
+                            <% if(system[0].urogenitals === 'Normal'){ %>
+                                <option value='Normal' selected><%= system[0].urogenitals %></option>
+                                <option value='Abnormal'>Abnormal</option>
+                            <%}else{%>
+                                <option value='Abnormal' selected><%= system[0].urogenitals %></option>
+                                <option value='Normal'>Normal</option>
+                            <% } %>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea name='findings_uro' class='form-control'><%= system[0].findings_uro %></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <label for='heartworm'>Heartworm: </label>
+    <input type='text' name='heartworm' class='form-control lab-input' value='<%= lab[0].heartworm %>'>
+    <label for='skinscrape'>Skin scrape: </label>
+    <input type='text' name='skin_scrape' class='form-control lab-input' value='<%= lab[0].skin_scrape %>'>
+    <label for='earmites'>Ear mites/Ear cytology: </label>
+    <input type='text' name='ear_mites' class='form-control lab-input' value='<%= lab[0].ear_mites %>'><br>
+    <label for='cdv'>CDV: </label>
+    <input type='text' name='cdv' class='form-control lab-input' value='<%= lab[0].cdv %>'>
+    <label for='cpv'>CPV: </label>
+    <input type='text' name='cpv' class='form-control lab-input' value='<%= lab[0].cpv %>'>
+    <label for='fiv'>FIV/FeLV test: </label>
+    <input type='text' name='fiv' class='form-control lab-input' value='<%= lab[0].fiv %>'><br>
+    <label for='urinalysis' class='lab-textarea'>Urinalysis: </label>
+    <label for='fecalysis' class='lab-textarea'>Fecalysis: </label>
+    <label for='vaginalsmear' class='lab-textarea'>Vaginal smear: </label><br>
+    <textarea name='urinalysis' class='form-control'><%= lab[0].urinalysis %></textarea>
+    <textarea name='fecalysis' class='form-control'><%= lab[0].fecalysis %></textarea>
+    <textarea name='vaginal_smear' class='form-control'><%= lab[0].vaginal_smear %></textarea><br>
+    <label for='xray' class='lab-textarea'>Xray: </label><br>
+    <textarea name='xray' id='xray' class='form-control'><%= lab[0].xray %></textarea><br><br>
+    <label for='diagnosis_procedure'>Diagnosis Procedure: </label><br>
+    <textarea id='diagnosis-procedure' class='form-control' name='diagnosis_procedure'><%= lab[0].diagnosis_procedure %></textarea><br>
+    <label for='differential'>Differential diagnosis: </label>
+    <input type='text' name='differential' id='differential' class='form-control lab-input' value='<%= lab[0].differential %>'><br>
+    <label for='definitive' id='def-lab' class='lab-textarea'>Definitive diagnosis: </label>
+    <textarea name='definitive' id='definitive' class='form-control'><%= lab[0].difinitive %></textarea><br><br>
+    <label for='treatment' id='treatment-label' class='lab-textarea'>Treatment: </label>
+    <label for='prescribed' id='prescribed-label' class='lab-textarea'>Precribed Medicine: </label><br>
+    <textarea name='treatment' id='treatment' class='form-control'><%= lab[0].treatment %></textarea>
+    <textarea name='prescribed' id='prescribed' class='form-control'><%= lab[0].prescribed_med %></textarea><br>
+    <label for='comments'>Comments/Remarks: </label>
+    <input type='text' name='comments' id='comments' class='form-control lab-input' value='<%= lab[0].comments %>'><br>
+    <label for='next_app'>Next Appointment: </label>
+    <input type='datetime-local' id='next-app' name='next_app' class='form-control'>
+    <label for='title'>Title: </label>
+    <input type='text' id='title' name='title' class='form-control'>
+</form>

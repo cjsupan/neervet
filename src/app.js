@@ -9,6 +9,7 @@ app.use(express.static(__dirname + "/assets"));
 app.use('/css', express.static('assets/css'));
 app.use('/js', express.static('assets/js'));
 app.use('/img', express.static('assets/img'));
+app.use('/sql', express.static('database'));
 app.set('views', __dirname + '/views'); 
 
 app.set('view engine', 'ejs');

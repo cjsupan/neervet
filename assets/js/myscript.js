@@ -17,6 +17,24 @@ $(document).ready(function(){
         });
     });
 
+    $("#login-form").on('keyup', function(e){
+        if(e.keyCode === 13){
+            $.post($('#login-form').attr('action'), $('#login-form').serialize(), function(res){
+
+                if(res.length != 0){
+                    let errors = '';
+                    for(var i=0; i<res.length; i++){
+                        errors += "<div class='alert alert-warning'>"+ res[i] +"</div>";
+                    }
+                    document.getElementById('login-errors').innerHTML = errors;
+                }else if(res.length == 0) {
+                    location.replace("http://localhost:1337/home");
+                }
+                
+            });
+        }
+    })
+
     $('.sub-menu ul').hide();
     $(".sub-menu a").click(function () {
         $(this).parent(".sub-menu").children("ul").slideToggle("100");
@@ -27,6 +45,26 @@ $(document).ready(function(){
 
         $.get($(this).attr('href'), function(res){
             document.getElementById('main').innerHTML = res;
+
+            $(document).on('click', '#view-password', function(){
+                if($("#user-password").attr("type") == "text"){
+                    $("#user-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#user-password").attr("type") == "password"){
+                    $("#user-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
+            
+            $(document).on('click', '#view-confirm-password', function(){
+                if($("#user-confirm-password").attr("type") == "text"){
+                    $("#user-confirm-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#user-confirm-password").attr("type") == "password"){
+                    $("#user-confirm-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
         });
     });
 
@@ -35,6 +73,26 @@ $(document).ready(function(){
 
         $.get($(this).attr('href'), function(res){
             document.getElementById('main').innerHTML = res;
+
+            $(document).on('click', '#view-password', function(){
+                if($("#user-password").attr("type") == "text"){
+                    $("#user-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#user-password").attr("type") == "password"){
+                    $("#user-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
+            
+            $(document).on('click', '#view-confirm-password', function(){
+                if($("#user-confirm-password").attr("type") == "text"){
+                    $("#user-confirm-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#user-confirm-password").attr("type") == "password"){
+                    $("#user-confirm-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
         });
     });
 
@@ -63,6 +121,55 @@ $(document).ready(function(){
         });
     }
 
+    // EDIT APPOINTMENT
+    $(document).on('click', '.edit-appointment', function(e){
+        e.preventDefault();
+
+        var id = $(this).val();
+        var body = $('#editAppModal')[0].children[0].children[0].children[1];
+
+        var dateToday = new Date();
+        var dd = String(dateToday.getDate()).padStart(2, '0');
+        var mm = String(dateToday.getMonth() + 1).padStart(2, '0');
+        var yyyy = dateToday.getFullYear();
+        var hour = dateToday.getHours();
+        var min = dateToday.getMinutes();
+        var sec = dateToday.getSeconds();
+                    
+        var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+        
+        $.get($("#app-id").attr('href'), function(res){
+            var form = '';
+                form += "<form id='edit-appointment' action='/editAppointment/"+id+"' method='POST'>";
+                form += "<label for='title'>Title: </label>";
+                form += "<input type='text' name='title' class='form-control' value="+res[0].title+"><br>";
+                form += "<label for='datetime'>Date and Time: </label>";
+                form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' min='"+today+"' class='form-control' required><br>";
+                form += "</form>";
+                form += "<div id='appointment-errors'></div>";
+            body.innerHTML = form;
+        });
+        
+    });
+
+    $(document).on('click', '#update-app', function(e){
+        e.preventDefault();
+        $.post($("#edit-appointment").attr('action'), $('#edit-appointment').serialize(), function(res){
+            if(res.length != 0){
+                var error = '';
+                for(var i=0; i<res.length; i++){
+                    error += "<div class='alert alert-warning'>"+res[i]+"</div>";
+                }
+                document.getElementById('appointment-errors').innerHTML = error;
+            }else if(res.length === 0){
+                alert('Appointment Updated');
+                $("#editAppModal").modal('hide');
+                getAppointment($("#appointment"));
+                
+            }
+        });
+    });
+
     // DELETE APPOINTMENT
     $(document).on('click','.delete-appointment', function(e){
         e.preventDefault();
@@ -74,32 +181,23 @@ $(document).ready(function(){
             e.preventDefault();
         }
     });
+
+    
     // GET ALL CLIENT WHO NEED TO NOTIFY
     $(document).on('click', '#notification', function(e){
         e.preventDefault();
        
-        $.get('/getNotification/3', function(res){
+        $.get('/getNotification', function(res){
             var modalBody = $("#notifModal")[0].children[0].children[0].children[1].children[1];
             modalBody.innerHTML = res;
 
-        });
-
-        $(document).on('change','#dateValue', function(e){
-            e.preventDefault();
-            var num = this.value;
-
-            $.get("/getNotification/"+num+"", function(res){
-                var modalBody = $("#notifModal")[0].children[0].children[0].children[1].children[1];
-                modalBody.innerHTML = res;
-
-            });
         });
     });
 
     $(document).on('click', '#send-notification', function(e){
         e.preventDefault();
-        var day = document.getElementById('dateValue').value;
-        $.get("/sendNotification/"+day+"", function(res){
+        
+        $.get($("#notif").attr('href'), function(res){
             alert('Notification sent!');
             $("#notifModal").modal("hide");
         });
@@ -108,6 +206,7 @@ $(document).ready(function(){
     //WHEN APPOINTMENTS WAS CLICKED IN SIDENAV
     $(document).on('click','#appointment', function(e){
         e.preventDefault();
+        $('.sub-menu ul').slideUp();
         
         getAppointment(this);
     });
@@ -139,7 +238,25 @@ $(document).ready(function(){
             // VIEW CLIENT PAGE/INFORMATION
             function viewClient(client){
                 $.get($(client).attr('href'), function(res){
+
                     document.getElementById('main').innerHTML = res;
+                    
+                    var dateToday = new Date();
+                    var dd = String(dateToday.getDate()).padStart(2, '0');
+                    var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = dateToday.getFullYear();
+                    var hour = dateToday.getHours();
+                    var min = dateToday.getMinutes();
+                    var sec = dateToday.getSeconds();
+                    
+                    var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+                    var maxdate = yyyy + '-' + mm + '-' + dd;
+
+                    document.getElementById('app-datetime').min = today;
+                    var x = document.querySelectorAll('.datetime-input');
+                    for(var i=0; i<x.length; i++){
+                        x[i].max = maxdate;
+                    }
 
                     document.getElementById('client-back').addEventListener('click', function(e){
                         e.preventDefault();
@@ -147,26 +264,33 @@ $(document).ready(function(){
                         getclient(client);
                     });
 
-                    
-
                     //ADD APPOINTMENT
                     document.getElementById('save-appointment').addEventListener('click', function(e){
                         e.preventDefault();
+                        var dateToday = new Date().toDateString();
+                       
                         $.post($('#appointment-form').attr('action'), $('#appointment-form').serialize(), function(res){
                             
-                            if(res != 'clear'){
-                                var error = "<div class='alert alert-warning' role='alert'>"+ res[0] +" </div>";
-                                document.getElementById('appointment-error').innerHTML = error;
-                            }else if(res === 'clear'){
+                            if(res.length != 0){
+                                var errors = '';
+
+                                for(var i=0; i<res.length; i++){
+                                    errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
+                                }
+                                
+                                document.getElementById('appointment-error').innerHTML = errors;
+                            }else if(res.length === 0){
                                 alert('Appointment added');
                                 $('#appointmentModal').modal('hide');
                             }
                         });
                     });
 
+
                     //ADD PET
                     document.getElementById('save-pet').addEventListener('click', function(e){
                         e.preventDefault();
+                        
                         $.post($('#pet-form').attr('action'), $('#pet-form').serialize(), function(res){
                             if(typeof res === 'string'){
                                 var errors = "";
@@ -205,7 +329,22 @@ $(document).ready(function(){
                         $.get($(pet).attr('href'), function(res){
 
                             document.getElementById('main').innerHTML = res;
+
+                            var dateToday = new Date();
+                            var dd = String(dateToday.getDate()).padStart(2, '0');
+                            var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+                            var yyyy = dateToday.getFullYear();
+                            var hour = dateToday.getHours();
+                            var min = dateToday.getMinutes();
+                            var sec = dateToday.getSeconds();
                             
+                            var maxdate = yyyy + '-' + mm + '-' + dd;
+
+                            var x = document.querySelectorAll('.datetime-input');
+                            for(var i=0; i<x.length; i++){
+                                x[i].max = maxdate;
+                            }
+
                             //SHOW PET HEALTH RECORD
                             $(".date").on('click', function(){
                                 var record = this.id;
@@ -218,57 +357,18 @@ $(document).ready(function(){
                                     scrollTop: pos
                                 },600);
                             });
-                            //EDIT LAB RECORD
-                            $(".edit-lab").on('click', function(){
-                                var id = this.value;
-
-                                $.get("/getLab/"+id+"", function(res){
-                                
-                                    var action = "/updateLab/"+id+"";
-                                    var modalBody = "";
-                                        modalBody += "<form id='lab-form' action='"+action+"' method='POST'>";
-                                        modalBody += "<label for='heartworm'>Heartworm: </label>";
-                                        modalBody += "<input type='text' name='heartworm' class='form-control lab-input' value='"+res[0].heartworm+"'>";
-                                        modalBody += "<label for='skinscrape'>Skin scrape: </label>";
-                                        modalBody += "<input type='text' name='skin_scrape' class='form-control lab-input' value='"+res[0].skin_scrape+"'>";
-                                        modalBody += "<label for='earmites'>Ear mites/Ear cytology: </label>";
-                                        modalBody += "<input type='text' name='ear_mites' class='form-control lab-input' value='"+res[0].ear_mites+"'><br>";
-                                        modalBody += "<label for='cdv'>CDV: </label>";
-                                        modalBody += "<input type='text' name='cdv' class='form-control lab-input' value='"+res[0].cdv+"'>";
-                                        modalBody += "<label for='cpv'>CPV: </label>";
-                                        modalBody += "<input type='text' name='cpv' class='form-control lab-input' value='"+res[0].cpv+"'>";
-                                        modalBody += "<label for='fiv'>FIV/FeLV test: </label>";
-                                        modalBody += "<input type='text' name='fiv' class='form-control lab-input' value='"+res[0].fiv+"'><br>";
-                                        modalBody += "<label for='urinalysis' class='lab-textarea'>Urinalysis: </label>";
-                                        modalBody += "<label for='fecalysis' class='lab-textarea'>Fecalysis: </label>";
-                                        modalBody += "<label for='vaginalsmear' class='lab-textarea'>Vaginal smear: </label><br>";
-                                        modalBody += "<textarea name='urinalysis' class='form-control'></textarea>";
-                                        modalBody += "<textarea name='fecalysis' class='form-control'></textarea>";
-                                        modalBody += "<textarea name='vaginal_smear' class='form-control'></textarea><br>";
-                                        modalBody += "<label for='xray' class='lab-textarea'>Xray: </label><br>";
-                                        modalBody += "<textarea name='xray' id='xray' class='form-control'></textarea><br><br>";
-                                        modalBody += "<label for='differential'>Differential diagnosis: </label>";
-                                        modalBody += "<input type='text' name='differential' id='differential' class='form-control lab-input' value='"+res[0].differential+"'><br>";
-                                        modalBody += "<label for='definitive' id='def-lab' class='lab-textarea'>Definitive diagnosis: </label>";
-                                        modalBody += "<textarea name='definitive' id='definitive' class='form-control'></textarea><br><br>";
-                                        modalBody += "<label for='treatment' id='treatment-label' class='lab-textarea'>Treatment and Prescribed Medicine: </label><br>";
-                                        modalBody += "<textarea name='treatment' id='treatment' class='form-control'></textarea><br>";
-                                        modalBody += "<label for='comments'>Comments/Remarks: </label>";
-                                        modalBody += "<input type='text' name='comments' id='comments' class='form-control lab-input' value='"+res[0].comments+"'><br>";
-                                        modalBody += "<label for='next_app'>Next appointment: </label>";
-                                        modalBody += "<input type='date' name='next_app' id='date' class='form-control lab-input'>";
-                                        modalBody += "</form>";
-                                        $(".lab-modal-body").children().prevObject[0].innerHTML = modalBody;
-                                });
-                            });
 
                             //SAVE LAB RECORD
                             $("#save-lab").on('click', function(){
-                                $.post($('#lab-form').attr('action'), $('#lab-form').serialize());
-                                alert('laboratory Updated');
-                                $('#labModal').modal('hide');
-                                let pet = document.getElementById('pet-stay');
-                                viewPet(pet);
+                                $.post($('#record-form').attr('action'), $('#record-form').serialize(), function(res){
+                                    alert('laboratory Updated');
+                
+                                    $('#labModal').modal('hide');
+                                    $('#viewHealthRecordModal').modal('hide');
+                                    let pet = document.getElementById('pet-stay');
+                                    viewPet(pet);
+                                });
+                                
                             });
 
                             $('#pet-back').on('click', function(e){
@@ -297,7 +397,32 @@ $(document).ready(function(){
                         viewPet(this);
 
                     });
+
+                    //SAVE PET INFORMATION
+                    $(document).on('click', '#save-pet-info', function(){
+                        $.post($('#edit-pet-info').attr('action'), $('#edit-pet-info').serialize(), function(res){
+
+                            if(res.length != 0){
+                                let errors = '';
+                                for(var i=0; i<res.length; i++){
+                                    errors += "<div class='alert alert-warning'>"+res[0]+"</div>";
+                                }
+                                document.getElementById('pet-info-errors').innerHTML = errors;
+                            }else if(res.length === 0){
+                                alert('Pet Information Updated');
+                                $("#editPetModal").modal('hide');
+                                $("#editPetModal").prependTo("body");
+                                document.getElementById('pet-info-errors').innerHTML = '';
+                                var stay = document.getElementById('pet-stay');
+                                viewPet(stay);
+                            }
+                            
+                        });
+                    });
+
+                   
                 });
+                
             }
 
             //DELETE CLIENT
@@ -320,9 +445,78 @@ $(document).ready(function(){
                 viewClient(this);
                 
             });
+            // EDIT PROFILE
+            $(document).on('click', '#save-client-info', function(){
+                $.post($("#edit-client-form").attr('action'), $("#edit-client-form").serialize(), function(res){
+
+                    if(res.length != 0){
+                        let errors = '';
+                        for(var i=0; i<res.length; i++){
+                            errors += "<div class='alert alert-warning'>"+res[i]+"</div>";
+                        }
+                        document.getElementById('client-errors').innerHTML = errors;
+                    }else{
+                        alert("Profile Updated");
+                        $("#editClientModal").modal('hide');
+                        var stay = document.getElementById("client-stay");
+                        viewClient(stay);
+                    }
+
+                });
+            });
 
         });
     }
+
+     // PRINT REPORT
+     $(document).on('click', '#print-now', function(){
+                        
+        $("#pet-report").printThis();
+
+    });
+
+    //EDIT LAB RECORD
+    $(document).on('click','#edit-lab', function(){
+        var id = this.value;
+        document.getElementById('edit-lab').setAttribute('href', "/getLab/"+id+"");
+        console.log(document.getElementById('edit-lab-record'));
+        $.get($('#edit-lab').attr('href'), function(res){
+            
+            document.getElementById('labModalBody').innerHTML = res;
+            var dateToday = new Date();
+            var dd = String(dateToday.getDate()).padStart(2, '0');
+            var mm = String(dateToday.getMonth() + 1).padStart(2, '0');
+            var yyyy = dateToday.getFullYear();
+            var hour = dateToday.getHours();
+            var min = dateToday.getMinutes();
+            var sec = dateToday.getSeconds();
+                        
+            var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+            document.getElementById('next-app').min = today;
+    
+            document.getElementById('record-form').setAttribute('action', "updateLab/"+id+"");
+           
+        });
+    });
+
+    
+    //VIEW PET HEALTH RECORD
+    $(document).on('click', '.view-health', function(){
+        $.get($(this).attr('href'), function(res){
+            document.getElementById('record-content').innerHTML = res;
+            
+        });
+        var petIdsystemId = $(this).val();
+        document.getElementById('edit-lab').value = petIdsystemId;
+    });
+
+    // VIEW PET REPORT
+    $(document).on('click', '.view-report', function(){
+        console.log(document.getElementById('pet-report'));
+        $.get($(this).attr('href'), function(res){
+            document.getElementById('pet-report').innerHTML = res;
+        });
+    });
 
     //SAVE CLIENT
     $(document).on('click','#saveClient', function(){
@@ -396,8 +590,87 @@ $(document).ready(function(){
 
     $(document).on('click','#client', function(e){
         e.preventDefault();
-        
+
+        $('.sub-menu ul').slideUp();
         getclient(this);
 
+    });
+
+    $(document).on('click', '#backup-restore', function(e){
+        e.preventDefault();
+        $('.sub-menu ul').slideUp();
+       
+        $.get($(this).attr('href'), function(res){
+            document.getElementById('main').innerHTML = res;
+        });
+    });
+
+    $(document).on('click', '#backup-now', function(e){
+        e.preventDefault();
+        $.post($("#backup-form").attr('action'), $("#backup-form").serialize(), function(res){
+
+            if(res.length != 0){
+                document.getElementById('errors').innerHTML = "<div class='alert alert-warning'>"+ res[0] +"</div>";
+            }else{
+                alert('Backup Successful');
+                location.reload();
+            }    
+        });
+    });
+
+    $(document).on('click', '#restore-now', function(e){
+        e.preventDefault();
+
+        document.getElementById('spin').innerHTML = "<div id='spinner' class='spinner-border text-light' role='status'></div>";
+        $.post($("#restore-form").attr('action'), $("#restore-form").serialize(), function(){
+            alert('Restore Successful');
+            location.replace('/');
+        });
+    });
+
+    $(document).on('click','.main-box', function(e){
+        e.preventDefault();
+        if($(this).attr('id') === 'clients'){
+            $('.sub-menu ul').slideUp();
+        
+            getclient($("#client"));
+        }
+    });
+
+    function getAppointmentToday(app){
+        $.get($(app).attr('href'), function(res){
+            document.getElementById('main').innerHTML = res;
+
+            let complete = document.querySelectorAll('.complete-appointment');
+            for(var i=0; i<complete.length; i++){
+                if(complete[i].value === '1'){
+                    $(complete[i]).prop('disabled', true);
+                }
+            }
+        });
+        
+    }
+
+    // DELETE APPOINTMENT TODAY
+    $(document).on('click','.delete-appointment-today', function(e){
+        e.preventDefault();
+        if(confirm('Confirm to delete')){
+            $.get($(this).attr('href'));
+            let appToday = document.getElementById('app-today');
+            getAppointmentToday(appToday);
+        }else{
+            e.preventDefault();
+        }
+    });
+
+    $(document).on('click','.main-box', function(e){
+        e.preventDefault();
+        let app = $(this).attr('id') === 'appointments-today';
+        let appToday = document.getElementById('app-today');
+        if(app){
+            $('.sub-menu ul').slideUp();
+
+            getAppointmentToday(appToday);
+        }
     });
 });

@@ -1,0 +1,26 @@
+<h1 class='display-4'>Backup / Restore</h1>
+<div id='backup-restore-form'>
+
+    <div id='backup'>
+        <p class='lead'>Backup</p>
+        <div id='errors'></div>
+        <button type='button' id='backup-now' class='btn btn-info'>Backup Now</button>
+    </div>
+
+    <form id='restore-form' action='/restore' method='POST'>
+        <p class='lead'>Restore</p>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Filename</label>
+            </div>
+            <select name='filename' class="custom-select" id="inputGroupSelect01">
+                <% for(var i in restore){ %>
+                    <option value='<%= restore[i] %>'><%= restore[i] %></option>
+                <% }%>
+            </select>
+        </div>
+        <button type='button' id='restore-now' class='btn btn-info'><div id='spin'>Restore Now</div></button>
+    </form>
+    
+</div>
+
