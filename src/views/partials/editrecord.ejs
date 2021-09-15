@@ -1,4 +1,9 @@
 <form id='record-form' action='' method='POST'>
+    <div id='record-errors'></div>
+    <label for='exam_vet'>Examining Vet: </label>
+    <input type='text' id='exam-vet' name='exam_vet' class='form-control' value='<%= system[0].examvet %>' required>
+    <label for='created_at'>Date and Time: </label>
+    <input type='datetime-local' id='dateandtime' name='created_at' class='form-control' required><br>
 
     <label for='weight' class='vitalsign-label'>Weight: </label>
     <input type='text' name='weight' class='form-control vitalsign-input' value='<%= vitalsign[0].weight %>'>
