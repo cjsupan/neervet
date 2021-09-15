@@ -55,8 +55,15 @@ class Pets{
     }
 
     async update_lab(req, res){
-        let result = await pet_model.updateLab(req.body, req.params.clientid, req.params.petid, req.params.systemid);
-        res.json(result);
+        let validate = await pet_model.validaterecord(req.body);
+
+        if(validate.length != 0){
+            res.json(validate);
+        }else if(validate.length === 0){
+            let result = await pet_model.updateLab(req.body, req.params.clientid, req.params.petid, req.params.systemid);
+            res.json([]);
+        }
+        
     }
 
     async get_lab(req, res){
@@ -84,7 +91,6 @@ class Pets{
         let petHistory = await pet_model.pet_history(req.params.petid, req.params.systemid);
         
         let petLab = await pet_model.get_pet_lab(req.params.petid, req.params.systemid);
-        
 
         res.render('partials/healthrecord', {pet: petInfo, system: petSystem, vitalsign: petVitalsign, history: petHistory, lab: petLab ,user: req.session.name});
     }

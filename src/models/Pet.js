@@ -140,6 +140,20 @@ class Pet extends main_model{
         return lab;
     }
 
+    async validaterecord(details){
+
+        let errors = [];
+
+        if(this.hasnumber(details.exam_vet) || this.symbol(details.exam_vet)){
+            errors.push("Examining vet is invalid");
+        }
+        if(this.empty(details.created_at)){
+            errors.push('Date and time should not be blank');
+        }
+
+        return errors;
+    }
+
     async pet_info(id){
         let petInfo = mysql.format("SELECT clients.id as clientId, pets.id as petId, CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c/%e/%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age FROM clients LEFT JOIN pets ON clients.id = pets.client_id WHERE pets.id = ?", id);
         let result = await this.executeQuery(petInfo);
@@ -154,7 +168,7 @@ class Pet extends main_model{
     }
 
     async pet_system(petid, systemid){
-        let query = mysql.format("SELECT pets.id as petId, systems.id as systemId, systems.exam_vet as examvet, systems.general_appearance, systems.teeth_mouth, systems.eyes, systems.ears, systems.skin_coat, systems.heart_lungs, systems.digestive, systems.musculoskeletal, systems.nervous, systems.lymph, systems.urogenitals,  DATE_FORMAT(findings.created_at, '%c/%e/%Y') as created_date, findings.general_appearance as findings_genapp, findings.teeth_mouth as findings_teeth, findings.eyes as findings_eyes, findings.ears as findings_ears, findings.skin_coat as findings_skin, findings.heart_lungs as findings_heart, findings.digestive as findings_digestive, findings.musculoskeletal as findings_muscu, findings.nervous as findings_nervous, findings.lymph as findings_lymph, findings.urogenitals as findings_uro FROM pets LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN findings ON systems.id = findings.system_id WHERE pets.id = ? AND systems.id = ? ORDER BY systems.created_at DESC", [petid, systemid]);
+        let query = mysql.format("SELECT pets.id as petId, systems.id as systemId, systems.exam_vet as examvet, systems.general_appearance, systems.teeth_mouth, systems.eyes, systems.ears, systems.skin_coat, systems.heart_lungs, systems.digestive, systems.musculoskeletal, systems.nervous, systems.lymph, systems.urogenitals,  DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date, findings.general_appearance as findings_genapp, findings.teeth_mouth as findings_teeth, findings.eyes as findings_eyes, findings.ears as findings_ears, findings.skin_coat as findings_skin, findings.heart_lungs as findings_heart, findings.digestive as findings_digestive, findings.musculoskeletal as findings_muscu, findings.nervous as findings_nervous, findings.lymph as findings_lymph, findings.urogenitals as findings_uro FROM pets LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN findings ON systems.id = findings.system_id WHERE pets.id = ? AND systems.id = ? ORDER BY systems.created_at DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
@@ -228,7 +242,7 @@ class Pet extends main_model{
     }
 
     async updateLab(details, clientid, petid, systemid){
-
+        var date = new Date();
         let system = {};
         system.general_appearance = details.general_appearance;
         system.teeth_mouth = details.teeth_mouth;
@@ -240,7 +254,9 @@ class Pet extends main_model{
         system.musculoskeletal = details.musculoskeletal;
         system.nervous = details.nervous;
         system.lymph = details.lymph;
-        system.urogenitals = details.urogenitals;
+        system.urogenitals = details.urogenitals
+        system.created_at = details.created_at;
+        system.updated_at = date;
 
         let systemquery = mysql.format("UPDATE systems SET ? WHERE id = ? AND pet_id = ?", [system, systemid, petid]);
         let systemqueryresult = await this.executeQuery(systemquery);

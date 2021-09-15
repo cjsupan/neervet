@@ -10,16 +10,16 @@
   
 ::-webkit-scrollbar-track {
     border-radius: 0.125rem;
-    background-color: lightgray;
+    background-color: transparent;
 }
    
 ::-webkit-scrollbar-thumb {
     border-radius: 0.125rem;
-    background-color: gray;
+    background-color: silver;
 }
   
 ::-webkit-scrollbar-thumb:hover {
-    background: silver; 
+    background: gray; 
 }
 
 input::-webkit-outer-spin-button,
@@ -982,6 +982,18 @@ input[type=number] {
     overflow: auto;
 }
 
+#main #record-form #exam-vet{
+    width: 300px;
+    margin-right: 25%;
+    display: inline-block;
+}
+
+#main #record-form #dateandtime{
+    width: 200px;
+    margin-bottom: 40px;
+    display: inline-block;
+}
+
 #main #record-form .vitalsign-label{
     display: inline-block;
 }
@@ -1312,7 +1324,7 @@ input[type=number] {
 }
 
 #viewHealthRecordModal .modal-content{
-    height: 600px;
+    height: 640px;
     
 }
 
@@ -1527,7 +1539,7 @@ input[type=number] {
 
 #main #record-content #treatment{
     width: 45%;
-    height: 70px;
+    height: 100px;
     margin-right: 20px;
     resize: none;
     background-color: transparent;
@@ -1536,7 +1548,7 @@ input[type=number] {
 
 #main #record-content #prescribed{
     width: 45%;
-    height: 70px;
+    height: 100px;
     resize: none;
     background-color: transparent;
     display: inline-block;
@@ -1549,22 +1561,40 @@ input[type=number] {
     display: inline-block;
 }
 
+#main #pet-report{
+    height: 500px;
+    overflow: auto;
+}
+
 #pet-report #head{
     width: 100%;
     margin-bottom: 20px;
+    text-align: center;
     display: inline-block;
 }
 
 #pet-report #head img{
     width: 20%;
     height: 20%;
-    margin: 0px 40%;
     display: inline-block;
 }
 
 #pet-report #head h1.display-1{
-    font-size: 22px;
+    font-size: 25px;
     border: 0px;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+#pet-report #head h2.display-4{
+    font-size: 25px;
+    display: inline-block;
+}
+
+#pet-report #head p.lead{
+    font-size: 18px;
+    margin: 0px;
+    display: inline-block;
 }
 
 #pet-report p.lead{
@@ -1606,10 +1636,13 @@ input[type=number] {
 }
 
 @media print{
-
+    @page{
+        margin: 0in 1in;
+        font-weight: bold;
+    }
     #head{
         width: 100%;
-        margin-bottom: 20px;
+        padding-bottom: 60px;
         text-align: center;
         display: inline-block;
     }
@@ -1621,13 +1654,34 @@ input[type=number] {
         display: inline-block;
     }
 
-    #head h1{
-        font-size: 22px;
+    #head h2.display-4{
+        font-size: 2em !important;
         font-weight: bold;
     }
 
-    p.lead{
-        font-size: 12px;
+    #head h1.display-1{
+        font-size: 2em !important;
+        font-weight: bold;
+    }
+
+    #head p.lead{
+        font-size: 1.3em !important;
+        margin: 0px;
+        display: inline-block;
+    }
+
+    #content p.lead{
+        font-size: 1.3em !important;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold !important;
+        
+    }
+
+    #content p span.lead{
+        font-size: 0.9em !important;
+        font-family: 'Times New Roman', Times, serif;
+        text-transform: uppercase;
+        font-weight: bold;
     }
     
 }
