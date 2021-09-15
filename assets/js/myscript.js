@@ -361,12 +361,25 @@ $(document).ready(function(){
                             //SAVE LAB RECORD
                             $("#save-lab").on('click', function(){
                                 $.post($('#record-form').attr('action'), $('#record-form').serialize(), function(res){
-                                    alert('laboratory Updated');
+
+                                    if(res.length != 0){
+                                        let errors = '';
+                                        for(var i=0; i<res.length; i++){
+                                            errors += "<div class='alert alert-warning'>"+res[i]+"</div>"
+                                        }
+                                        $("#labModalBody").animate({ scrollTop: 0 }, "slow");
+                                        document.getElementById('record-errors').innerHTML = errors;
+                                        
+                                    }else if(res.length === 0){
+                                        alert('laboratory Updated');
                 
-                                    $('#labModal').modal('hide');
-                                    $('#viewHealthRecordModal').modal('hide');
-                                    let pet = document.getElementById('pet-stay');
-                                    viewPet(pet);
+                                        $('#labModal').modal('hide');
+                                        $('#viewHealthRecordModal').modal('hide');
+                                        let pet = document.getElementById('pet-stay');
+                                        viewPet(pet);
+                                    }
+
+                                    
                                 });
                                 
                             });
@@ -479,7 +492,6 @@ $(document).ready(function(){
     $(document).on('click','#edit-lab', function(){
         var id = this.value;
         document.getElementById('edit-lab').setAttribute('href', "/getLab/"+id+"");
-        console.log(document.getElementById('edit-lab-record'));
         $.get($('#edit-lab').attr('href'), function(res){
             
             document.getElementById('labModalBody').innerHTML = res;
@@ -493,6 +505,7 @@ $(document).ready(function(){
                         
             var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
             document.getElementById('next-app').min = today;
+            document.getElementById('dateandtime').max = today;
     
             document.getElementById('record-form').setAttribute('action', "updateLab/"+id+"");
            
