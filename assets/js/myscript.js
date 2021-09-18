@@ -264,52 +264,29 @@ $(document).ready(function(){
                         getclient(client);
                     });
 
-                    //ADD APPOINTMENT
-                    document.getElementById('save-appointment').addEventListener('click', function(e){
-                        e.preventDefault();
-                        var dateToday = new Date().toDateString();
-                       
-                        $.post($('#appointment-form').attr('action'), $('#appointment-form').serialize(), function(res){
-                            
-                            if(res.length != 0){
-                                var errors = '';
-
-                                for(var i=0; i<res.length; i++){
-                                    errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
-                                }
-                                
-                                document.getElementById('appointment-error').innerHTML = errors;
-                            }else if(res.length === 0){
-                                alert('Appointment added');
-                                $('#appointmentModal').modal('hide');
-                            }
-                        });
-                    });
-
-
-                    //ADD PET
-                    document.getElementById('save-pet').addEventListener('click', function(e){
-                        e.preventDefault();
+                    // //ADD PET
+                    // document.getElementById('save-pet').addEventListener('click', function(e){
+                    //     e.preventDefault();
                         
-                        $.post($('#pet-form').attr('action'), $('#pet-form').serialize(), function(res){
-                            if(typeof res === 'string'){
-                                var errors = "";
-                                for(var i=0; i<res.length; i++){
+                    //     $.post($('#pet-form').attr('action'), $('#pet-form').serialize(), function(res){
+                    //         if(res.length != 0){
+                    //             var errors = "";
+                    //             for(var i=0; i<res.length; i++){
 
-                                    errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
-                                }
+                    //                 errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
+                    //             }
+                    //             $("#pet-modal-ody").animate({ scrollTop: 0 }, "slow");
+                    //             document.getElementById('pet-error').innerHTML = errors;
+                    //         }else if(res.length === 0){
                                 
-                                document.getElementById('pet-error').innerHTML = errors;
-                            }else if(typeof res === 'number'){
-                                var resid = toString(res);
-                                alert('Pet added');
-                                $('#petModal').modal('hide');
+                    //             alert('Pet added');
+                    //             $('#petModal').modal('hide');
                                 
-                                let client = document.getElementById('client-stay');
-                                viewClient(client);
-                            }
-                        });
-                    });
+                    //             let client = document.getElementById('client-stay');
+                    //             viewClient(client);
+                    //         }
+                    //     });
+                    // });
 
                     //DELETE PET
                     $('.delete-pet').on('click', function(e){
@@ -433,9 +410,20 @@ $(document).ready(function(){
                         });
                     });
 
-                   
-                });
+                    $(document).on('click', '.delete-record', function(e){
+                        e.preventDefault();
+                        if(confirm('Confirm to delete')){
+                            $.get($(this).attr('href'), function(){
+                                viewPet($("#pet-stay"));
+                            });
+                        }else{
+                            e.preventDefault();
+                        }
                 
+                        
+                    })
+
+                });                
             }
 
             //DELETE CLIENT
@@ -451,6 +439,8 @@ $(document).ready(function(){
                     e.preventDefault();
                 }
             });
+
+           
 
             //VIEW CLIENT
             $(document).on('click', '.viewClient', function(e){
@@ -475,6 +465,30 @@ $(document).ready(function(){
                         viewClient(stay);
                     }
 
+                });
+            });
+
+             //ADD PET
+            $(document).on('click', '#save-pet',function(e){
+                e.preventDefault();
+                
+                $.post($('#pet-form').attr('action'), $('#pet-form').serialize(), function(res){
+                    if(res.length != 0){
+                        var errors = "";
+                        for(var i=0; i<res.length; i++){
+
+                            errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
+                        }
+                        $("#pet-modal-body").animate({ scrollTop: 0 }, "slow");
+                        document.getElementById('pet-error').innerHTML = errors;
+                    }else if(res.length === 0){
+                        
+                        alert('Pet added');
+                        $('#petModal').modal('hide');
+                        
+                        let client = document.getElementById('client-stay');
+                        viewClient(client);
+                    }
                 });
             });
 
@@ -618,26 +632,54 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('click', '#backup-now', function(e){
-        e.preventDefault();
-        $.post($("#backup-form").attr('action'), $("#backup-form").serialize(), function(res){
-
-            if(res.length != 0){
-                document.getElementById('errors').innerHTML = "<div class='alert alert-warning'>"+ res[0] +"</div>";
-            }else{
-                alert('Backup Successful');
-                location.reload();
-            }    
-        });
+    $(document).on('click', '#backup-now', function(){
+    
+        $.get($(this).attr('href'));
     });
 
     $(document).on('click', '#restore-now', function(e){
-        e.preventDefault();
-
+        e.preventDefault()
+        console.log($("#sqlfile")[0].files)
         document.getElementById('spin').innerHTML = "<div id='spinner' class='spinner-border text-light' role='status'></div>";
-        $.post($("#restore-form").attr('action'), $("#restore-form").serialize(), function(){
-            alert('Restore Successful');
-            location.replace('/');
+        
+        var fd = new FormData();
+        var files = $('#sqlfile')[0].files;
+        
+        if(files.length > 0){
+            fd.append('file', files[0]);
+            $.ajax({
+                url: $("#restore-form").attr('action'),
+                type: 'post',
+              data: fd,
+              contentType: false,
+              processData: false,
+              success: function(res){
+                  alert('Restore Success!');
+                  location.reload();
+              }
+            })
+        }
+    });
+
+    //ADD APPOINTMENT
+    $(document).on('click','#save-appointment', function(e){
+        e.preventDefault();
+        var dateToday = new Date().toDateString();
+       
+        $.post($('#appointment-form').attr('action'), $('#appointment-form').serialize(), function(res){
+            
+            if(res.length != 0){
+                var errors = '';
+
+                for(var i=0; i<res.length; i++){
+                    errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
+                }
+                
+                document.getElementById('appointment-error').innerHTML = errors;
+            }else if(res.length === 0){
+                alert('Appointment added');
+                $('#appointmentModal').modal('hide');
+            }
         });
     });
 

@@ -2,6 +2,7 @@ const connection = require('../config/database');
 const main_model = require('./Main');
 const mysql = require('mysql');
 
+const formidable = require("formidable");
 const fs = require('fs');
 const path = require('path');
 
@@ -11,6 +12,7 @@ const host = 'localhost';
 const user = 'root';
 const password = '';
 const database = 'neervet';
+
 
 const Importer = require('mysql-import');
 const importer = new Importer({host, user, password, database});
@@ -235,8 +237,9 @@ class User extends main_model{
             .map(file => file.name);
     }
 
-    async backup(details){
+    async backup(){
         
+        var filepath = "database/Neervet.sql";
         mysqldump({
             connection: {
                 host: 'localhost',
@@ -244,17 +247,45 @@ class User extends main_model{
                 password: '',
                 database: 'neervet',
             },
-            dumpToFile: "./database/"+details.filename+".sql",
+            dumpToFile: "./database/Neervet.sql",
+        });
+
+        return filepath;
+    }
+
+    async saveFile(req){
+        var form = new formidable.IncomingForm();
+        form.keepExtensions = true;
+        // form.uploadDir = path.join(__dirname + '../../../database');
+        
+        form.parse(req, function asd(err, fields, files){
+            // console.log(files.file.name);
+            var oldPath = files.file.path;
+            var newPath = path.join(__dirname + '../../../database') +"/"+ files.file.name;
+
+            var rawData = fs.readFileSync(oldPath)
+            fs.writeFile(newPath, rawData,function(err){
+                if(err) console.log(err)
+                console.log("Successfully uploaded")
+            });
+
+            name = files.file.name;
         });
     }
 
     async truncate(){
         console.log('truncate start');
 
-        let users = mysql.format("DROP TABLE users");
+        // let check0 = mysql.format("SET FOREIGN_KEY_CHECKS = 0;");
+        // let ckech0res = await this.executeQuery(check0);
+        // console.log('check0');
+        let users = mysql.format("DELETE FROM users WHERE user_level = 'Admin' OR user_level = 'Staff'");
         let usersresult = await this.executeQuery(users);
-        
-        let clients = mysql.format("TRUNCATE TABLE clients", "TRUNCATE TABLE users");
+
+        // let check1 = mysql.format("SET FOREIGN_KEY_CHECKS = 1;");
+        // let check1res = await this.executeQuery(check1);
+        console.log('check1');
+        let clients = mysql.format("TRUNCATE TABLE clients");
         let clientresult = await this.executeQuery(clients);
         
         let appointments = mysql.format("TRUNCATE TABLE appointments");
@@ -279,14 +310,30 @@ class User extends main_model{
         let systemsresult = await this.executeQuery(systems);
        
         console.log('truncate done');
-        return JSON.parse(JSON.stringify(systemsresult));
+        return;
     }
 
-    async restore(details){
-        let errors = [];
+    async restore(req){
+
+        var form = new formidable.IncomingForm();
+        form.keepExtensions = true;
+        // form.uploadDir = path.join(__dirname + '../../../database');
+        
+        form.parse(req, function(err, fields, files){
+            // console.log(files.file.name);
+            var oldPath = files.file.path;
+            var newPath = path.join(__dirname + '../../../database') +"/"+ files.file.name;
+
+            var rawData = fs.readFileSync(oldPath)
+            fs.writeFile(newPath, rawData,function(err){
+                if(err) console.log(err)
+                console.log("Successfully uploaded")
+            });
+
+            let errors = [];
         console.log("import start");
-        var filepath = "database/"+details.filename+"";
-        var filename = path.parse(details.filename).name;
+        var filepath = "database/"+files.file.name+"";
+        // var filename = path.parse(details.filename).name;
 
         // New onProgress method, added in version 5.0!
         importer.onProgress(progress=>{
@@ -306,6 +353,7 @@ class User extends main_model{
         });
         console.log('import done');
         return errors;
+        });
 
     }
 }

@@ -972,6 +972,12 @@ input[type=number] {
     display: inline-block;
 }
 
+#main #labModal .modal-content .modal-body .lab-select{
+    width: 120px;
+    margin: 0px 30px 10px 0px;
+    display: inline-block;
+}
+
 #labModal .modal-content{
     height: 600px;
     
@@ -1167,6 +1173,10 @@ input[type=number] {
 
 #main #healthRecordTable thead{
     text-align: center;
+}
+
+#main #healthRecordTable thead #action{
+    width: 400px;
 }
 
 #main #healthRecordTable .btn-view{

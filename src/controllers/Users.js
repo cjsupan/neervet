@@ -1,6 +1,7 @@
 const user_model = require('../models/User');
 
 class Users{
+    
     async login(req, res){
        
         if(req.session.user_id === undefined || req.session.user_id === ''  && req.session.user_level === undefined || req.session.user_level === '' ){
@@ -109,31 +110,29 @@ class Users{
 
     async backuprestore(req, res){
 
-        let result = await user_model.getFiles();
+        let result = await user_model.backup();
+        // console.log(result);
         
-        res.render('partials/backuprestore', {restore: result});
+        res.render('partials/backuprestore', {filepath: result});
     }
 
-    async validate_backup(req, res){
-        let result = await user_model.validate_backup(req.body);
+    async backup(req, res){
         
-        if(result.length != 0){
-            res.json(result);
-        }else{
-            let result = await user_model.backup(req.body);
-            res.json([]);
-        }
+        const file = `database/Neervet.sql`;
+        res.download(file);
+        
     }
 
     async restore(req, res){
-        let result = await user_model.truncate();
-        let restoreimport = await user_model.restore(req.body);
-        if(restoreimport.length != 0){
-            console.log(restoreimport);
-        }else{
-            res.redirect('/logout');
-        }
+        console.log('in');
+        // let save = await user_model.saveFile(req)
         
+        let result = await user_model.truncate();
+        let restoreimport = await user_model.restore(req);
+            
+
+
+        res.send('DONE');
     }
 
     

@@ -21,7 +21,7 @@
             <tr>
                 <th>Examining Vet</th>
                 <th>Date</th>
-                <th>Action</th>
+                <th id='action'>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -31,7 +31,8 @@
                 <td><%= system[i].created_date %></td>
                 <td class='btn-view'>
                     <button type='button' class='btn btn-success view-health' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
-                    <button type='button' class='btn btn-primary view-report' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">Report</button>
+                    <button type='button' class='btn btn-primary view-report' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">View Report</button>
+                    <button type='button' class='btn btn-danger delete-record' href='/deletePetRecord/<%= system[i].pet_id %>/<%= system[i].systemId %>'>Delete</button>
                 </td>
             </tr>
             <% }%>
