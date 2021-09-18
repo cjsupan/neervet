@@ -18,6 +18,13 @@ class main{
             return false;
         }
     }
+    contact(data){
+        if(data.length != 11){
+            return false
+        }else{
+            return true;
+        }
+    }
     match(password, confirm){
         if(password == confirm){
             return true;

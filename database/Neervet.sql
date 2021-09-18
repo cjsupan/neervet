@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: findings
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `findings` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: history
@@ -69,15 +69,16 @@ CREATE TABLE IF NOT EXISTS `findings` (
 
 CREATE TABLE IF NOT EXISTS `history` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pet_id` int(11) DEFAULT NULL,
-  `pet_client_id` int(11) DEFAULT NULL,
+  `system_id` int(11) DEFAULT NULL,
+  `system_pet_id` int(11) DEFAULT NULL,
+  `system_pet_client_id` int(11) DEFAULT NULL,
   `complaint` varchar(500) DEFAULT NULL,
   `current_med` varchar(500) DEFAULT NULL,
   `physical_exam` varchar(500) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: laboratory
@@ -98,14 +99,16 @@ CREATE TABLE IF NOT EXISTS `laboratory` (
   `urinalysis` varchar(500) DEFAULT NULL,
   `fecalysis` varchar(500) DEFAULT NULL,
   `xray` varchar(500) DEFAULT NULL,
+  `diagnosis_procedure` varchar(1000) DEFAULT NULL,
   `differential` varchar(500) DEFAULT NULL,
-  `definitive` varchar(500) DEFAULT NULL,
-  `treatment` varchar(500) DEFAULT NULL,
+  `definitive` varchar(1000) DEFAULT NULL,
+  `treatment` varchar(1000) DEFAULT NULL,
+  `prescribed_med` varchar(1000) DEFAULT NULL,
   `comments` varchar(500) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pets
@@ -124,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `pets` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: systems
@@ -149,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `systems` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: users
@@ -159,13 +162,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(255) DEFAULT NULL,
+  `user_level` varchar(45) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `user_level` varchar(45) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 12 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: vitalsigns
@@ -173,8 +176,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE TABLE IF NOT EXISTS `vitalsigns` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pet_id` int(11) DEFAULT NULL,
-  `pet_client_id` int(11) DEFAULT NULL,
+  `system_id` int(11) DEFAULT NULL,
+  `system_pet_id` int(11) DEFAULT NULL,
+  `system_pet_client_id` int(11) DEFAULT NULL,
   `weight` varchar(45) DEFAULT NULL,
   `temp` varchar(45) DEFAULT NULL,
   `respiratory_rate` varchar(45) DEFAULT NULL,
@@ -184,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `vitalsigns` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: appointments
@@ -203,58 +207,14 @@ INSERT INTO
   )
 VALUES
   (
+    3,
     1,
-    2,
-    'Php',
-    '2021-09-09 14:59:00',
-    0,
-    0,
-    '2021-09-08 15:00:01',
-    '2021-09-08 15:00:01'
-  );
-INSERT INTO
-  `appointments` (
-    `id`,
-    `client_id`,
-    `title`,
-    `date_and_time`,
-    `notification`,
-    `complete`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    2,
-    3,
     'Vaccination',
-    '2021-09-10 10:30:00',
+    '2021-09-14 20:14:00',
+    1,
     0,
-    0,
-    '2021-09-09 10:24:38',
-    '2021-09-09 10:24:38'
-  );
-INSERT INTO
-  `appointments` (
-    `id`,
-    `client_id`,
-    `title`,
-    `date_and_time`,
-    `notification`,
-    `complete`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    3,
-    4,
-    'Vaccination',
-    '2021-09-11 10:46:00',
-    0,
-    0,
-    '2021-09-10 10:46:56',
-    '2021-09-10 10:46:56'
+    '2021-09-13 19:58:55',
+    '2021-09-13 19:58:55'
   );
 
 # ------------------------------------------------------------
@@ -276,78 +236,12 @@ VALUES
   (
     1,
     'Cj',
-    'Cj',
+    'Supan',
     'supancj18@gmail.com',
-    'cj',
-    '09352909072',
-    '2021-09-07 18:45:50',
-    '2021-09-07 18:45:50'
-  );
-INSERT INTO
-  `clients` (
-    `id`,
-    `first_name`,
-    `last_name`,
-    `email`,
-    `address`,
-    `contact`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    2,
-    'Manero',
-    'Manero',
-    'supancj18@gmail.com',
-    'manero',
-    '09352909072',
-    '2021-09-07 18:46:03',
-    '2021-09-07 18:46:03'
-  );
-INSERT INTO
-  `clients` (
-    `id`,
-    `first_name`,
-    `last_name`,
-    `email`,
-    `address`,
-    `contact`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    3,
-    'Denver ',
-    'Araboy',
-    'denverblaise777@gmail.com',
-    'san juan la union',
-    '09352909072',
-    '2021-09-09 10:23:30',
-    '2021-09-09 10:23:30'
-  );
-INSERT INTO
-  `clients` (
-    `id`,
-    `first_name`,
-    `last_name`,
-    `email`,
-    `address`,
-    `contact`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    4,
-    'Marie ann',
-    'Fontanilla',
-    'fontanillama@slc-sflu.edu.ph',
-    'balaoan',
-    '09352909072',
-    '2021-09-10 10:46:36',
-    '2021-09-10 10:46:36'
+    'pantar norte, balaoan la union',
+    '09195452872',
+    '2021-09-18 18:29:15',
+    '2021-09-18 18:29:15'
   );
 
 # ------------------------------------------------------------
@@ -376,63 +270,23 @@ INSERT INTO
   )
 VALUES
   (
-    2,
-    2,
-    2,
     1,
+    1,
+    1,
+    1,
+    'nothing here',
+    '',
+    'nothing here',
     '',
     '',
     '',
+    'nothing here',
+    '',
+    'nothing here',
     '',
     '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '2021-09-08 15:58:00',
-    '2021-09-08 15:58:47'
-  );
-INSERT INTO
-  `findings` (
-    `id`,
-    `system_id`,
-    `system_pet_id`,
-    `system_pet_client_id`,
-    `general_appearance`,
-    `teeth_mouth`,
-    `eyes`,
-    `ears`,
-    `skin_coat`,
-    `heart_lungs`,
-    `digestive`,
-    `musculoskeletal`,
-    `nervous`,
-    `lymph`,
-    `urogenitals`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    3,
-    3,
-    3,
-    3,
-    '',
-    'asdasd',
-    '',
-    'asdasd',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '2021-09-10 10:35:00',
-    '2021-09-10 10:36:45'
+    '2021-09-14 00:00:00',
+    '2021-09-14 23:13:22'
   );
 
 # ------------------------------------------------------------
@@ -442,8 +296,9 @@ VALUES
 INSERT INTO
   `history` (
     `id`,
-    `pet_id`,
-    `pet_client_id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
     `complaint`,
     `current_med`,
     `physical_exam`,
@@ -453,35 +308,14 @@ INSERT INTO
 VALUES
   (
     1,
-    2,
     1,
-    '',
-    '',
-    '',
-    '2021-09-08 15:58:00',
-    '2021-09-08 15:58:47'
-  );
-INSERT INTO
-  `history` (
-    `id`,
-    `pet_id`,
-    `pet_client_id`,
-    `complaint`,
-    `current_med`,
-    `physical_exam`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    2,
-    3,
-    3,
-    'asd',
-    'asd',
-    'asd',
-    '2021-09-10 10:35:00',
-    '2021-09-10 10:36:45'
+    1,
+    1,
+    'INAPPETENCE FOR 2 DAYS; BLOODY DIARRHEA; VOMITION;  5% DEHYDRATION; ROUGH HAIR COAT; PALE MUCOUS MEMBRANE; BCS 1.5; HISTORY OF EXPOSURE TO SICK DOG 1 WEEK AGO; FEVER AT 39.5 c; HR 100 BPM; RR 15 BPM',
+    'nothing here',
+    'nothing here',
+    '2021-09-14 00:00:00',
+    '2021-09-14 23:13:22'
   );
 
 # ------------------------------------------------------------
@@ -504,9 +338,11 @@ INSERT INTO
     `urinalysis`,
     `fecalysis`,
     `xray`,
+    `diagnosis_procedure`,
     `differential`,
     `definitive`,
     `treatment`,
+    `prescribed_med`,
     `comments`,
     `created_at`,
     `updated_at`
@@ -514,8 +350,8 @@ INSERT INTO
 VALUES
   (
     1,
-    2,
-    2,
+    1,
+    1,
     1,
     '',
     '',
@@ -523,62 +359,18 @@ VALUES
     '',
     '',
     '',
+    'nothing here',
+    'nothing here',
+    'nothing here',
+    'nothing here',
+    'COMPLETE BLOOD COUNT (ANEMIA; THROMBOCYTOPENIA; NEUTROPHILIA); FECALYSIS (ANCYLOSTOMA CANINUM/ HOOKWORM EGGS); CPV TEST (+)',
     '',
     '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '2021-09-08 15:58:47',
-    '2021-09-08 15:58:47'
-  );
-INSERT INTO
-  `laboratory` (
-    `id`,
-    `system_id`,
-    `system_pet_id`,
-    `system_pet_client_id`,
-    `heartworm`,
-    `skin_scrape`,
-    `ear_mites`,
-    `cdv`,
-    `cpv`,
-    `fiv`,
-    `vaginal_smear`,
-    `urinalysis`,
-    `fecalysis`,
-    `xray`,
-    `differential`,
-    `definitive`,
-    `treatment`,
-    `comments`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    2,
-    3,
-    3,
-    3,
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '2021-09-10 10:36:45',
-    '2021-09-10 10:36:45'
+    'HOSPITALIZATION FOR 5 DAYS; TOLFENAMIC ACID 0.5 MG/KG SC SID; TMPS 15MG/KG SC BID; I.V.PLACEMENT; RANITIDINE 4MG/KG IV BID; AMPICILLIN 50MG IV; IRON DEXTRAN 5 MG/KG; BLOOD TRANSFUSION',
+    'SCOURVET PO BID; PET REBOOST 2 ML PO BID',
+    'asdasdasd',
+    '2021-09-14 23:13:22',
+    '2021-09-14 23:13:22'
   );
 
 # ------------------------------------------------------------
@@ -601,45 +393,17 @@ INSERT INTO
   )
 VALUES
   (
-    2,
     1,
-    'Michael choi',
-    'canine',
-    'aspin',
-    'Male',
-    'No',
-    'Brown',
-    '2021-09-07 00:00:00',
-    '2021-09-08 15:58:00',
-    '2021-09-08 15:58:47'
-  );
-INSERT INTO
-  `pets` (
-    `id`,
-    `client_id`,
-    `name`,
-    `species`,
-    `breed`,
-    `sex`,
-    `altered`,
-    `color`,
-    `birthdate`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    3,
-    3,
+    1,
     'Kali',
     'canine',
     'aspin',
     'Male',
     'No',
     'Brown',
-    '2019-01-11 00:00:00',
-    '2021-09-10 10:35:00',
-    '2021-09-10 10:36:45'
+    '2018-01-14 00:00:00',
+    '2021-09-14 00:00:00',
+    '2021-09-14 23:13:22'
   );
 
 # ------------------------------------------------------------
@@ -668,63 +432,23 @@ INSERT INTO
   )
 VALUES
   (
-    2,
-    2,
+    1,
+    1,
     1,
     'Ken oliver',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
-    '2021-09-08 15:58:00',
-    '2021-09-08 15:58:47'
-  );
-INSERT INTO
-  `systems` (
-    `id`,
-    `pet_id`,
-    `pet_client_id`,
-    `exam_vet`,
-    `general_appearance`,
-    `teeth_mouth`,
-    `eyes`,
-    `ears`,
-    `skin_coat`,
-    `heart_lungs`,
-    `digestive`,
-    `musculoskeletal`,
-    `nervous`,
-    `lymph`,
-    `urogenitals`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    3,
-    3,
-    3,
-    'Ken oliver',
     'Abnormal',
-    'Normal',
-    'Normal',
-    'Normal',
-    'Normal',
     'Normal',
     'Abnormal',
     'Normal',
     'Normal',
     'Normal',
+    'Abnormal',
     'Normal',
-    '2021-09-10 10:35:00',
-    '2021-09-10 10:36:45'
+    'Abnormal',
+    'Normal',
+    'Normal',
+    '2021-09-01 10:00:00',
+    '2021-09-15 22:53:29'
   );
 
 # ------------------------------------------------------------
@@ -736,88 +460,44 @@ INSERT INTO
     `id`,
     `first_name`,
     `last_name`,
+    `user_level`,
     `username`,
     `password`,
-    `user_level`,
     `created_at`,
     `updated_at`
   )
 VALUES
   (
-    3,
-    'Admin',
-    'Admin',
-    'Admin',
+    1,
+    'admin',
     'admin',
     'Admin',
+    'admin',
+    'admin',
     NULL,
-    '2021-09-08 14:57:07'
+    NULL
   );
 INSERT INTO
   `users` (
     `id`,
     `first_name`,
     `last_name`,
+    `user_level`,
     `username`,
     `password`,
-    `user_level`,
     `created_at`,
     `updated_at`
   )
 VALUES
   (
-    8,
-    'Cedrick John',
+    2,
+    'Cj',
     'Supan',
-    'admin2',
-    'admin2',
-    'Admin',
-    '2021-09-08 11:54:39',
-    '2021-09-08 11:54:39'
-  );
-INSERT INTO
-  `users` (
-    `id`,
-    `first_name`,
-    `last_name`,
-    `username`,
-    `password`,
-    `user_level`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    10,
-    'Marie ann',
-    'Fontanilla',
-    'marieann',
-    'marieann',
-    'Admin',
-    '2021-09-09 10:21:32',
-    '2021-09-09 10:21:32'
-  );
-INSERT INTO
-  `users` (
-    `id`,
-    `first_name`,
-    `last_name`,
-    `username`,
-    `password`,
-    `user_level`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    11,
-    'Cjsupan',
-    'Cjsupan',
+    'Staff',
     'cjsupan',
     'cjsupan',
-    'Subadmin',
-    '2021-09-10 10:44:42',
-    '2021-09-10 10:44:42'
+    '2021-09-18 16:28:48',
+    '2021-09-18 16:28:48'
   );
 
 # ------------------------------------------------------------
@@ -827,8 +507,9 @@ VALUES
 INSERT INTO
   `vitalsigns` (
     `id`,
-    `pet_id`,
-    `pet_client_id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
     `weight`,
     `temp`,
     `respiratory_rate`,
@@ -840,45 +521,18 @@ INSERT INTO
   )
 VALUES
   (
-    2,
-    2,
     1,
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '2021-09-08 15:58:00',
-    '2021-09-08 15:58:47'
-  );
-INSERT INTO
-  `vitalsigns` (
-    `id`,
-    `pet_id`,
-    `pet_client_id`,
-    `weight`,
-    `temp`,
-    `respiratory_rate`,
-    `heart_rate`,
-    `crt`,
-    `mm`,
-    `created_at`,
-    `updated_at`
-  )
-VALUES
-  (
-    3,
-    3,
-    3,
-    '15',
+    1,
+    1,
+    1,
+    '5 kgs',
     '38.9',
     '12',
     '5',
+    '1',
     '12',
-    '12',
-    '2021-09-10 10:35:00',
-    '2021-09-10 10:36:45'
+    '2021-09-14 00:00:00',
+    '2021-09-14 23:13:22'
   );
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

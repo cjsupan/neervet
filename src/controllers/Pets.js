@@ -3,12 +3,12 @@ var pet_model = require('../models/Pet');
 class Pets{
     async validate_pet(req, res){
         let result = await pet_model.validatePet(req.body);
-        if(result.length > 0){
+        if(result.length != 0){
             res.json(result);
-        }else if(result == ''){
+        }else if(result.length === 0 ){
             let result = await pet_model.addPet(req.body, req.params.id);
             let clientid= req.params.id;
-            res.json(parseInt(clientid));
+            res.json([]);
         }
     }
 
@@ -50,7 +50,7 @@ class Pets{
     }
 
     async delete_pet_record(req, res){
-        let result = await pet_model.deletePetRecord(req.params.systemid, req.params.vitalid, req.params.historyid);
+        let result = await pet_model.deletePetRecord(req.params.petid, req.params.systemid);
         res.redirect('/');
     }
 
