@@ -60,7 +60,7 @@
             <label for='address'>Address: </label>
             <input type='text' name='address' id='input-address' class='form-control' autocomplete="nope" value='<%= client[0].address %>'><br>
             <label for='contact'>Contact No: </label><br>
-            <input type='text' id='input-contact' name='contact' class='form-control client-input' autocomplete="nope" value='<%= client[0].contact %>'>
+            <input type='number' id='input-contact' name='contact' class='form-control client-input' autocomplete="nope" value='<%= client[0].contact %>'>
             <div id='client-errors'>
             </div>
         </form>
@@ -114,6 +114,7 @@
         </div>
         <div id='pet-modal-body' class="modal-body">
             <form id='pet-form' action='/addPet/<%= client[0].id %>' method='POST'>
+                <div id='pet-error'></div>
                 <label for='examvet'>Examining Vet: </label>
                 <input type='text' id='examvet-input' class='form-control' name='examvet'>
                 <label for='datetime'>Date and Time: </label>
@@ -274,7 +275,6 @@
                     </table>
                 </div>
             </form>
-            <div id='pet-error'></div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

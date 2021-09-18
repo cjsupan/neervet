@@ -49,8 +49,8 @@ class Client extends main_model{
 
         if(this.empty(details.contact)){
             errors.push('Contact number should not be blank');
-        }else if(!this.hasnumber(details.contact)){
-            errors.push('Invalid Contact No.');
+        }else if(!this.hasnumber(details.contact) || this.symbol(details.contact) || !this.contact(details.contact)){
+            errors.push('Invalid Contact Number');
         }
 
         if(this.empty(details.address)){
@@ -93,17 +93,20 @@ class Client extends main_model{
         let pets = mysql.format('DELETE FROM pets WHERE client_id = ?', id);
         let petresult = await this.executeQuery(pets);
         
-        let vitalsign = mysql.format('DELETE FROM vitalsigns WHERE pet_client_id = ?', id);
+        let vitalsign = mysql.format('DELETE FROM vitalsigns WHERE system_pet_client_id = ?', id);
         let vitalresult = await this.executeQuery(vitalsign);
 
-        let history = mysql.format('DELETE FROM history WHERE pet_client_id = ?', id );
+        let history = mysql.format('DELETE FROM history WHERE system_pet_client_id = ?', id );
         let historyresult = await this.executeQuery(history);
 
         let system = mysql.format('DELETE FROM systems WHERE pet_client_id = ?', id);
         let systemresult = await this.executeQuery(system);
 
-        let findings = mysql.format('DELETE FROM findings WHERE system_client_id = ?', id);
+        let findings = mysql.format('DELETE FROM findings WHERE system_pet_client_id = ?', id);
         let findingsresult = await this.executeQuery(findings);
+
+        let laboratory = mysql.format("DELETE FROM laboratory WHERE system_pet_client_id = ? ", id);
+        let laboratoryresult = await this.executeQuery(query);
 
         return result;
     }

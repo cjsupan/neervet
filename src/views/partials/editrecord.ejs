@@ -231,7 +231,18 @@
     <label for='earmites'>Ear mites/Ear cytology: </label>
     <input type='text' name='ear_mites' class='form-control lab-input' value='<%= lab[0].ear_mites %>'><br>
     <label for='cdv'>CDV: </label>
-    <input type='text' name='cdv' class='form-control lab-input' value='<%= lab[0].cdv %>'>
+    <!-- <input type='text' name='cdv' class='form-control lab-input' value='<%= lab[0].cdv %>'> -->
+    <% if(lab[0].cdv === 'Positive'){ %>
+    <select name='cdv' class='form-control lab-select'>
+        <option value='Positive' selected>Positive</option>
+        <option value='Negative'>Negative</option>
+    </select>
+    <% }else if(lab[0].cdv === 'Negative' || lab[0].cdv === ''){%>
+            <select name='cdv' class='form-control lab-select'>
+                <option value='Negative' selected>Negative</option>
+                <option value='Positive'>Positive</option>
+            </select>
+    <% } %>
     <label for='cpv'>CPV: </label>
     <input type='text' name='cpv' class='form-control lab-input' value='<%= lab[0].cpv %>'>
     <label for='fiv'>FIV/FeLV test: </label>
