@@ -4,7 +4,7 @@
 <input type='hidden' id='client-stay' href='/viewClient/<%= client[0].id %>'>
 <div id='client-page'>
     <p class='display-4' id='name'>Name: <span class='lead' ><%= client[0].name %></span></p>
-    <button type='button' id='edit-client-profile' class='btn btn-primary btn-sm' data-toggle="modal" data-target="#editClientModal" >Edit Profile</button> 
+    <button type='button' id='edit-client-profile' class='btn btn-info btn-sm' data-toggle="modal" data-target="#editClientModal" >Edit Profile</button> 
     <p class='display-4'>Email: <span id='email' class='lead'><%= client[0].email %></span></p>
     <p class='display-4'>Address: <span class='lead'><%= client[0].address %></span></p>
     <p class='display-4'>Contact No: <span class='lead'><%= client[0].contact %></span></p>
@@ -40,7 +40,7 @@
 
 <!-- EDIT CLIENT MODAL -->
 
-<div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" aria-labelledby="editClientModalLabel" aria-hidden="true">
+<div class="modal fade" id="editClientModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="editClientModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

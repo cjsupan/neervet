@@ -28,7 +28,7 @@ class Appointments{
 
     async complete_appointment(req, res){
         let result = await appointment_model.completeAppointment(req.params.id);
-        res.redirect('/');
+        res.json([]);
     }
 
     async get_app_info(req, res){

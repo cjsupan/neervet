@@ -76,7 +76,7 @@ class Pets{
         let petHistory = await pet_model.pet_history(req.params.petid, req.params.systemid);
         
         let petLab = await pet_model.get_pet_lab(req.params.petid, req.params.systemid);
-
+        
         res.render('partials/editrecord', {pet: petInfo, system: petSystem, vitalsign: petVitalsign, history: petHistory, lab: petLab});
     }
 

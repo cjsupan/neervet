@@ -117,12 +117,10 @@
     <p class='lead'>CDV: <span class='lead'><%= lab[0].cdv  %></span></p>
     <p class='lead'>CPV: <span class='lead'><%= lab[0].cpv  %></span></p>
     <p class='lead' id='fiv'>FIV/FeLV test: <span class='lead'><%= lab[0].fiv  %></span></p><br>
-    <p class='lead lab-text'>Urinalysis:</p>
-    <p class='lead lab-text'>Fecalysis:</p>
-    <p class='lead'>Vaginal Smear:</p><br>
-    <textarea class='form-control' readonly><%= lab[0].urinalysis %></textarea>
-    <textarea class='form-control' readonly><%= lab[0].fecalysis %></textarea>
-    <textarea class='form-control' readonly><%= lab[0].vaginal_smear %></textarea><br>
+    <p class='lead'>Urinalysis: <span class='lead'><%= lab[0].urinalysis %></span></p>
+    <p class='lead lab-text'>Fecalysis: <span class='lead'><%= lab[0].fecalysis %></p>
+    <p class='lead'>Vaginal Smear: <span class='lead'><%= lab[0].vaginal_smear %></p><br>
+    
     <p class='lead'>X-ray:</p><br>
     <textarea id='xray' class='form-control' readonly><%= lab[0].xray %></textarea>
 </div>

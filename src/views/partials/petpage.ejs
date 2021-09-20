@@ -5,10 +5,11 @@
 
 <div id='pet-page'>
     <p class='display-4' id='name'>Name: <span class='lead'><%= pet[0].name %></span></p>
-    <button type='button' id='edit-pet' class='btn btn-primary btn-sm' data-toggle="modal" data-target="#editPetModal">Edit Profile</button>
+    <button type='button' id='edit-pet' class='btn btn-info btn-sm' data-toggle="modal" data-target="#editPetModal">Edit Profile</button>
     <p class='display-4'>Age: <span class='lead'><%= pet[0].age %></span></p>
     <p class='display-4'>Birthday: <span class='lead'><%= pet[0].birthdate %></span></p>
     <p class='display-4'>Sex: <span class='lead'><%= pet[0].sex %></span></p>
+    <p class='display-4'>Altered: <span class='lead'><%= pet[0].altered %></span></p>
     <p class='display-4'>Color: <span class='lead'><%= pet[0].color %></span></p>
     <p class='display-4'>Owner's name: <span class='lead'><%= pet[0].owner %></span></p>
 </div>
@@ -41,7 +42,7 @@
 </div>
 
 <!-- EDIT PET INFO -->
-<div class="modal fade" id="editPetModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="editPetModalLabel" aria-hidden="true">
+<div class="modal fade" id="editPetModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="editPetModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -78,7 +79,7 @@
 </div>
 
 <!-- VIEW RECORD -->
-<div class="modal fade" id="viewHealthRecordModal" tabindex="-1" role="dialog" aria-labelledby="viewRecordModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewHealthRecordModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="viewRecordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -102,7 +103,7 @@
 </div>
 
 <!-- VIEW PET REPORT -->
-<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+<div class="modal fade" id="reportModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -123,7 +124,7 @@
 </div>
 
 <!-- LAB MODAL -->
-<div class="modal fade" id="labModal" tabindex="-1" role="dialog" aria-labelledby="labModalLabel" aria-hidden="true">
+<div class="modal fade" id="labModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="labModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
