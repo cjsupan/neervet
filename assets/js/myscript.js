@@ -322,19 +322,6 @@ $(document).ready(function(){
                                 x[i].max = maxdate;
                             }
 
-                            //SHOW PET HEALTH RECORD
-                            $(".date").on('click', function(){
-                                var record = this.id;
-                                $("."+record+"").slideToggle("slow");
-                                // $('#main').animate({
-                                //     scrollTop: 450
-                                // },1000);
-                                var pos = $("."+record+"").offset().top - 160;
-                                $('#main').animate({
-                                    scrollTop: pos
-                                },600);
-                            });
-
                             //SAVE LAB RECORD
                             $("#save-lab").on('click', function(){
                                 $.post($('#record-form').attr('action'), $('#record-form').serialize(), function(res){
@@ -518,7 +505,6 @@ $(document).ready(function(){
             var sec = dateToday.getSeconds();
                         
             var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
-            document.getElementById('next-app').min = today;
             document.getElementById('dateandtime').max = today;
     
             document.getElementById('record-form').setAttribute('action', "updateLab/"+id+"");
@@ -703,8 +689,19 @@ $(document).ready(function(){
                 }
             }
         });
-        
     }
+
+    $(document).on('click', '.complete-appointment', function(e){
+        e.preventDefault();
+        
+        if(confirm('Confirm to Complete')){
+            $.get($(this).attr('href'));
+            let appToday = document.getElementById('app-today');
+            getAppointmentToday(appToday);
+        }else{
+            e.preventDefault();
+        }
+    });
 
     // DELETE APPOINTMENT TODAY
     $(document).on('click','.delete-appointment-today', function(e){

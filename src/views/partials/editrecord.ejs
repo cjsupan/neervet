@@ -225,11 +225,55 @@
     </div>
 
     <label for='heartworm'>Heartworm: </label>
-    <input type='text' name='heartworm' class='form-control lab-input' value='<%= lab[0].heartworm %>'>
+    <% if(lab[0].heartworm === 'Positive'){ %>
+        <select name='heartworm' class='form-control lab-select'>
+            <option value='Positive' selected>Positive</option>
+            <option value='Negative'>Negative</option>
+        </select>
+    <% }else if(lab[0].heartworm === 'Negative' || lab[0].heartworm === ''){%>
+        <select name='heartworm' class='form-control lab-select'>
+            <option value='Negative' selected>Negative</option>
+            <option value='Positive'>Positive</option>
+        </select>
+    <% } %>
     <label for='skinscrape'>Skin scrape: </label>
-    <input type='text' name='skin_scrape' class='form-control lab-input' value='<%= lab[0].skin_scrape %>'>
+    <% if(lab[0].skin_scrape === 'Sarcoptes'){ %>
+        <select name='skin_scrape' class='form-control lab-select'>
+            <option value='sarcoptes' selected>Sarcoptes</option>
+            <option value='demodex'>Demodex</option>
+            <option value='Negative'>Negative</option>
+        </select>
+    <% }else if(lab[0].skin_scrape === 'Demodex'){ %>
+        <select name='skin_scrape' class='form-control lab-select'>
+            <option value='demodex' selected>Demodex</option>
+            <option value='sarcoptes'>Sarcoptes</option>
+            <option value='Positive'>Positive</option>
+        </select>
+    <% }else if(lab[0].skin_scrape === 'Negative'){%>
+        <select name='skin_scrape' class='form-control lab-select'>
+            <option value='Negative' selected>Negative</option>
+            <option value='sarcoptes'>Sarcoptes</option>
+            <option value='demodex'>Demodex</option>
+        </select>
+    <% }else{ %>
+        <select name='skin_scrape' class='form-control lab-select'>
+            <option value='Negative' selected>Negative</option>
+            <option value='sarcoptes'>Sarcoptes</option>
+            <option value='demodex'>Demodex</option>
+        </select>
+    <% } %>
     <label for='earmites'>Ear mites/Ear cytology: </label>
-    <input type='text' name='ear_mites' class='form-control lab-input' value='<%= lab[0].ear_mites %>'><br>
+    <% if(lab[0].ear_mites === 'Positive'){ %>
+        <select name='ear_mites' class='form-control lab-select'>
+            <option value='Positive' selected>Positive</option>
+            <option value='Negative'>Negative</option>
+        </select><br>
+    <% }else if(lab[0].ear_mites === 'Negative' || lab[0].ear_mites === ''){%>
+        <select name='ear_mites' class='form-control lab-select'>
+            <option value='Negative' selected>Negative</option>
+            <option value='Positive'>Positive</option>
+        </select><br>
+    <% } %>
     <label for='cdv'>CDV: </label>
     <!-- <input type='text' name='cdv' class='form-control lab-input' value='<%= lab[0].cdv %>'> -->
     <% if(lab[0].cdv === 'Positive'){ %>
@@ -244,15 +288,83 @@
             </select>
     <% } %>
     <label for='cpv'>CPV: </label>
-    <input type='text' name='cpv' class='form-control lab-input' value='<%= lab[0].cpv %>'>
+    <% if(lab[0].cpv === 'Positive'){ %>
+        <select name='cpv' class='form-control lab-select'>
+            <option value='Positive' selected>Positive</option>
+            <option value='Negative'>Negative</option>
+        </select>
+        <% }else{%>
+            <select name='cpv' class='form-control lab-select'>
+                <option value='Negative' selected>Negative</option>
+                <option value='Positive'>Positive</option>
+            </select>
+        <% } %>
     <label for='fiv'>FIV/FeLV test: </label>
-    <input type='text' name='fiv' class='form-control lab-input' value='<%= lab[0].fiv %>'><br>
-    <label for='urinalysis' class='lab-textarea'>Urinalysis: </label>
-    <label for='fecalysis' class='lab-textarea'>Fecalysis: </label>
-    <label for='vaginalsmear' class='lab-textarea'>Vaginal smear: </label><br>
-    <textarea name='urinalysis' class='form-control'><%= lab[0].urinalysis %></textarea>
-    <textarea name='fecalysis' class='form-control'><%= lab[0].fecalysis %></textarea>
-    <textarea name='vaginal_smear' class='form-control'><%= lab[0].vaginal_smear %></textarea><br>
+    <% if(lab[0].fiv === 'Positive'){ %>
+        <select name='fiv' class='form-control lab-select'>
+            <option value='Positive' selected>Positive</option>
+            <option value='Negative'>Negative</option>
+        </select><br>
+        <% }else if(lab[0].fiv === 'Negative' || lab[0].fiv === ''){%>
+                <select name='fiv' class='form-control lab-select'>
+                    <option value='Negative' selected>Negative</option>
+                    <option value='Positive'>Positive</option>
+                </select><br>
+        <% } %>
+    <label for='urinalysis'>Urinalysis: </label>
+    <% if(lab[0].urinalysis === 'Positive'){ %>
+        <select name='urinalysis' class='form-control lab-select'>
+            <option value='Positive' selected>Positive with Crystals</option>
+            <option value='Negative'>Negative</option>
+        </select>
+    <% }else if(lab[0].urinalysis === 'Negative' || lab[0].urinalysis === ''){%>
+                <select name='urinalysis' class='form-control lab-select'>
+                    <option value='Negative' selected>Negative</option>
+                    <option value='Positive'>Positive with crystals</option>
+                </select>
+    <% } %>
+    <label for='vaginalsmear'>Vaginal smear: </label>
+    <% if(lab[0].vaginal_smear === 'Ready'){ %>
+        <select name='vaginal_smear' class='form-control lab-select'>
+            <option value='Ready' selected>Ready</option>
+            <option value='Not Ready'>Not Ready</option>
+        </select>
+    <% }else if(lab[0].vaginal_smear === 'Not Ready' || lab[0].vaginal_smear === ''){%>
+            <select name='vaginal_smear' class='form-control lab-select'>
+                <option value='Not Ready' selected>Not Ready</option>
+                <option value='Ready'>Ready</option>
+            </select>
+    <% } %>
+    <label for='fecalysis'>Fecalysis: </label>
+    <% var array = ['Toxocara', 'Hookworm', 'Whipworm', 'Tapeworm', 'Isospora', 'Giardia', 'Amoeba', 'Bacteria', 'Negative', '']
+            var selected = lab[0].fecalysis;
+            if(selected === ''){
+                array.pop();
+                array.pop();
+                selected = 'Negative';
+            }
+        var newArr = [];
+
+        for(var i=0; i< array.length; i++){
+            if(array[i] != selected){
+                newArr.push(array[i]);
+            }
+        }
+    %>     
+    
+    <select name='fecalysis' class='form-control lab-select'>
+        <option value='<%= selected %>' ><%= selected %></option>
+        <option value='<%= newArr[0] %>'><%= newArr[0] %></option>
+        <option value='<%= newArr[1] %>'><%= newArr[1] %></option>
+        <option value='<%= newArr[2] %>'><%= newArr[2] %></option>
+        <option value='<%= newArr[3] %>'><%= newArr[3] %></option>
+        <option value='<%= newArr[4] %>'><%= newArr[4] %></option>
+        <option value='<%= newArr[5] %>'><%= newArr[5] %></option>
+        <option value='<%= newArr[6] %>'><%= newArr[6] %></option>
+        <option value='<%= newArr[7] %>'><%= newArr[7] %></option>
+
+    </select><br>
+    
     <label for='xray' class='lab-textarea'>Xray: </label><br>
     <textarea name='xray' id='xray' class='form-control'><%= lab[0].xray %></textarea><br><br>
     <label for='diagnosis_procedure'>Diagnosis Procedure: </label><br>
@@ -267,8 +379,5 @@
     <textarea name='prescribed' id='prescribed' class='form-control'><%= lab[0].prescribed_med %></textarea><br>
     <label for='comments'>Comments/Remarks: </label>
     <input type='text' name='comments' id='comments' class='form-control lab-input' value='<%= lab[0].comments %>'><br>
-    <label for='next_app'>Next Appointment: </label>
-    <input type='datetime-local' id='next-app' name='next_app' class='form-control'>
-    <label for='title'>Title: </label>
-    <input type='text' id='title' name='title' class='form-control'>
+    
 </form>

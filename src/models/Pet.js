@@ -273,7 +273,7 @@ class Pet extends main_model{
     }
 
     async get_health_record(id){
-        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, exam_vet,  DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date FROM systems WHERE pet_id = ? ORDER BY created_at DESC", id);
+        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, exam_vet,  DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date FROM systems WHERE pet_id = ? ORDER BY updated_at DESC", id);
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -428,13 +428,6 @@ class Pet extends main_model{
         lab.treatment = details.treatment;
         lab.prescribed_med = details.prescribed;
         lab.comments = details.comments;
-
-        let title = details.title.charAt(0).toUpperCase() + details.title.slice(1);
-        
-        if(details.next_app != ''){
-            let appointment = mysql.format("INSERT INTO appointments (client_id, title, date_and_time) VALUES(?, ?, ?)", [clientid, title, details.next_app]);
-            let addApp = await this.executeQuery(appointment);
-        }
         
         let labquery = mysql.format("UPDATE laboratory SET ? WHERE system_pet_id = ? AND system_id = ? ", [ lab, petid, systemid]);
         let labresult = await this.executeQuery(labquery);
