@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: clients
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: findings
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `findings` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: history
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `history` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: laboratory
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `laboratory` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pets
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `pets` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: systems
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `systems` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: users
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: vitalsigns
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `vitalsigns` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: appointments
@@ -207,14 +207,14 @@ INSERT INTO
   )
 VALUES
   (
-    3,
-    1,
+    2,
+    2,
     'Vaccination',
-    '2021-09-14 20:14:00',
+    '2021-09-20 15:46:00',
     1,
     0,
-    '2021-09-13 19:58:55',
-    '2021-09-13 19:58:55'
+    '2021-09-18 18:48:11',
+    '2021-09-18 18:48:11'
   );
 
 # ------------------------------------------------------------
@@ -234,14 +234,14 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    'Cj',
+    2,
+    'Cedrick John',
     'Supan',
     'supancj18@gmail.com',
     'pantar norte, balaoan la union',
-    '09195452872',
-    '2021-09-18 18:29:15',
-    '2021-09-18 18:29:15'
+    '09352909072',
+    '2021-09-18 18:42:28',
+    '2021-09-18 18:42:28'
   );
 
 # ------------------------------------------------------------
@@ -270,23 +270,63 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    1,
-    1,
-    1,
-    'nothing here',
-    '',
-    'nothing here',
+    7,
+    7,
+    4,
+    2,
     '',
     '',
     '',
-    'nothing here',
-    '',
-    'nothing here',
     '',
     '',
-    '2021-09-14 00:00:00',
-    '2021-09-14 23:13:22'
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-09-19 00:00:00',
+    '2021-09-19 15:41:21'
+  );
+INSERT INTO
+  `findings` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    8,
+    8,
+    4,
+    2,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-09-19 00:00:00',
+    '2021-09-19 15:43:24'
   );
 
 # ------------------------------------------------------------
@@ -307,15 +347,39 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    1,
-    1,
-    1,
-    'INAPPETENCE FOR 2 DAYS; BLOODY DIARRHEA; VOMITION;  5% DEHYDRATION; ROUGH HAIR COAT; PALE MUCOUS MEMBRANE; BCS 1.5; HISTORY OF EXPOSURE TO SICK DOG 1 WEEK AGO; FEVER AT 39.5 c; HR 100 BPM; RR 15 BPM',
-    'nothing here',
-    'nothing here',
-    '2021-09-14 00:00:00',
-    '2021-09-14 23:13:22'
+    7,
+    7,
+    4,
+    2,
+    'something',
+    'something',
+    'something',
+    '2021-09-19 00:00:00',
+    '2021-09-19 15:41:21'
+  );
+INSERT INTO
+  `history` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `complaint`,
+    `current_med`,
+    `physical_exam`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    8,
+    8,
+    4,
+    2,
+    'something',
+    'something',
+    'something',
+    '2021-09-19 00:00:00',
+    '2021-09-19 15:43:24'
   );
 
 # ------------------------------------------------------------
@@ -349,28 +413,78 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    1,
-    1,
-    1,
+    7,
+    7,
+    4,
+    2,
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Not Ready',
+    'Negative',
+    'Negative',
     '',
     '',
     '',
     '',
     '',
     '',
-    'nothing here',
-    'nothing here',
-    'nothing here',
-    'nothing here',
-    'COMPLETE BLOOD COUNT (ANEMIA; THROMBOCYTOPENIA; NEUTROPHILIA); FECALYSIS (ANCYLOSTOMA CANINUM/ HOOKWORM EGGS); CPV TEST (+)',
+    '',
+    '2021-09-19 15:41:21',
+    '2021-09-19 15:41:21'
+  );
+INSERT INTO
+  `laboratory` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `heartworm`,
+    `skin_scrape`,
+    `ear_mites`,
+    `cdv`,
+    `cpv`,
+    `fiv`,
+    `vaginal_smear`,
+    `urinalysis`,
+    `fecalysis`,
+    `xray`,
+    `diagnosis_procedure`,
+    `differential`,
+    `definitive`,
+    `treatment`,
+    `prescribed_med`,
+    `comments`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    8,
+    8,
+    4,
+    2,
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Not Ready',
+    'Negative',
+    'Negative',
     '',
     '',
-    'HOSPITALIZATION FOR 5 DAYS; TOLFENAMIC ACID 0.5 MG/KG SC SID; TMPS 15MG/KG SC BID; I.V.PLACEMENT; RANITIDINE 4MG/KG IV BID; AMPICILLIN 50MG IV; IRON DEXTRAN 5 MG/KG; BLOOD TRANSFUSION',
-    'SCOURVET PO BID; PET REBOOST 2 ML PO BID',
-    'asdasdasd',
-    '2021-09-14 23:13:22',
-    '2021-09-14 23:13:22'
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-09-19 15:43:24',
+    '2021-09-19 15:43:24'
   );
 
 # ------------------------------------------------------------
@@ -393,17 +507,17 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    1,
+    4,
+    2,
     'Kali',
     'canine',
     'aspin',
     'Male',
     'No',
-    'Brown',
-    '2018-01-14 00:00:00',
-    '2021-09-14 00:00:00',
-    '2021-09-14 23:13:22'
+    'Black',
+    '2017-02-07 00:00:00',
+    '2021-09-19 00:00:00',
+    '2021-09-19 15:41:21'
   );
 
 # ------------------------------------------------------------
@@ -432,23 +546,63 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    1,
-    1,
+    7,
+    4,
+    2,
     'Ken oliver',
     'Abnormal',
     'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    '2021-09-19 15:43:00',
+    '2021-09-19 15:44:02'
+  );
+INSERT INTO
+  `systems` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `exam_vet`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    8,
+    4,
+    2,
+    'Doc willie ong',
     'Abnormal',
     'Normal',
     'Normal',
     'Normal',
-    'Abnormal',
-    'Normal',
-    'Abnormal',
     'Normal',
     'Normal',
-    '2021-09-01 10:00:00',
-    '2021-09-15 22:53:29'
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    '2021-09-19 03:46:00',
+    '2021-09-19 15:43:51'
   );
 
 # ------------------------------------------------------------
@@ -490,14 +644,14 @@ INSERT INTO
   )
 VALUES
   (
-    2,
+    4,
     'Cj',
     'Supan',
     'Staff',
     'cjsupan',
     'cjsupan',
-    '2021-09-18 16:28:48',
-    '2021-09-18 16:28:48'
+    '2021-09-18 18:40:48',
+    '2021-09-18 18:40:48'
   );
 
 # ------------------------------------------------------------
@@ -521,18 +675,48 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    1,
-    1,
-    1,
-    '5 kgs',
+    7,
+    7,
+    4,
+    2,
+    '15',
     '38.9',
     '12',
     '5',
-    '1',
     '12',
-    '2021-09-14 00:00:00',
-    '2021-09-14 23:13:22'
+    'pale',
+    '2021-09-19 00:00:00',
+    '2021-09-19 15:41:21'
+  );
+INSERT INTO
+  `vitalsigns` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `weight`,
+    `temp`,
+    `respiratory_rate`,
+    `heart_rate`,
+    `crt`,
+    `mm`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    8,
+    8,
+    4,
+    2,
+    '10',
+    '38.9',
+    '12',
+    '5',
+    '2',
+    'pale',
+    '2021-09-19 00:00:00',
+    '2021-09-19 15:43:24'
   );
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

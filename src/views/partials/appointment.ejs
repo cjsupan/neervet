@@ -1,7 +1,7 @@
 <h1 class='display-4'>Appointment List</h1>
 <input type='hidden' id='appointment' href='/appointment'>;
 <form id='app-search' action='/searchApp' method='POST' autocomplete="off">
-    <input type='text' id='search-appointment' class='form-control form-control-sm' name='search' placeholder='Search Appointment'>
+    <input type='text' id='search-appointment' class='form-control form-control-sm' name='search' placeholder='Search Name'>
     <label for='from'>From: </label>
     <input type='datetime-local' name='from' id='from' class='form-control form-control-sm' placeholder="From">
     <label for='to'>To: </label>
@@ -40,7 +40,7 @@
 </div>
 
 <!-- EDIT APPOINTMENT MODAL -->
-<div class="modal fade" id="editAppModal" tabindex="-1" role="dialog" aria-labelledby="editAppModalLabel" aria-hidden="true">
+<div class="modal fade" id="editAppModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="editAppModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -62,7 +62,7 @@
         
 
 <!-- NOTIFICATION MODAL -->
-<div class="modal fade" id="notifModal" tabindex="-1" role="dialog" aria-labelledby="notifModalLabel" aria-hidden="true">
+<div class="modal fade" id="notifModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="notifModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">

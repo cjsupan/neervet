@@ -23,7 +23,7 @@ class Client extends main_model{
     }
 
     async searchClient(details){
-        let query = mysql.format("SELECT id, CONCAT(first_name, ' ',last_name) as name, address, contact  FROM clients WHERE CONCAT(first_name, ' ',last_name) LIKE '%"+details.search+"%' ORDER BY created_at DESC");
+        let query = mysql.format("SELECT id, CONCAT(first_name, ' ',last_name) as name, email, address, contact  FROM clients WHERE CONCAT(first_name, ' ',last_name) LIKE '%"+details.search+"%' ORDER BY created_at DESC");
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));

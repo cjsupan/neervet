@@ -253,7 +253,7 @@ input[type=number] {
 
 .container-fluid #main{
     width: 83%;
-    height: calc(100% - 30px);
+    height: calc(100% - 20px);
     margin: 10px 10px 0px 10px;
     padding: 0px;
     overflow: auto;
@@ -973,8 +973,8 @@ input[type=number] {
 }
 
 #main #labModal .modal-content .modal-body .lab-select{
-    width: 120px;
-    margin: 0px 30px 10px 0px;
+    width: 150px;
+    margin: 0px 30px 25px 0px;
     display: inline-block;
 }
 
@@ -1514,8 +1514,13 @@ input[type=number] {
     display: inline-block;
 }
 
+#main #record-content #lab #earmites{
+    width: 300px;
+    display: inline-block;
+}
+
 #main #record-content #lab p.lab-text{
-    margin-right: 45px;
+    margin-right: 10px;
 }
 
 #main #record-content #lab textarea{
@@ -1634,11 +1639,12 @@ input[type=number] {
     font-family: open-sans;
 }
 
-#main #backup-restore-form form #backup-now, #main #backup-restore-form form #restore-now{
+#main #backup-restore-form #backup #backup-now, #main #backup-restore-form form #restore-now{
     width: 120px;
     margin: 10px 0px 10px 77%;
     display: inline-block;
 }
+
 
 #main #backup-restore-form form #restore-now #spinner{
     width: 15px;
