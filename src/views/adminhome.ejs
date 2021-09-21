@@ -16,13 +16,13 @@
 <body>
     <nav class="navbar navbar-default">
         <div id='logo'></div>
-        <a class="navbar-brand" id='to-dashboard' href="/home">Neervet Animal Clinic</a>
+        <a class="navbar-brand disable-select" id='to-dashboard' href="/home">Neervet Animal Clinic</a>
         <div id='user-nav'>
-            <p class='lead'>Welcome, </p>
-            <a class='text-info dropdown-toggle' id='userDropdown' role='button' data-toggle='dropdown'><%= username%> <span id='username'> (<%= userlevel %>)</span></a>
+            <p class='lead disable-select'>Welcome, </p>
+            <a class='text-info dropdown-toggle disable-select' id='userDropdown' role='button' data-toggle='dropdown'><%= username%> <span id='username'> (<%= userlevel %>)</span></a>
             <ul class='dropdown-menu' aria-labelledby="userDropdown">
-                <li> <a id='edit-profile' class="dropdown-item" href="/editProfile">Edit Profile</a></li>
-                <li> <a class="dropdown-item" href="/logout">Logout</a></li>
+                <li> <a id='edit-profile' class="dropdown-item disable-select" href="/editProfile">Edit Profile</a></li>
+                <li> <a class="dropdown-item disable-select" href="/logout">Logout</a></li>
             </ul>
         </div>
         <!-- <div id='user-logout'>
@@ -44,18 +44,19 @@
                             <li><a id='manage-user' href='/manageUser'><img src='img/manage.png'>Manage User</a></li>
                         </ul>
                     </li> -->
-                    <a class='sub-name'>SYSTEM</a>
-                    <li><a id='dashboard' class='lead' href='/home'><img src='img/dashboard.png'>Dashboard</a></li>
-                    <li><a id='manage-user' class='lead' href='/manageUser'><img src='img/profile.png'>Manage User</a></li>
-                    <li><a id='client' class='lead clients' href='/client'><img src='img/clients.png'>Manage Clients</a></li>
-                    <li><a id='appointment' class='lead' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
+                    <a class='sub-name disable-select'>SYSTEM</a>
+                    <li><a id='dashboard' class='lead disable-select' href='/home'><img src='img/dashboard.png'>Dashboard</a></li>
+                    <li><a id='manage-user' class='lead disable-select' href='/manageUser'><img src='img/profile.png'>Manage User</a></li>
+                    <li><a id='client' class='lead clients disable-select' href='/client'><img src='img/clients.png'>Manage Clients</a></li>
+                    <li><a id='appointment' class='lead disable-select' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
                     <a class='sub-name'>UTILITY</a>
-                    <li><a id='backup-restore' class='lead' href='/backuprestore'><img src='img/database.png'>Backup/Restore</a></li>
+                    <li><a id='backup-restore' class='lead disable-select' href='/backuprestore'><img src='img/database.png'>Backup/Restore</a></li>
+                    <li id='help' class=' disable-select' data-toggle="modal" data-target="#helpModal" ><a>Help <img src='img/question.png'></a></li>
                 </ul>
             </div>
             
         </div>
-        <div id='main'>
+        <div id='main' class=' disable-select'>
             <h1 class='display-4'>Dashboard</h1>
             <div id='main-top'>
                 <div id='staff' class='main-box'>
@@ -81,6 +82,71 @@
             
         </div>
     </div>
+
+    <!-- HELP MODAL -->
+<div class="modal fade  disable-select" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="helpModalLabel">Help</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id='how-to-nav'>
+                <div id="list-example" class="list-group">
+                    <a class="list-group-item list-group-item-action" value='list-item-1'>How to Add Client</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-2">How to Add Pet</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-3">How to Add Record</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-4">How to Print Report</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-5">How to Add Appointment</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-6">How to Send Notification</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-7">How to Backup </a>
+                    <a class="list-group-item list-group-item-action" value="list-item-8">How to Restore</a>
+                </div>
+            </div>
+            <div id='how-to-main'>
+                <h2 class='display-4'>Guides</h2>
+           
+                <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+                    <h4 id="list-item-1" class='lead'>How to Add Client</h4>
+                    <p>Go to Dashboard -> Clients -> Select <button class='btn btn-primary btn-sm'>Add</button> at the top right corner -> Fill up the form with client's data <br> -> Select <button class='btn btn-primary btn-sm'>Add Client</button></p>
+                    <p>Or</p>
+                    <p>Go to Manage Clients -> Select <button class='btn btn-primary btn-sm'>Add</button> at the top right corner-> Fill up the form with client's data <br>-> Select <button class='btn btn-primary btn-sm'>Add Client</button> </p>
+
+                    <h4 id="list-item-2" class='lead'>How to Add Pet</h4>
+                    <p>Go to Manage Clients -> Select Client -> Select <button class='btn btn-primary btn-sm'>+ Pet</button> -> Enter Pet data -> Select Add </p>
+
+                    <h4 id="list-item-3" class='lead'>How to Add Record</h4>
+                    <p>Go to Manage Clients -> Select Client -> Select Pet -> Select '+ Record' -> Enter Pet Record data <br>-> Select <button class='btn btn-primary btn-sm'>Add</button> </p><br>
+                    <p>To add pet, Go <a href="#list-item-2">Here</a></p>
+                    
+                    <h4 id="list-item-4" class='lead'>How to Print Report</h4>
+                    <p>Go to Pet's page -> Select <button class='btn btn-primary btn-sm'>View Report</button> -> Select <button class='btn btn-primary btn-sm'>Print</button></p>
+
+                    <h4 id="list-item-5" class='lead'>How to Add Appointment</h4>
+                    <p>Go to Client's page -> Select <button class='btn btn-primary btn-sm'>+ Appointment</button></p>
+
+                    <h4 id="list-item-6" class='lead'>How to Send Notification</h4>
+                    <p>Go to Appointments -> Select <button class='btn btn-outline-success btn-sm'>Notification</button> -> Select <button class='btn btn-primary btn-sm'>Send Notification</button></p>
+
+                    <h4 id="list-item-7" class='lead'>How to Backup</h4>
+                    <p>Go to Backup / Restore -> Select <button class='btn btn-info btn-sm'>Backup Now</button> -> Select file directory to download</p>
+
+                    <h4 id="list-item-8" class='lead'>How to Restore</h4>
+                    <p>Go to Backup / Restore -> Select 'Choose file' -> Select file -> Select <button class='btn btn-info btn-sm'>Restore Now</button></p>
+
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
     
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

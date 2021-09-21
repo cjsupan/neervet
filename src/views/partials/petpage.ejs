@@ -156,16 +156,17 @@
         </div>
         <div id='pet-modal-body' class="modal-body">
             <form id='pet-record-form' action='/addPetRecord/<%= client %>/<%= pet[0].petId %>' method='POST'>
+                <div id='record-errors'></div>
                 <label for='examvet'>Examining Vet: </label>
-                <input type='text' id='examvet-input' class='form-control' name='examvet'>
+                <input type='text' id='examvet-input' class='form-control' name='exam_vet'>
                 <label for='datetime'>Date and Time: </label>
-                <input type='date' id='datetime-input' class='form-control datetime-input' name='datetime'><br>
+                <input type='datetime-local' id='datetime-input' class='form-control datetime-input' name='created_at'><br>
                 <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History: </label>
                 <label for='currentmed' id='currentmed-label'>Current Medication: </label>
                 <label for='physicalexam' >Physical Exam: </label><br>
-                <textarea name='complainthistory' id='complaint' class='form-control textarea-input'></textarea>
-                <textarea name='currentmed' id='currentmed' class='form-control textarea-input'></textarea>
-                <textarea name='physicalexam' id='physicalexam' class='form-control textarea-input'></textarea>
+                <textarea name='complaint' id='complaint' class='form-control textarea-input'></textarea>
+                <textarea name='current_med' id='currentmed' class='form-control textarea-input'></textarea>
+                <textarea name='physical_exam' id='physicalexam' class='form-control textarea-input'></textarea>
 
                 <div id='vitalsigns'>
                     <p class='lead'>Vital signs</p>
@@ -173,9 +174,9 @@
                     <input type='text' name='weight' class='form-control vitalsign'>
                     <label for='temp'>Temp: </label>
                     <input type='number' name='temp' class='form-control vitalsign'>
-                    <label for='resprate'>Resp. rate: </label>
+                    <label for='respiratory_rate'>Resp. rate: </label>
                     <input type='text' name='resprate' class='form-control vitalsign'>
-                    <label for='heartrate'>Heart rate: </label>
+                    <label for='heart_rate'>Heart rate: </label>
                     <input type='text' name='heartrate' class='form-control vitalsign'>
                     <label for='crt'>CRT: </label>
                     <input type='text' name='crt' class='form-control vitalsign'>
@@ -297,7 +298,6 @@
 
                 </div>
             </form>
-            <div id='pet-error'></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -273,7 +273,7 @@ class Pet extends main_model{
     }
 
     async get_health_record(id){
-        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, exam_vet,  DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date FROM systems WHERE pet_id = ? ORDER BY updated_at DESC", id);
+        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, exam_vet,  DATE_FORMAT(systems.created_at, '%c/%e/%Y %h:%i %p') as created_date FROM systems WHERE pet_id = ? ORDER BY updated_at DESC", id);
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -315,23 +315,23 @@ class Pet extends main_model{
     async addPetRecord(details, clientId, petId){
 
         let date = new Date();
-        var examvet = details.examvet.charAt(0).toUpperCase() + details.examvet.slice(1);
+        var examvet = details.exam_vet.charAt(0).toUpperCase() + details.exam_vet.slice(1);
 
-        let systems = mysql.format("INSERT INTO systems (pet_id, pet_client_id, exam_vet, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [petId, clientId, examvet, details.generalApp, details.teethmouth, details.eyes, details.ears, details.skincoat, details.heartlungs, details.digestive, details.musculoskeletal, details.nervous, details.lymph, details.urogenitals, details.datetime, date]);
+        let systems = mysql.format("INSERT INTO systems (pet_id, pet_client_id, exam_vet, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [petId, clientId, examvet, details.generalApp, details.teethmouth, details.eyes, details.ears, details.skincoat, details.heartlungs, details.digestive, details.musculoskeletal, details.nervous, details.lymph, details.urogenitals, details.created_at, date]);
         let systemsresult = await this.executeQuery(systems);
 
         let systemid = systemsresult.insertId;
 
-        let vitalsigns = mysql.format("INSERT INTO vitalsigns (system_id, system_pet_id, system_pet_client_id, weight, temp, respiratory_rate, heart_rate, crt, mm, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.weight, details.temp, details.resprate, details.heartrate, details.crt, details.mm, details.datetime, date]);
+        let vitalsigns = mysql.format("INSERT INTO vitalsigns (system_id, system_pet_id, system_pet_client_id, weight, temp, respiratory_rate, heart_rate, crt, mm, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.weight, details.temp, details.resprate, details.heartrate, details.crt, details.mm, details.created_at, date]);
         let vitalsignresult = await this.executeQuery(vitalsigns);
 
-        let findings = mysql.format("INSERT INTO findings (system_id, system_pet_id, system_pet_client_id, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.genappfindings, details.teethmouthfindings, details.eyesfindings, details.earsfindings, details.skincoatfindings, details.heartlungsfindings, details.digestivefindings, details.musculoskeletalfindings, details.nervousfindings, details.lymphfindings, details.urogenitalsfindings, details.datetime, date]);
+        let findings = mysql.format("INSERT INTO findings (system_id, system_pet_id, system_pet_client_id, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [systemid, petId, clientId, details.genappfindings, details.teethmouthfindings, details.eyesfindings, details.earsfindings, details.skincoatfindings, details.heartlungsfindings, details.digestivefindings, details.musculoskeletalfindings, details.nervousfindings, details.lymphfindings, details.urogenitalsfindings, details.created_at, date]);
         let findingsresult = await this.executeQuery(findings);
 
         let lab = mysql.format("INSERT INTO laboratory (system_id, system_pet_id, system_pet_client_id, heartworm, skin_scrape, ear_mites, cdv, cpv, fiv, vaginal_smear, urinalysis, fecalysis, xray, differential, definitive, treatment, prescribed_med, comments, created_at, updated_at) VALUES(?, ?, ?, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ?, ?)", [systemid, petId, clientId, date, date]);
         let labresult = await this.executeQuery(lab);
 
-        let history = mysql.format("INSERT INTO history (system_id, system_pet_id, system_pet_client_id, complaint, current_med, physical_exam, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[systemid, petId, clientId, details.complainthistory, details.currentmed, details.physicalexam, details.datetime, date]);
+        let history = mysql.format("INSERT INTO history (system_id, system_pet_id, system_pet_client_id, complaint, current_med, physical_exam, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[systemid, petId, clientId, details.complaint, details.current_med, details.physical_exam, details.created_at, date]);
         let historyresult = await this.executeQuery(history);
 
         return historyresult;
