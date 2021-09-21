@@ -200,8 +200,13 @@ input[type=number] {
 
 #sidenav #navigation{
     width: 100%;
-    margin: 10px 0px;
+    margin: 0px;
     display: inline-block;
+}
+
+#navigation ul{
+    margin: 0px;
+    padding: 0px;
 }
 
 #navigation ul .lead{
@@ -233,6 +238,34 @@ input[type=number] {
     text-align: left;
 }
 
+#navigation ul #help{
+    width: 100%;
+    margin: 148% 0px 0px 0px;
+    text-align: center;
+}
+
+#navigation ul #help:hover{
+    background: #f0eeee;
+    color: black;
+    cursor: pointer;
+}
+
+#navigation ul #help a{
+    font-size: 18px;
+    margin: 0px;
+    padding: 5px 0px;
+    font-weight: normal;
+    display: inline-block;
+}
+
+#navigation ul #help img{
+    width: 23px;
+    height: 23px;
+    margin: 0px 0px 5px 0px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
 #navigation ul li .lead:hover{
     background: #f0eeee;
     color: black;
@@ -262,7 +295,51 @@ input[type=number] {
     background-color: white;
     display: inline-block;
     vertical-align: top;
-  
+}
+
+#helpModal #how-to-nav{
+    width: 20%;
+    margin: 0px;
+    float: left;
+    position: sticky;
+    top: 0px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.disable-select {
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+#helpModal #how-to-main{
+    width: 75%;
+    margin: 0px 2%;
+    padding-bottom: 350px; 
+    display: inline-block;
+    vertical-align: top;
+}
+
+#helpModal #how-to-main h4.lead{
+    margin-top: 30px;
+    font-weight: normal;
+    display: inline-block;
+}
+
+#helpModal #how-to-main h4.lead{
+    margin-left: 20px;
+}
+
+#helpModal #how-to-main p{
+    margin-left: 40px;
+}
+
+#helpModal #how-to-main h2.display-4{
+    font-size: 30px;
+    text-align: center;
 }
 
 #main h1{
@@ -643,6 +720,11 @@ input[type=number] {
 
 #client-modal .modal-body{
     overflow: auto;
+}
+
+#client-modal .modal-body #errors .alert{
+    font-size: 18px;
+    margin-bottom: 5px;
 }
 
 #client-modal #client-form{
@@ -1191,6 +1273,10 @@ input[type=number] {
 #main #petRecordModal #pet-form{
     font-weight: normal;
     display: inline-block;
+}
+
+#main #petRecordModal #pet-modal-body #pet-record-form #record-errors .alert{
+    margin-bottom: 5px;
 }
 
 #main #petRecordModal #pet-modal-body .form-control{

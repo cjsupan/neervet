@@ -34,8 +34,16 @@ class Pets{
     }
 
     async add_pet_record(req, res){
-        let result = await pet_model.addPetRecord(req.body, req.params.clientid, req.params.petid);
-        res.redirect('/');
+        let validate = await pet_model.validaterecord(req.body);
+
+        if(validate.length != 0){
+            res.json(validate);
+        }else if(validate.length === 0){
+            let result = await pet_model.addPetRecord(req.body, req.params.clientid, req.params.petid);
+            res.json([]);
+        }
+
+        
     }
 
     async edit_pet_info(req, res){
