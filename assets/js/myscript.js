@@ -40,6 +40,19 @@ $(document).ready(function(){
         $(this).parent(".sub-menu").children("ul").slideToggle("100");
     });
 
+
+    $(document).on('click', '.list-group-item', function(){
+        var idname = $(this).attr('value');
+        document.getElementById(idname).scrollIntoView({ behavior: "smooth"});
+        
+    });
+
+    $(document).on('click', '#how-to-add-pet', function(e){
+        e.preventDefault();
+        var idname = $(this).attr('value');
+        document.getElementById(idname).scrollIntoView({ behavior: "smooth"});
+    })
+
     $(document).on('click', '#edit-profile', function(e){
         e.preventDefault();
 
@@ -211,276 +224,272 @@ $(document).ready(function(){
         getAppointment(this);
     });
 
-    //GET ALL CLIENT
+    //GET ALL CLIENT -- start
     function getclient(client){
         $.get($(client).attr('href'), function(res){
             
             document.getElementById('main').innerHTML = res;
             $('#search-client').focus();
-
-            $(document).on("keypress", '#search', function(e){
-                if(e.keyCode == 13){
-                    e.preventDefault();
-                    $.post($("#search").attr('action'), $("#search").serialize(), function(res){
-                        document.getElementById('main').innerHTML = res;
-                    });
-                }
-            });
-
-            $(document).on('click','#search-btn',function(e){
-                e.preventDefault();
-
-                $.post($("#search").attr('action'), $("#search").serialize(), function(res){
-                    document.getElementById('main').innerHTML = res;
-                });
-            });
-
-            // VIEW CLIENT PAGE/INFORMATION
-            function viewClient(client){
-                $.get($(client).attr('href'), function(res){
-
-                    document.getElementById('main').innerHTML = res;
-                    
-                    var dateToday = new Date();
-                    var dd = String(dateToday.getDate()).padStart(2, '0');
-                    var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
-                    var yyyy = dateToday.getFullYear();
-                    var hour = dateToday.getHours();
-                    var min = dateToday.getMinutes();
-                    var sec = dateToday.getSeconds();
-                    
-                    var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
-                    var maxdate = yyyy + '-' + mm + '-' + dd;
-
-                    document.getElementById('app-datetime').min = today;
-                    var x = document.querySelectorAll('.datetime-input');
-                    for(var i=0; i<x.length; i++){
-                        x[i].max = maxdate;
-                    }
-
-                    document.getElementById('client-back').addEventListener('click', function(e){
-                        e.preventDefault();
-                        let client = document.getElementById('client');
-                        getclient(client);
-                    });
-
-                    // //ADD PET
-                    // document.getElementById('save-pet').addEventListener('click', function(e){
-                    //     e.preventDefault();
-                        
-                    //     $.post($('#pet-form').attr('action'), $('#pet-form').serialize(), function(res){
-                    //         if(res.length != 0){
-                    //             var errors = "";
-                    //             for(var i=0; i<res.length; i++){
-
-                    //                 errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
-                    //             }
-                    //             $("#pet-modal-ody").animate({ scrollTop: 0 }, "slow");
-                    //             document.getElementById('pet-error').innerHTML = errors;
-                    //         }else if(res.length === 0){
-                                
-                    //             alert('Pet added');
-                    //             $('#petModal').modal('hide');
-                                
-                    //             let client = document.getElementById('client-stay');
-                    //             viewClient(client);
-                    //         }
-                    //     });
-                    // });
-
-                    //DELETE PET
-                    $('.delete-pet').on('click', function(e){
-                        e.preventDefault();
-                        if(confirm('Confirm to delete')){
-                            e.preventDefault();
-                            $.get($(this).attr('href'));
-                            let client = document.getElementById('client-stay');
-                            viewClient(client);
-                        }else{
-                            e.preventDefault();
-                        }
-                    });
-
-                    //VIEW PET PAGE/INFORMATION
-                    function viewPet(pet){
-                        $.get($(pet).attr('href'), function(res){
-
-                            document.getElementById('main').innerHTML = res;
-
-                            var dateToday = new Date();
-                            var dd = String(dateToday.getDate()).padStart(2, '0');
-                            var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
-                            var yyyy = dateToday.getFullYear();
-                            var hour = dateToday.getHours();
-                            var min = dateToday.getMinutes();
-                            var sec = dateToday.getSeconds();
-                            
-                            var maxdate = yyyy + '-' + mm + '-' + dd;
-
-                            var x = document.querySelectorAll('.datetime-input');
-                            for(var i=0; i<x.length; i++){
-                                x[i].max = maxdate;
-                            }
-
-                            //SAVE LAB RECORD
-                            $("#save-lab").on('click', function(){
-                                $.post($('#record-form').attr('action'), $('#record-form').serialize(), function(res){
-
-                                    if(res.length != 0){
-                                        let errors = '';
-                                        for(var i=0; i<res.length; i++){
-                                            errors += "<div class='alert alert-warning'>"+res[i]+"</div>"
-                                        }
-                                        $("#labModalBody").animate({ scrollTop: 0 }, "slow");
-                                        document.getElementById('record-errors').innerHTML = errors;
-                                        
-                                    }else if(res.length === 0){
-                                        alert('laboratory Updated');
-                
-                                        $('#labModal').modal('hide');
-                                        $('#viewHealthRecordModal').modal('hide');
-                                        let pet = document.getElementById('pet-stay');
-                                        viewPet(pet);
-                                    }
-
-                                    
-                                });
-                                
-                            });
-
-                            $('#pet-back').on('click', function(e){
-                                e.preventDefault();
-                                let client = document.getElementById('back-to-client');
-                                viewClient(client);
-                            });
-
-                            //SAVE PET RECORD
-                            $('#save-pet-record').on('click', function(e){
-                                e.preventDefault();
-                                
-                                $.post($('#pet-record-form').attr('action'), $('#pet-record-form').serialize());
-                                alert('Pet record added!');
-                                $('#petRecordModal').modal('hide');
-                                let pet = document.getElementById('pet-stay');
-                                viewPet(pet);
-                            });
-                        });
-                    }
-
-                    //VIEW PET PAGE
-                    $('.view-pet').on('click', function(e){
-                        e.preventDefault();
-
-                        viewPet(this);
-
-                    });
-
-                    //SAVE PET INFORMATION
-                    $(document).on('click', '#save-pet-info', function(){
-                        $.post($('#edit-pet-info').attr('action'), $('#edit-pet-info').serialize(), function(res){
-
-                            if(res.length != 0){
-                                let errors = '';
-                                for(var i=0; i<res.length; i++){
-                                    errors += "<div class='alert alert-warning'>"+res[0]+"</div>";
-                                }
-                                document.getElementById('pet-info-errors').innerHTML = errors;
-                            }else if(res.length === 0){
-                                alert('Pet Information Updated');
-                                $("#editPetModal").modal('hide');
-                                $("#editPetModal").prependTo("body");
-                                document.getElementById('pet-info-errors').innerHTML = '';
-                                var stay = document.getElementById('pet-stay');
-                                viewPet(stay);
-                            }
-                            
-                        });
-                    });
-
-                    $(document).on('click', '.delete-record', function(e){
-                        e.preventDefault();
-                        if(confirm('Confirm to delete')){
-                            $.get($(this).attr('href'), function(){
-                                viewPet($("#pet-stay"));
-                            });
-                        }else{
-                            e.preventDefault();
-                        }
-                
-                        
-                    })
-
-                });                
-            }
-
-            //DELETE CLIENT
-            $('.deleteClient').on('click', function(e){
-               e.preventDefault();
-                if(confirm('Confirm to delete')){
-                    e.preventDefault();
-                    $.get($(this).attr('href'), function(){
-                        let client = document.getElementById('client');
-                        getclient(client);
-                    });
-                }else{
-                    e.preventDefault();
-                }
-            });
-
-           
-
-            //VIEW CLIENT
-            $(document).on('click', '.viewClient', function(e){
-                e.preventDefault();
-                viewClient(this);
-                
-            });
-            // EDIT PROFILE
-            $(document).on('click', '#save-client-info', function(){
-                $.post($("#edit-client-form").attr('action'), $("#edit-client-form").serialize(), function(res){
-
-                    if(res.length != 0){
-                        let errors = '';
-                        for(var i=0; i<res.length; i++){
-                            errors += "<div class='alert alert-warning'>"+res[i]+"</div>";
-                        }
-                        document.getElementById('client-errors').innerHTML = errors;
-                    }else{
-                        alert("Profile Updated");
-                        $("#editClientModal").modal('hide');
-                        var stay = document.getElementById("client-stay");
-                        viewClient(stay);
-                    }
-
-                });
-            });
-
-             //ADD PET
-            $(document).on('click', '#save-pet',function(e){
-                e.preventDefault();
-                
-                $.post($('#pet-form').attr('action'), $('#pet-form').serialize(), function(res){
-                    if(res.length != 0){
-                        var errors = "";
-                        for(var i=0; i<res.length; i++){
-
-                            errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
-                        }
-                        $("#pet-modal-body").animate({ scrollTop: 0 }, "slow");
-                        document.getElementById('pet-error').innerHTML = errors;
-                    }else if(res.length === 0){
-                        
-                        alert('Pet added');
-                        $('#petModal').modal('hide');
-                        
-                        let client = document.getElementById('client-stay');
-                        viewClient(client);
-                    }
-                });
-            });
-
         });
     }
+    //GET ALL CLIENT -- end
+
+    //SEARCH CLIENTS WITH KEYPRESS
+    $(document).on("keypress", '#search', function(e){
+        if(e.keyCode == 13){
+            e.preventDefault();
+            $.post($("#search").attr('action'), $("#search").serialize(), function(res){
+                document.getElementById('main').innerHTML = res;
+            });
+        }
+    });
+    //SEARCH CLIENTS
+    $(document).on('click','#search-btn',function(e){
+        e.preventDefault();
+
+        $.post($("#search").attr('action'), $("#search").serialize(), function(res){
+            document.getElementById('main').innerHTML = res;
+        });
+    });
+
+    // VIEW CLIENT PAGE/INFORMATION -- start
+    function viewClient(client){
+        $.get($(client).attr('href'), function(res){
+
+            document.getElementById('main').innerHTML = res;
+            
+            var dateToday = new Date();
+            var dd = String(dateToday.getDate()).padStart(2, '0');
+            var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = dateToday.getFullYear();
+            var hour = dateToday.getHours();
+            var min = dateToday.getMinutes();
+            var sec = dateToday.getSeconds();
+            
+            var todate = yyyy + '-' + mm + '-' + dd;
+            var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+            var maxdate = yyyy + '-' + mm + '-' + dd;
+
+            document.getElementById('app-datetime').min = today;
+            document.getElementById('birthdate-input').max = todate;
+            document.getElementById('datetime-input').max = maxdate;
+        });                
+    }
+    // VIEW CLIENT PAGE/INFORMATION -- end
+
+    //PET BACK
+    $(document).on('click', '#pet-back', function(e){
+        e.preventDefault();
+        let client = document.getElementById('back-to-client');
+        viewClient(client);
+    });
+
+    //VIEW CLIENT
+    $(document).on('click', '.viewClient', function(e){
+        e.preventDefault();
+        viewClient(this);
+        
+    });
+
+    // EDIT PROFILE
+    $(document).on('click', '#save-client-info', function(e){
+        e.preventDefault();
+        $.post($("#edit-client-form").attr('action'), $("#edit-client-form").serialize(), function(res){
+
+            if(res.length != 0){
+                let errors = '';
+                for(var i=0; i<res.length; i++){
+                    errors += "<div class='alert alert-warning'>"+res[i]+"</div>";
+                }
+                document.getElementById('client-errors').innerHTML = errors;
+            }else{
+                alert("Profile Updated");
+                $("#editClientModal").modal('hide');
+                var stay = document.getElementById("client-stay");
+                viewClient(stay);
+            }
+
+        });
+    });
+
+
+    //DELETE PET
+    $(document).on('click', '.delete-pet', function(e){
+        e.preventDefault();
+        if(confirm('Confirm to delete')){
+            e.preventDefault();
+            $.get($(this).attr('href'));
+            let client = document.getElementById('client-stay');
+            viewClient(client);
+        }else{
+            e.preventDefault();
+        }
+    });
+
+     //ADD PET
+     $(document).on('click', '#save-pet',function(e){
+        e.preventDefault();
+        
+        $.post($('#pet-form').attr('action'), $('#pet-form').serialize(), function(res){
+            if(res.length != 0){
+                var errors = "";
+                for(var i=0; i<res.length; i++){
+
+                    errors += "<div class='alert alert-warning' role='alert'>"+ res[i] +" </div>";
+                }
+                $("#pet-modal-body").animate({ scrollTop: 0 }, "slow");
+                document.getElementById('pet-error').innerHTML = errors;
+            }else if(res.length === 0){
+                
+                alert('Pet added');
+                $('#petModal').modal('hide');
+                
+                let client = document.getElementById('client-stay');
+                viewClient(client);
+            }
+        });
+    });
+
+    //VIEW PET PAGE/INFORMATION -- start
+    function viewPet(pet){
+        $.get($(pet).attr('href'), function(res){
+
+            document.getElementById('main').innerHTML = res;
+
+            var dateToday = new Date();
+            var dd = String(dateToday.getDate()).padStart(2, '0');
+            var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = dateToday.getFullYear();
+            var hour = dateToday.getHours();
+            var min = dateToday.getMinutes();
+            var sec = dateToday.getSeconds();
+            
+            var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+            document.getElementById('datetime-input').max = today;
+            // var x = document.querySelectorAll('.datetime-input');
+            // for(var i=0; i<x.length; i++){
+            //     x[i].max = today;
+            // } 
+        });
+    }
+    //VIEW PET PAGE/INFORMATION -- end
+
+
+    //SAVE LAB RECORD
+    $(document).on('click', '#save-lab', function(e){
+        e.preventDefault();
+        $.post($('#record-form').attr('action'), $('#record-form').serialize(), function(res){
+
+            if(res.length != 0){
+                let errors = '';
+                for(var i=0; i<res.length; i++){
+                    errors += "<div class='alert alert-warning'>"+res[i]+"</div>"
+                }
+                $("#labModalBody").animate({ scrollTop: 0 }, "slow");
+                document.getElementById('record-errors').innerHTML = errors;
+                
+            }else if(res.length === 0){
+                alert('laboratory Updated');
+
+                $('#labModal').modal('hide');
+                $('#viewHealthRecordModal').modal('hide');
+                let pet = document.getElementById('pet-stay');
+                viewPet(pet);
+            }
+        });
+    });
+
+    //SAVE PET RECORD
+    $(document).on('click', '#save-pet-record', function(e){
+        e.preventDefault();
+        
+        $.post($('#pet-record-form').attr('action'), $('#pet-record-form').serialize(), function(res){
+            if(res.length != 0){
+                var error = '';
+
+                for(var i=0; i<res.length; i++){
+                    error += "<div class='alert alert-warning'>"+res[i]+"</div>";
+                }
+                $("#pet-modal-body").animate({ scrollTop: 0 }, "slow");
+                document.getElementById('record-errors').innerHTML = error;
+            }else if(res.length === 0){
+                alert('Pet record added!');
+                $('#petRecordModal').modal('hide');
+                let pet = document.getElementById('pet-stay');
+                viewPet(pet);
+            }
+        });
+    });
+
+
+    //VIEW PET PAGE
+    $(document).on('click', '.view-pet', function(e){
+        e.preventDefault();
+
+        viewPet(this);
+
+    });
+
+
+    //SAVE PET INFORMATION
+    $(document).on('click', '#save-pet-info', function(e){
+        e.preventDefault();
+        $.post($('#edit-pet-info').attr('action'), $('#edit-pet-info').serialize(), function(res){
+
+            if(res.length != 0){
+                let errors = '';
+                for(var i=0; i<res.length; i++){
+                    errors += "<div class='alert alert-warning'>"+res[0]+"</div>";
+                }
+                document.getElementById('pet-info-errors').innerHTML = errors;
+            }else if(res.length === 0){
+                alert('Pet Information Updated');
+                $("#editPetModal").modal('hide');
+                $("#editPetModal").prependTo("body");
+                document.getElementById('pet-info-errors').innerHTML = '';
+                var stay = document.getElementById('pet-stay');
+                viewPet(stay);
+            }
+        });
+    });
+
+
+    //DELETE PET RECORD
+    $(document).on('click', '.delete-record', function(e){
+        e.preventDefault();
+        if(confirm('Confirm to delete')){
+            $.get($(this).attr('href'), function(){
+                var stay = document.getElementById('pet-stay');
+                viewPet(stay);
+            });
+        }else{
+            e.preventDefault();
+        }
+    });
+
+
+    //CLIENT BACK
+    $(document).on('click', '#client-back', function(e){
+        e.preventDefault();
+        let client = document.getElementById('client');
+        getclient(client);
+    });
+
+
+    //DELETE CLIENT
+    $(document).on('click', '.deleteClient', function(e){
+        e.preventDefault();
+        if(confirm('Confirm to delete')){
+             e.preventDefault();
+             $.get($(this).attr('href'), function(){
+                 let client = document.getElementById('client');
+                 getclient(client);
+            });
+        }else{
+            e.preventDefault();
+        }
+    });
+
 
      // PRINT REPORT
      $(document).on('click', '#print-now', function(){
@@ -489,8 +498,10 @@ $(document).ready(function(){
 
     });
 
+
     //EDIT LAB RECORD
-    $(document).on('click','#edit-lab', function(){
+    $(document).on('click','#edit-lab', function(e){
+        e.preventDefault();
         var id = this.value;
         document.getElementById('edit-lab').setAttribute('href', "/getLab/"+id+"");
         $.get($('#edit-lab').attr('href'), function(res){
@@ -514,7 +525,8 @@ $(document).ready(function(){
 
     
     //VIEW PET HEALTH RECORD
-    $(document).on('click', '.view-health', function(){
+    $(document).on('click', '.view-health', function(e){
+        e.preventDefault();
         $.get($(this).attr('href'), function(res){
             document.getElementById('record-content').innerHTML = res;
             
@@ -523,16 +535,20 @@ $(document).ready(function(){
         document.getElementById('edit-lab').value = petIdsystemId;
     });
 
+
     // VIEW PET REPORT
-    $(document).on('click', '.view-report', function(){
+    $(document).on('click', '.view-report', function(e){
+        e.preventDefault();
         console.log(document.getElementById('pet-report'));
         $.get($(this).attr('href'), function(res){
             document.getElementById('pet-report').innerHTML = res;
         });
     });
 
+
     //SAVE CLIENT
-    $(document).on('click','#saveClient', function(){
+    $(document).on('click','#saveClient', function(e){
+        e.preventDefault();
                
         $.post($('#client-form').attr('action'), $('#client-form').serialize(), function(res){
             document.getElementById('errors').innerHTML = "";
@@ -551,6 +567,7 @@ $(document).ready(function(){
         });
     });
 
+    //SAVE EDIT USER PROFILE
     $(document).on('click', '#save-profile', function(e){
         e.preventDefault();
 
@@ -572,6 +589,8 @@ $(document).ready(function(){
         });
     });
 
+
+    //ADD USER
     $(document).on('click', '#save-user', function(e){
         e.preventDefault();
         $.post($('#add-user-form').attr('action'), $("#add-user-form").serialize(), function(res){
@@ -592,15 +611,23 @@ $(document).ready(function(){
         });
     });
 
+    //DELETE USER
     $(document).on('click', '#delete-user', function(e){
         e.preventDefault();
 
-        $.get($(this).attr('href'), function(){
-            alert("User Deleted");
-            location.reload();
-        });
+        if(confirm('Confirm to Complete')){
+            $.get($(this).attr('href'), function(){
+                alert("User Deleted");
+                location.reload();
+            });
+        }else{
+            e.preventDefault();
+        }
+
+       
     });
 
+    //GET ALL CLIENT WHEN CLICKED
     $(document).on('click','#client', function(e){
         e.preventDefault();
 
@@ -609,6 +636,8 @@ $(document).ready(function(){
 
     });
 
+
+    //BACKUP
     $(document).on('click', '#backup-restore', function(e){
         e.preventDefault();
         $('.sub-menu ul').slideUp();
@@ -623,6 +652,8 @@ $(document).ready(function(){
         $.get($(this).attr('href'));
     });
 
+
+    //RESTORE
     $(document).on('click', '#restore-now', function(e){
         e.preventDefault()
         console.log($("#sqlfile")[0].files)
