@@ -29,10 +29,12 @@
             <% for(var i=0; i< system.length; i++){%>
             <tr>
                 <td><%= system[i].exam_vet %></td>
-                <td><%= system[i].created_date %></td>
+                <td class='date'><%= system[i].created_date %></td>
                 <td class='btn-view'>
                     <button type='button' class='btn btn-success view-health' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
-                    <button type='button' class='btn btn-primary view-report' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">View Report</button>
+                    <span>|</span>
+                    <button type='button' class='btn btn-info view-report' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">View Report</button>
+                    <span>|</span>
                     <button type='button' class='btn btn-danger delete-record' href='/deletePetRecord/<%= system[i].pet_id %>/<%= system[i].systemId %>'>Delete</button>
                 </td>
             </tr>

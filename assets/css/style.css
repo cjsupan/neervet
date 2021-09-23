@@ -507,11 +507,12 @@ input[type=number] {
     margin: 20px 10px;
     display: inline-block;
     border-radius: 10px;
-    border: 1px solid #d0d0d0;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 #main #main-top #staff{
     background-color: #2195d3; 
+    box-shadow: none;
 }
 
 #main #main-top #dogs{
@@ -773,7 +774,7 @@ input[type=number] {
 }
 
 #main #client-page p{
-    font-size: 20px;
+    font-size: 18px;
     margin-left: 10px;
     font-weight: normal;
 }
@@ -873,6 +874,10 @@ input[type=number] {
 
 #main #pet-section #th-action{
     width: 300px;
+}
+
+#main #pet-section tbody .birthdate{
+    text-align: center;
 }
 
 #main #pet-section .td-action{
@@ -1236,7 +1241,6 @@ input[type=number] {
 
 #main #pet-page p .lead{
     font-size: 20px;
-    font-weight: normal;
 }
 
 #main .h1-healthrecord{
@@ -1259,6 +1263,15 @@ input[type=number] {
 
 #main #healthRecordTable thead #action{
     width: 400px;
+}
+
+#main #healthRecordTable tbody .btn-view span{
+    margin: 0px 5px;
+    display: inline-block;
+}
+
+#main #healthRecordTable tbody .date{
+    text-align: center;
 }
 
 #main #healthRecordTable .btn-view{

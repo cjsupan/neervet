@@ -267,13 +267,13 @@ class Pet extends main_model{
     }
 
     async pet_info(id){
-        let petInfo = mysql.format("SELECT clients.id as clientId, pets.id as petId, CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c/%e/%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age FROM clients LEFT JOIN pets ON clients.id = pets.client_id WHERE pets.id = ?", id);
+        let petInfo = mysql.format("SELECT clients.id as clientId, pets.id as petId, CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c-%e-%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age FROM clients LEFT JOIN pets ON clients.id = pets.client_id WHERE pets.id = ?", id);
         let result = await this.executeQuery(petInfo);
         return JSON.parse(JSON.stringify(result));
     }
 
     async get_health_record(id){
-        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, exam_vet,  DATE_FORMAT(systems.created_at, '%c/%e/%Y %h:%i %p') as created_date FROM systems WHERE pet_id = ? ORDER BY updated_at DESC", id);
+        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, exam_vet,  DATE_FORMAT(systems.created_at, '%b %e, %Y %h:%i %p') as created_date FROM systems WHERE pet_id = ? ORDER BY created_at DESC", id);
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -464,8 +464,8 @@ class Pet extends main_model{
             
             if(total_months > 1){
                 info[0].age = total_months.toString() + ' Months Old';
-            }else{
-                info[0].age = total_months.toString() + ' Month Old';
+            }else if(total_months < 0){
+                info[0].age =  '0 Month Old';
             }
             
         }else{
