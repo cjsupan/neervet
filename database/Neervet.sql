@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 6 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: vitalsigns
@@ -210,8 +210,8 @@ VALUES
     2,
     2,
     'Vaccination',
-    '2021-09-30 15:12:00',
-    1,
+    '2021-09-30 18:34:00',
+    0,
     0,
     '2021-09-23 11:58:39',
     '2021-09-23 11:58:39'
@@ -855,13 +855,13 @@ INSERT INTO
 VALUES
   (
     1,
-    'admin',
-    'admin',
+    'Admin',
+    'Admin',
     'Admin',
     'admin',
     'admin',
     NULL,
-    NULL
+    '2021-09-29 15:43:33'
   );
 INSERT INTO
   `users` (
@@ -884,6 +884,28 @@ VALUES
     'maan',
     '2021-09-21 14:15:23',
     '2021-09-21 14:15:23'
+  );
+INSERT INTO
+  `users` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `user_level`,
+    `username`,
+    `password`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    7,
+    'Cedrick John',
+    'Supan',
+    'Staff',
+    'cjsupan',
+    'cjsupan',
+    '2021-09-29 18:25:24',
+    '2021-09-29 18:25:24'
   );
 
 # ------------------------------------------------------------
