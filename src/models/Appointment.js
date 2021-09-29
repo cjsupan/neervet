@@ -2,7 +2,7 @@ var connection = require('../config/database');
 const main_model = require('./Main');
 var mysql = require('mysql');
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey("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");
+sgMail.setApiKey("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");
 
 class Appointment extends main_model{
     constructor(){super()}
@@ -139,10 +139,10 @@ class Appointment extends main_model{
     }
 
     async updateAppointment(details, id){
+        details.notification = 0;
 
         let query = mysql.format("UPDATE appointments SET ? WHERE id = ?", [details, id]);
         let result = await this.executeQuery(query);
-
         return result;
     }
 
