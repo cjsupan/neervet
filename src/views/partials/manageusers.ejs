@@ -7,6 +7,7 @@
                 <th>Name</th>
                 <th>Username</th>
                 <th>User Level</th>
+                <th>Password</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
                     <td><%= users[i].name %></td>
                     <td><%= users[i].username %></td>
                     <td><%= users[i].user_level %></td>
+                    <td><%= users[i].password %></td>
                     <td class='delete'><button type='button' id='delete-user' class='btn btn-danger' href='/deleteUser/<%= users[i].id %>'>Delete</button></td>
                 </tr>
             <% } %>

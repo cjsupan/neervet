@@ -17,10 +17,6 @@ const database = 'neervet';
 const Importer = require('mysql-import');
 const importer = new Importer({host, user, password, database});
 
-
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey("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");
-
 class User extends main_model{
     constructor(){super()}
     executeQuery(query){
@@ -93,12 +89,14 @@ class User extends main_model{
         let user = mysql.format("SELECT * FROM users WHERE username = ?", details.username);
         let userresult = await this.executeQuery(user);
         let name1 = JSON.parse(JSON.stringify(userresult));
+        console.log(name1);
        
         let query = mysql.format("SELECT * FROM users WHERE id = ?", id);
         let result = await this.executeQuery(query);
         let name2 = JSON.parse(JSON.stringify(result));
+        console.log(name2);
 
-        if(name1[0].id != name2[0].id){
+        if(name1.length > 0 && name1[0].id != name2[0].id){
             errors.push('Username is already taken');
         }
 
@@ -135,7 +133,7 @@ class User extends main_model{
     }
     
     async getAllUser(){
-        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level FROM users WHERE NOT user_level = 'Admin' ORDER BY user_level ASC");
+        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level, password FROM users WHERE NOT user_level = 'Admin' ORDER BY user_level ASC");
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));

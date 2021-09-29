@@ -617,7 +617,6 @@ $(document).ready(function(){
 
         if(confirm('Confirm to Complete')){
             $.get($(this).attr('href'), function(){
-                alert("User Deleted");
                 location.reload();
             });
         }else{
@@ -630,8 +629,7 @@ $(document).ready(function(){
     //GET ALL CLIENT WHEN CLICKED
     $(document).on('click','#client', function(e){
         e.preventDefault();
-
-        $('.sub-menu ul').slideUp();
+        
         getclient(this);
 
     });
