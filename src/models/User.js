@@ -89,12 +89,10 @@ class User extends main_model{
         let user = mysql.format("SELECT * FROM users WHERE username = ?", details.username);
         let userresult = await this.executeQuery(user);
         let name1 = JSON.parse(JSON.stringify(userresult));
-        console.log(name1);
        
         let query = mysql.format("SELECT * FROM users WHERE id = ?", id);
         let result = await this.executeQuery(query);
         let name2 = JSON.parse(JSON.stringify(result));
-        console.log(name2);
 
         if(name1.length > 0 && name1[0].id != name2[0].id){
             errors.push('Username is already taken');
@@ -254,10 +252,8 @@ class User extends main_model{
     async saveFile(req){
         var form = new formidable.IncomingForm();
         form.keepExtensions = true;
-        // form.uploadDir = path.join(__dirname + '../../../database');
         
         form.parse(req, function asd(err, fields, files){
-            // console.log(files.file.name);
             var oldPath = files.file.path;
             var newPath = path.join(__dirname + '../../../database') +"/"+ files.file.name;
 
@@ -274,15 +270,9 @@ class User extends main_model{
     async truncate(){
         console.log('truncate start');
 
-        // let check0 = mysql.format("SET FOREIGN_KEY_CHECKS = 0;");
-        // let ckech0res = await this.executeQuery(check0);
-        // console.log('check0');
         let users = mysql.format("DELETE FROM users WHERE user_level = 'Admin' OR user_level = 'Staff'");
         let usersresult = await this.executeQuery(users);
 
-        // let check1 = mysql.format("SET FOREIGN_KEY_CHECKS = 1;");
-        // let check1res = await this.executeQuery(check1);
-        console.log('check1');
         let clients = mysql.format("TRUNCATE TABLE clients");
         let clientresult = await this.executeQuery(clients);
         
@@ -315,10 +305,9 @@ class User extends main_model{
 
         var form = new formidable.IncomingForm();
         form.keepExtensions = true;
-        // form.uploadDir = path.join(__dirname + '../../../database');
         
         form.parse(req, function(err, fields, files){
-            // console.log(files.file.name);
+
             var oldPath = files.file.path;
             var newPath = path.join(__dirname + '../../../database') +"/"+ files.file.name;
 

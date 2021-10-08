@@ -211,9 +211,14 @@ $(document).ready(function(){
         e.preventDefault();
         
         $.get($("#notif").attr('href'), function(res){
-            alert('Notification sent!');
+            alert(res);
             $("#notifModal").modal("hide");
+            let app = document.getElementById('appointment');
+            getAppointment(app);
         });
+
+        let app = document.getElementById('appointment');
+        getAppointment(app);
     });
 
     //WHEN APPOINTMENTS WAS CLICKED IN SIDENAV

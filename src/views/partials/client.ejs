@@ -13,8 +13,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Address</th>
-                <th>Contact No.</th>
-                <th>Action</th>
+                <th id='contact'>Contact No.</th>
+                <th id='action'>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
                     <td><%=client[i].email %></td>
                     <td class='capitalize'><%=client[i].address %></td>
                     <td><%=client[i].contact %></td>
-                    <td class='td-action' ><a id='<%= client[i].id %>' class='viewClient' href='/viewClient/<%= client[i].id %>'>View</a> | <a class='deleteClient' href="/deleteClient/<%= client[i].id %>">Delete</a></td>
+                    <td class='td-action' ><button type='button' id='<%= client[i].id %>' class='btn btn-success viewClient' href='/viewClient/<%= client[i].id %>'>View</button> | <button type='button' class='btn btn-danger deleteClient' href="/deleteClient/<%= client[i].id %>">Delete</button></td>
                 </tr>
             <% } %>
         </tbody>

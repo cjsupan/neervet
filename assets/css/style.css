@@ -361,6 +361,7 @@ input[type=number] {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     text-align: right;
     display: inline-block;
+    border-radius: 10px;
 }
 
 #main #profile form p.lead{
@@ -403,7 +404,6 @@ input[type=number] {
 
 #main #profile form #save-profile{
     width: 120px;
-    margin: 10px 0px 10px 74%;
     display: inline-block;
 }
 
@@ -510,25 +510,14 @@ input[type=number] {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-#main #main-top #staff{
-    background-color: #2195d3; 
-    box-shadow: none;
-}
-
-#main #main-top #dogs{
-    background-color: #f54951;
-}
-
-#main #main-top #cats{
-    background-color: #946d4e; 
-}
-
 #main #main-top #clients{
-    background-color: #89579c; 
+    background: rgb(148,189,219);
+    background: linear-gradient(59deg, rgba(148,189,219,1) 0%, rgba(158,150,240,1) 26%, rgba(182,149,219,1) 71%, rgba(168,117,187,1) 100%);
 }
 
 #main #main-top #appointments-today{
-    background-color: #ff8906;
+    background: rgb(255,183,239);
+background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 22%, rgba(255,154,72,1) 100%);
 }
 
 #main #main-top .main-box .icon{
@@ -675,6 +664,19 @@ input[type=number] {
     border: 1px solid #d0d0d0;
 }
 
+#main #client-table thead th{
+    width: 220px;
+}
+
+#main #client-table thead #contact{
+    width: 120px;
+}
+
+#main #client-table thead #action{
+    width: 200px;
+}
+
+
 #main #client-table thead{
     text-align: center;
     position: -webkit-sticky;
@@ -683,36 +685,25 @@ input[type=number] {
     margin: 0px;
 }
 
+#main #client-table tbody td{
+    font-size: 1.1vw;
+}
+
 #main #client-table .capitalize{
     text-transform: capitalize;
 }
 
 #main #client-table .td-action{
+    padding: auto;
     text-align: center;
 }
 
 #main #client-table td .viewClient{
-    width: 80px;
-    margin-right: 10px;
-    padding: 5px 0px;
-    border-radius: 3px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    display: inline-block;
-    background-color: #28a745;
+   margin-right: 5px;
 }
 
 #main #client-table td .deleteClient{
-    width: 80px;
-    margin-left: 10px;
-    padding: 5px 0px;
-    border-radius: 3px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    display: inline-block;
-    background-color: #dc3545;
+    margin-left: 5px;
 }
 
 #client-modal .modal-dialog .modal-content{
@@ -872,11 +863,15 @@ input[type=number] {
     top: 0;
 }
 
-#main #pet-section #th-action{
-    width: 300px;
+#main #pet-section table tbody td{
+    text-transform: capitalize;
 }
 
-#main #pet-section tbody .birthdate{
+#main #pet-section #th-action{
+    width: 220px;
+}
+
+#main #pet-section tbody .center{
     text-align: center;
 }
 
@@ -885,27 +880,11 @@ input[type=number] {
 }
 
 #main #pet-section td .view-pet{
-    width: 80px;
-    margin-right: 10px;
-    padding: 5px 0px;
-    border-radius: 3px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    display: inline-block;
-    background-color: #28a745;
+    margin-right: 5px;
 }
 
 #main #pet-section .delete-pet{
-    width: 80px;
-    margin-left: 10px;
-    padding: 5px 0px;
-    border-radius: 3px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    display: inline-block;
-    background-color: #dc3545;
+    margin-left: 5px;
 }
 
 #main #appointmentModal #appointment-form, #editAppModal #edit-appointment{
@@ -957,6 +936,10 @@ input[type=number] {
     margin-bottom: 20px;
 }
 
+#main #petModal #pet-modal-body #breed-input{
+    width: 170px;
+}
+
 #main #petModal #pet-modal-body .pet-input{
     width: 100px;
     margin-right: 10px;
@@ -997,6 +980,10 @@ input[type=number] {
     width: 100px;
     margin: 0px 10px 10px 0px;
     display: inline-block;
+}
+
+#main #petModal #pet-modal-body #vitalsigns #mm{
+    width: 120px;
 }
 
 #main #petModal #system{
@@ -1230,8 +1217,8 @@ input[type=number] {
     font-weight: normal;
 }
 
-#main #pet-page #owner{
-    margin: 10px 100px 30px 0px;
+#main #pet-page #owner-name span{
+    text-transform: capitalize;
     display: inline-block;
 }
 
@@ -1262,7 +1249,7 @@ input[type=number] {
 }
 
 #main #healthRecordTable thead #action{
-    width: 400px;
+    width: 350px;
 }
 
 #main #healthRecordTable tbody .btn-view span{
@@ -1272,6 +1259,10 @@ input[type=number] {
 
 #main #healthRecordTable tbody .date{
     text-align: center;
+}
+
+#main #healthRecordTable tbody td{
+    text-transform: capitalize;
 }
 
 #main #healthRecordTable .btn-view{
@@ -1466,7 +1457,7 @@ input[type=number] {
 
 #main #record-content #right{
     width: 44%;
-    height: 290px;
+    height: 310px;
     margin-top: 10px;
     vertical-align: top;
     display: inline-block;
