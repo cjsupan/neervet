@@ -111,7 +111,6 @@ class Users{
     async backuprestore(req, res){
 
         let result = await user_model.backup();
-        // console.log(result);
         
         res.render('partials/backuprestore', {filepath: result});
     }
@@ -124,15 +123,10 @@ class Users{
     }
 
     async restore(req, res){
-        console.log('in');
-        // let save = await user_model.saveFile(req)
-        
         let result = await user_model.truncate();
         let restoreimport = await user_model.restore(req);
-            
 
-
-        res.send('DONE');
+        res.json('done');
     }
 
     

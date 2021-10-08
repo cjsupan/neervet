@@ -21,7 +21,22 @@ class Appointment extends main_model{
     async getAllAppointment(){
         let query = mysql.format("SELECT appointments.id, title, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p') as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE appointments.complete = '0' ORDER BY appointments.created_at DESC");
         let result = await this.executeQuery(query);
-        return result;
+
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    async countNotif(){
+        let notifdate = new Date();
+        let current = new Date();
+
+        let num = parseInt(1);
+        notifdate.setDate(notifdate.getDate() + num);
+
+
+        let query = mysql.format("SELECT COUNT(notification) as notif FROM appointments WHERE notification = 0 AND date_and_time BETWEEN ? AND ?", [current,notifdate]);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
     }
 
     async getAppointmentsToday(){
@@ -65,11 +80,11 @@ class Appointment extends main_model{
        
         notifdate.setDate(notifdate.getDate() + 1);
     
-        let query = mysql.format("SELECT appointments.client_id as id, appointments.title , CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y') AS date, DATE_FORMAT(date_and_time, '%l:%i %p') as time FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
+        let query = mysql.format("SELECT appointments.id as id ,appointments.client_id as client_id, appointments.title , CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y') AS date, DATE_FORMAT(date_and_time, '%l:%i %p') as time FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
         let result = await this.executeQuery(query);
         
         let client = JSON.parse(JSON.stringify(result));
-    
+        let message = [];
         for(var i=0; i<client.length; i++){
     
             var html = "<h1>Neervet Animal Clinic</h1>";
@@ -86,16 +101,17 @@ class Appointment extends main_model{
                     html: html
                 };
                 var id = client[i].id;
-                sgMail.send(msg).then(() => {
-                    console.log('email has been sent');
+                var clientId = client[i].client_id;
+                sgMail.send(msg).then(async () => {
+                    console.log("email has been sent");
                     
-                    let update = mysql.format("UPDATE appointments SET notification = 1 WHERE client_id = ?", id);
-                    let updateresult = this.executeQuery(update);
+                    let update = mysql.format("UPDATE appointments SET notification = 1 WHERE id = ? AND client_id = ?", [id, clientId]);
+                    let updateresult = await this.executeQuery(update);
                 }).catch((error) => {
-                    console.log(error);
+                    message.push("some message");
                 });
         }
-        return client;
+        return message;
     }
     
     async validateAppointment(details){
@@ -140,6 +156,8 @@ class Appointment extends main_model{
 
     async updateAppointment(details, id){
         details.notification = 0;
+       
+        details.updated_at = new Date(); 
 
         let query = mysql.format("UPDATE appointments SET ? WHERE id = ?", [details, id]);
         let result = await this.executeQuery(query);
