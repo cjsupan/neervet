@@ -617,7 +617,20 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     border: 1px solid #d0d0d0;
 }
 
+#main #appointment-table thead th{
+    width: 220px;
+}
+
+#main #appointment-table thead #contact{
+    width: 120px;
+}
+
 #main #appointment-table thead{
+    text-align: center;
+}
+
+#main #appointment-table tbody td{
+    font-size: 1.1vw;
     text-align: center;
 }
 
@@ -625,15 +638,12 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     text-transform: capitalize;
 }
 
+#main #appointment-table thead #action{
+    width: 200px;
+}
+
 #main #appointment-table .btn-danger, #main #appointment-table .btn-success {
-    width: 80px;
-    margin: 0px 10px;
-    padding: 5px 0px;
-    border-radius: 3px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    display: inline-block;
+    padding: 5px 10px;
 }
 
 #main #notifModal .modal-body{

@@ -21,9 +21,9 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Title</th>
-                <th>Contact No.</th>
+                <th id='contact'>Contact No.</th>
                 <th>Date & Time</th>
-                <th>Action</th>
+                <th id='action'>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                 <td><%=app[i].contact %></td>
                 <td><%=app[i].date %></td>
                 <input type='hidden' id='app-id' href='/getAppInfo/<%= app[i].id %>'>
-                <td><button type='button' class='btn btn-success edit-appointment' value='<%= app[i].id %>' data-toggle="modal" data-target="#editAppModal">Edit</button><button type='button' class='btn btn-danger delete-appointment' href='/deleteAppointment/<%= app[i].id %>'>Delete</button></td>
+                <td><button type='button' class='btn btn-success edit-appointment' value='<%= app[i].id %>' data-toggle="modal" data-target="#editAppModal">Edit</button> | <button type='button' class='btn btn-danger delete-appointment' href='/deleteAppointment/<%= app[i].id %>'>Delete</button></td>
             </tr>
         <% } %>
         </tbody>
