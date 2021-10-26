@@ -51,15 +51,15 @@
       </div>
       <div class="modal-body">
         <form id='edit-client-form' action='/editClientProfile/<%= client[0].id %>' method='POST'>
-            <label for='firstname' id='client-firstname'>First Name: </label>
-            <label for='Lastname' id='client-lastname'>Last Name: </label><br>
+            <label for='firstname' id='client-firstname'>First Name:<span class='require'>*</span> </label>
+            <label for='Lastname' id='client-lastname'>Last Name:<span class='require'>*</span> </label><br>
             <input type='text' name='first_name' id='input-firstname' class='form-control client-input'  autocomplete="nope" value='<%= client[0].first_name %>'>
             <input type='text' name='last_name' id='input-lastname' class='form-control client-input' autocomplete="nope" value='<%= client[0].last_name %>'><br>
-            <label for='email'>Email: </label><br>
+            <label for='email'>Email:<span class='require'>*</span> </label><br>
             <input type='text' name='email' id='email' class='form-control' autocomplete="nope" value='<%= client[0].email %>'><br>
-            <label for='address'>Address: </label>
+            <label for='address'>Address:<span class='require'>*</span> </label>
             <input type='text' name='address' id='input-address' class='form-control' autocomplete="nope" value='<%= client[0].address %>'><br>
-            <label for='contact'>Contact No: </label><br>
+            <label for='contact'>Contact No:<span class='require'>*</span> </label><br>
             <input type='number' id='input-contact' name='contact' class='form-control client-input' autocomplete="nope" value='<%= client[0].contact %>'>
             <div id='client-errors'>
             </div>
@@ -86,9 +86,9 @@
         </div>
         <div id='appointment-modal-body' class="modal-body">
             <form id='appointment-form' action='/addAppointment/<%= client[0].id %>' method='POST'>
-                <label for='title'>Title: </label>
+                <label for='title'>Title:<span class='require'>*</span> </label>
                 <input type='text' name='title' class='form-control'><br>
-                <label for='Datetime'>Date and Time: </label>
+                <label for='Datetime'>Date and Time:<span class='require'>*</span> </label>
                 <input type='datetime-local' id='app-datetime' name='date_and_time' class='form-control' required><br>
             </form>
             <div id='appointment-error'></div>
@@ -115,13 +115,13 @@
         <div id='pet-modal-body' class="modal-body">
             <form id='pet-form' action='/addPet/<%= client[0].id %>' method='POST'>
                 <div id='pet-error'></div>
-                <label for='examvet'>Examining Vet: </label>
+                <label for='examvet'>Examining Vet:<span class='require'>*</span> </label>
                 <input type='text' id='examvet-input' class='form-control' name='examvet'>
-                <label for='datetime'>Date and Time: </label>
+                <label for='datetime'>Date and Time:<span class='require'>*</span> </label>
                 <input type='date' id='datetime-input' class='form-control datetime-input' name='datetime'><br>
-                <label for='name'>Patient's Name: </label>
+                <label for='name'>Patient's Name:<span class='require'>*</span> </label>
                 <input type='text' id='name-input' class='form-control' name='name'>
-                <label for='species'>Species: </label>
+                <label for='species'>Species:<span class='require'>*</span> </label>
                 <input type='text' id='species-input' class='form-control pet-input' name='species'>
                 <label for='breed'>Breed: </label>
                 <input type='text' id='breed-input' class='form-control pet-input' name='breed'><br>
@@ -139,24 +139,24 @@
                 <input type='text' id='color-input' class='form-control pet-input' name='color'>
                 <label for='birthdate'>Date of Birth: </label>
                 <input type='date' id='birthdate-input' class='form-control datetime-input' name='birthdate'>
-                <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History: </label>
+                <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History:<span class='require'>*</span> </label>
                 <label for='currentmed' id='currentmed-label'>Current Medication: </label>
-                <label for='physicalexam' >Physical Exam: </label><br>
+                <label for='physicalexam' >Physical Exam:<span class='require'>*</span> </label><br>
                 <textarea name='complainthistory' id='complaint' class='form-control textarea-input'></textarea>
                 <textarea name='currentmed' id='currentmed' class='form-control textarea-input'></textarea>
                 <textarea name='physicalexam' id='physicalexam' class='form-control textarea-input'></textarea>
 
                 <div id='vitalsigns'>
                     <p class='lead'>Vital signs</p>
-                    <label for='weight'>Weight/BCS: </label>
+                    <label for='weight'>Weight/BCS:<span class='require'>*</span> </label>
                     <input type='text' name='weight' class='form-control vitalsign'>
-                    <label for='temp'>Temp: </label>
+                    <label for='temp'>Temp:<span class='require'>*</span> </label>
                     <input type='number' name='temp' class='form-control vitalsign'>
-                    <label for='resprate'>Resp. rate: </label>
+                    <label for='resprate'>Resp. rate:<span class='require'>*</span> </label>
                     <input type='text' name='resprate' class='form-control vitalsign'>
-                    <label for='heartrate'>Heart rate: </label>
+                    <label for='heartrate'>Heart rate:<span class='require'>*</span> </label>
                     <input type='text' name='heartrate' class='form-control vitalsign'>
-                    <label for='crt'>CRT: </label>
+                    <label for='crt'>CRT:<span class='require'>*</span> </label>
                     <input type='text' name='crt' class='form-control vitalsign'>
                     <label for='mm'>MM: </label>
                     <select name='mm' id='mm' class='form-control vitalsign'>
@@ -239,7 +239,7 @@
                                 <td class='findings'><textarea name='digestivefindings' class='form-control'></textarea></td>
                             </tr>
                             <tr>
-                                <td>musculoskeletal</td>
+                                <td>Musculoskeletal</td>
                                 <td class='conditions'><select name='musculoskeletal' class='form-control'>
                                         <option value='Normal'>Normal</option>
                                         <option value='Abnormal'>Abnormal</option>
@@ -281,7 +281,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type='button' id='save-pet' class='btn btn-primary' >Add</button>
+            <button type='button' id='save-pet' class='btn btn-primary' >Add Pet</button>
             </div>
         </div>
     </div>

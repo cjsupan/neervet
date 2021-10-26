@@ -8,7 +8,7 @@
                 <th>Email</th>
                 <th>Title</th>
                 <th>Date & Time</th>
-                <th>Action</th>
+                <th id='app-today-action'>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
                 <td><%=app[i].email %></td>
                 <td><%=app[i].title %></td>
                 <td><%=app[i].date %></td>
-                <td><button type='button' class='btn btn-success complete-appointment' value='<%= app[i].complete %>' href='/completeAppointment/<%= app[i].id %>'>Complete</button><button type='button' class='btn btn-danger delete-appointment-today' href='/deleteAppointment/<%= app[i].id %>'>Delete</button></td>
+                <td><button type='button' class='btn btn-success complete-appointment' value='<%= app[i].complete %>' href='/completeAppointment/<%= app[i].id %>'>Complete</button> | <button type='button' class='btn btn-danger delete-appointment-today' href='/deleteAppointment/<%= app[i].id %>'>Delete</button></td>
             </tr>
         <% } %>
         </tbody>

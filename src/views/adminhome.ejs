@@ -46,7 +46,7 @@
                     </li> -->
                     <a class='sub-name disable-select'>SYSTEM</a>
                     <li><a id='dashboard' class='lead disable-select' href='/home'><img src='img/dashboard.png'>Dashboard</a></li>
-                    <li><a id='manage-user' class='lead disable-select' href='/manageUser'><img src='img/profile.png'>Manage User</a></li>
+                    <li><a id='manage-user' class='lead disable-select' href='/manageUser'><img src='img/clients.png'>Manage Users</a></li>
                     <li><a id='client' class='lead clients disable-select' href='/client'><img src='img/clients.png'>Manage Clients</a></li>
                     <li><a id='appointment' class='lead disable-select' href='/appointment' ><img src='img/appointment.png'>Appointments</a></li>
                     <a class='sub-name'>UTILITY</a>
@@ -96,45 +96,81 @@
         <div class="modal-body">
             <div id='how-to-nav'>
                 <div id="list-example" class="list-group">
-                    <a class="list-group-item list-group-item-action" value='list-item-1'>How to Add Client</a>
-                    <a class="list-group-item list-group-item-action" value="list-item-2">How to Add Pet</a>
-                    <a class="list-group-item list-group-item-action" value="list-item-3">How to Add Record</a>
-                    <a class="list-group-item list-group-item-action" value="list-item-4">How to Print Report</a>
-                    <a class="list-group-item list-group-item-action" value="list-item-5">How to Add Appointment</a>
-                    <a class="list-group-item list-group-item-action" value="list-item-6">How to Send Notification</a>
-                    <a class="list-group-item list-group-item-action" value="list-item-7">How to Backup </a>
-                    <a class="list-group-item list-group-item-action" value="list-item-8">How to Restore</a>
+                    <a class="list-group-item list-group-item-action" value='list-item-1'>How to Add Users</a>
+                    <a class="list-group-item list-group-item-action" value='list-item-2'>How to Edit User's Profile</a>
+                    <a class="list-group-item list-group-item-action" value='list-item-3'>How to Add Client</a>
+                    <a class="list-group-item list-group-item-action" value='list-item-4'>How to Search Client</a>
+                    <a class="list-group-item list-group-item-action" value='list-item-5'>How to Edit Client's Profile</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-6">How to Add Pet</a>
+                    <a class="list-group-item list-group-item-action" value='list-item-7'>How to Edit Pet's Profile</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-8">How to Add Pet Record</a>
+                    <a class="list-group-item list-group-item-action" value='list-item-9'>How to Edit Pet's Record</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-10">How to Print Report</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-11">How to Add Appointment</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-12">How to Search Appointment by Name</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-13">How to Search Appointment Between Dates</a>
+                    <a class="list-group-item list-group-item-action" value='list-item-14'>How to Edit Appointment</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-15">How to Send Notification</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-16">How to Backup</a>
+                    <a class="list-group-item list-group-item-action" value="list-item-17">How to Restore</a>
                 </div>
             </div>
             <div id='how-to-main'>
                 <h2 class='display-4'>Guides</h2>
            
                 <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
-                    <h4 id="list-item-1" class='lead'>How to Add Client</h4>
+                    <h4 id="list-item-1" class='lead'>How to Add Users</h4>
+                    <p>Go to Manage Users -> Select <button class='btn btn-primary btn-sm'>Add</button> -> Fill up the form with user's data -> Select <button class='btn btn-primary btn-sm'>Add User</button></p>
+
+                    <h4 id="list-item-2" class='lead'>How to Edit User's Profile</h4>
+                    <p>From the top right corner Click the user's name and Select 'Edit Profile' -> Fill up the form and Click <button class='btn btn-primary btn-sm'>Save Changes</button></p>
+
+                    <h4 id="list-item-3" class='lead'>How to Add Client</h4>
                     <p>Go to Dashboard -> Clients -> Select <button class='btn btn-primary btn-sm'>Add</button> at the top right corner -> Fill up the form with client's data <br> -> Select <button class='btn btn-primary btn-sm'>Add Client</button></p>
                     <p>Or</p>
                     <p>Go to Manage Clients -> Select <button class='btn btn-primary btn-sm'>Add</button> at the top right corner-> Fill up the form with client's data <br>-> Select <button class='btn btn-primary btn-sm'>Add Client</button> </p>
 
-                    <h4 id="list-item-2" class='lead'>How to Add Pet</h4>
-                    <p>Go to Manage Clients -> Select Client -> Select <button class='btn btn-primary btn-sm'>+ Pet</button> -> Enter Pet data -> Select Add </p>
+                    <h4 id="list-item-4" class='lead'>How to Search Client</h4>
+                    <p>Go to Manage Clients -> Input the name of the client at the search bar -> Select <button class='btn btn-primary btn-sm'>Search</button></p>
 
-                    <h4 id="list-item-3" class='lead'>How to Add Record</h4>
-                    <p>Go to Manage Clients -> Select Client -> Select Pet -> Select '+ Record' -> Enter Pet Record data <br>-> Select <button class='btn btn-primary btn-sm'>Add</button> </p><br>
-                    <p>To add pet, Go <a href="#list-item-2">Here</a></p>
+                    <h4 id="list-item-5" class='lead'>How to Edit Client's Profile</h4>
+                    <p>Go to Manage Clients -> Find the Client that you want to Edit -> Select <button class='btn btn-success btn-sm'>View</button> -> Select <button class='btn btn-info btn-sm'>Edit Profile</button> -> Edit the field the you want to change -> Select <button class='btn btn-primary btn-sm'>Save Changes</button></p>
+
+                    <h4 id="list-item-6" class='lead'>How to Add Pet</h4>
+                    <p>Go to Manage Clients -> Select Client -> Select <button class='btn btn-primary btn-sm'>+ Pet</button> -> Enter pet's data -> Select <button class='btn btn-primary btn-sm'>Add Pet</button> </p>
+
+                    <h4 id="list-item-7" class='lead'>How to Edit Pet's Profile</h4>
+                    <p>Go to Manage Clients -> Find the owner of the pet that you want to edit -> Select <button class='btn btn-success btn-sm'>View</button> -> Find the Pet that you want to Edit -> Select <button class='btn btn-success btn-sm'>View</button> -> Select <button class='btn btn-info btn-sm'>Edit Profile</button> -> Edit the field the you want to change -> Select <button class='btn btn-primary btn-sm'>Save Changes</button></p>
+
+                    <h4 id="list-item-8" class='lead'>How to Add Pet Record</h4>
+                    <p>Go to Manage Clients -> Select Client -> Select Pet -> Select <button class='btn btn-primary btn-sm'>+ Record</button> -> Enter Pet's Record <br>-> Select <button class='btn btn-primary btn-sm'>Add</button> </p><br>
+                    <p>To add pet, Go <a id='how-to-add-pet-record' value='#list-item-6'>Here</a></p>
                     
-                    <h4 id="list-item-4" class='lead'>How to Print Report</h4>
-                    <p>Go to Pet's page -> Select <button class='btn btn-primary btn-sm'>View Report</button> -> Select <button class='btn btn-primary btn-sm'>Print</button></p>
+                    <h4 id="list-item-9" class='lead'>How to Edit Pet's Record</h4>
+                    <p>Go to Manage Clients -> Find the owner of the pet -> Select <button class='btn btn-success btn-sm'>View</button> -> Find the pet -> Select <button class='btn btn-success btn-sm'>View</button> -> Find the Record that you want to Edit -> Select <button class='btn btn-success btn-sm'>View</button> -> Select <button class='btn btn-primary btn-sm'>Edit</button> -> Edit the field the you want to change -> Select <button class='btn btn-primary btn-sm'>Save Changes</button></p>
 
-                    <h4 id="list-item-5" class='lead'>How to Add Appointment</h4>
+                    <h4 id="list-item-10" class='lead'>How to Print Pet's Report</h4>
+                    <p>Go to Manage Clients -> Find the owner of the pet -> Select <button class='btn btn-success btn-sm'>View</button> -> Find the Pet -> Select <button class='btn btn-success btn-sm'>View</button> -> Find the record of the pet that you want to print -> Select <button class='btn btn-info btn-sm'>View Report</button> -> Select <button class='btn btn-primary btn-sm'>Print</button></p>
+
+                    <h4 id="list-item-11" class='lead'>How to Add Appointment</h4>
                     <p>Go to Client's page -> Select <button class='btn btn-primary btn-sm'>+ Appointment</button></p>
 
-                    <h4 id="list-item-6" class='lead'>How to Send Notification</h4>
-                    <p>Go to Appointments -> Select <button class='btn btn-outline-success btn-sm'>Notification</button> -> Select <button class='btn btn-primary btn-sm'>Send Notification</button></p>
+                    <h4 id="list-item-12" class='lead'>How to Search Appointment by Name</h4>
+                    <p>Go to Appointments -> Input the name of the client at the search bar -> Select <button class='btn btn-primary btn-sm'>Search</button></p>
 
-                    <h4 id="list-item-7" class='lead'>How to Backup</h4>
+                    <h4 id="list-item-13" class='lead'>How to Search Appointment Between Dates</h4>
+                    <p>Go to Appointments -> Input the dates of the client's creation at the search bar -> Select <button class='btn btn-primary btn-sm'>Search</button></p>
+
+                    <h4 id="list-item-14" class='lead'>How to Edit Appointment</h4>
+                   <p>Go to Appointments -> Find the Appointment that you want to edit -> Select <button class='btn btn-success btn-sm'>Edit</button> -> Edit the field that you want to change -> Select <button class='btn btn-primary btn-sm'>Save Changes</button></p>
+
+                    <h4 id="list-item-15" class='lead'>How to Send Notification</h4>
+                    <p>Go to Appointments -> Select <button class='btn btn-primary btn-sm'>Notification</button> -> Select <button class='btn btn-primary btn-sm'>Send Notification</button></p>
+
+                    <h4 id="list-item-16" class='lead'>How to Backup</h4>
                     <p>Go to Backup / Restore -> Select <button class='btn btn-info btn-sm'>Backup Now</button> -> Select file directory to download</p>
 
-                    <h4 id="list-item-8" class='lead'>How to Restore</h4>
+                    <h4 id="list-item-17" class='lead'>How to Restore</h4>
                     <p>Go to Backup / Restore -> Select 'Choose file' -> Select file -> Select <button class='btn btn-info btn-sm'>Restore Now</button></p>
 
                 </div>
