@@ -41,9 +41,15 @@ $(document).ready(function(){
     });
 
 
-    $(document).on('click', '.list-group-item', function(){
+    $(document).on('click', '.list-group-item', function(e){
+        e.preventDefault();
         var idname = $(this).attr('value');
         document.getElementById(idname).scrollIntoView({ behavior: "smooth"});
+        
+    });
+
+    $(document).on('click', '#how-to-add-pet-record', function(){
+        document.getElementById("list-item-6").scrollIntoView({ behavior: "smooth"});
         
     });
 
@@ -154,13 +160,15 @@ $(document).ready(function(){
         $.get($("#app-id").attr('href'), function(res){
             var form = '';
                 form += "<form id='edit-appointment' action='/editAppointment/"+id+"' method='POST'>";
-                form += "<label for='title'>Title: </label>";
+                form += "<label for='title'>Title:<span class='require'>*</span> </label>";
                 form += "<input type='text' name='title' class='form-control' value="+res[0].title+"><br>";
-                form += "<label for='datetime'>Date and Time: </label>";
-                form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' min='"+today+"' class='form-control' required><br>";
+                form += "<label for='datetime'>Date and Time:<span class='require'>*</span> </label>";
+                form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' class='form-control' required><br>";
                 form += "</form>";
                 form += "<div id='appointment-errors'></div>";
             body.innerHTML = form;
+
+            document.getElementById('edit-app-date').min = today;
         });
         
     });
@@ -371,10 +379,6 @@ $(document).ready(function(){
             
             var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
             document.getElementById('datetime-input').max = today;
-            // var x = document.querySelectorAll('.datetime-input');
-            // for(var i=0; i<x.length; i++){
-            //     x[i].max = today;
-            // } 
         });
     }
     //VIEW PET PAGE/INFORMATION -- end

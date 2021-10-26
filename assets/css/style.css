@@ -116,6 +116,7 @@ input[type=number] {
     margin: 0px;
     width: 15%;
     height: 100%;
+    position: relative;
     background-color: #f8faff;
     display: inline-block;
 }
@@ -164,6 +165,10 @@ input[type=number] {
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: inline-block;
+}
+
+span.require{
+    color: red;
 }
 
 #main-login h1{
@@ -240,7 +245,9 @@ input[type=number] {
 
 #navigation ul #help{
     width: 100%;
-    margin: 148% 0px 0px 0px;
+    bottom: 0;
+    right: 0;
+    position: absolute;
     text-align: center;
 }
 
@@ -256,6 +263,15 @@ input[type=number] {
     padding: 5px 0px;
     font-weight: normal;
     display: inline-block;
+}
+
+#how-to-add-pet-record{
+    color:#007bff;
+    cursor: pointer;
+}
+
+#how-to-add-pet-record:hover{
+    text-decoration: underline;
 }
 
 #navigation ul #help img{
@@ -300,11 +316,17 @@ input[type=number] {
 #helpModal #how-to-nav{
     width: 20%;
     margin: 0px;
-    float: left;
     position: sticky;
     top: 0px;
     cursor: pointer;
     display: inline-block;
+}
+
+#helpModal #how-to-nav #list-example{
+    width: 100%;
+    height: 400px;
+    overflow: auto;
+    border: 1px solid #d0d0d0;
 }
 
 .disable-select {
@@ -324,17 +346,13 @@ input[type=number] {
 }
 
 #helpModal #how-to-main h4.lead{
-    margin-top: 30px;
+    margin: 40px 0px 10px 20px;
     font-weight: normal;
     display: inline-block;
 }
 
-#helpModal #how-to-main h4.lead{
-    margin-left: 20px;
-}
-
 #helpModal #how-to-main p{
-    margin-left: 40px;
+    margin: 0px 0px 40px 20px;
 }
 
 #helpModal #how-to-main h2.display-4{
@@ -386,7 +404,7 @@ input[type=number] {
 }
 
 #main #profile form .form-group input{
-    width: 320px;
+    width: 315px;
     margin: 0px;
     border: 0px;
     border-right: 1px solid #d0d0d0; 
@@ -615,6 +633,20 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     overflow: auto;
     display: inline-block;
     border: 1px solid #d0d0d0;
+}
+
+#main #appointment-table #app-today-action{
+    width: 300px;
+}
+
+#main #appointment-table .complete-appointment{
+    margin: 5px;
+    display: inline-block;
+}
+
+#main #appointment-table .delete-appointment-today{
+    margin: 5px;
+    display: inline-block;
 }
 
 #main #appointment-table thead th{
@@ -947,7 +979,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #petModal #pet-modal-body #breed-input{
-    width: 170px;
+    width: 165px;
 }
 
 #main #petModal #pet-modal-body .pet-input{
@@ -987,7 +1019,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #petModal #pet-modal-body #vitalsigns .vitalsign{
-    width: 100px;
+    width: 95px;
     margin: 0px 10px 10px 0px;
     display: inline-block;
 }
@@ -1089,7 +1121,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #record-form .vitalsign-input{
-    width: 100px;
+    width: 95px;
     margin-right: 10px;
     display: inline-block;
 }
@@ -1353,7 +1385,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #petRecordModal #pet-modal-body #vitalsigns .vitalsign{
-    width: 100px;
+    width: 95px;
     margin: 0px 10px 10px 0px;
     display: inline-block;
 }

@@ -56,17 +56,17 @@
       <div class="modal-body">
 
         <form id='edit-pet-info' action='/editPetInfo/<%= pet[0].petId %>' method='POST'>
-            <label for='name'>Name: </label>
+            <label for='name'>Name:<span class='require'>*</span> </label>
             <input type='text' id='name' name='name' class='form-control' value='<%= pet[0].name %>' required><br>
             <label for='birthdate'>Date of Birth: </label>
             <input type='date' id='birthdate' name='birthdate' class='form-control datetime-input' value='<%= pet[0].birthdate %>' required><br>
-            <label for='species'>Species: </label>
+            <label for='species'>Species:<span class='require'>*</span> </label>
             <input type='text' name='species' class='form-control' value='<%= pet[0].species %>' required>
             <label for='breed'>Breed: </label>
             <input type='text' id='breed' name='breed' class='form-control' value='<%= pet[0].breed %>' required><br>
             <label for='sex'>Sex: </label>
             <input type='text' name='sex' class='form-control' value='<%= pet[0].sex %>' required>
-            <label for='color'>Color: </label>
+            <label for='color'>Color:<span class='require'>*</span> </label>
             <input type='text' name='color' class='form-control' value='<%= pet[0].color %>' required>
             <div id='pet-info-errors'></div>
         </form>
@@ -159,31 +159,34 @@
         <div id='pet-modal-body' class="modal-body">
             <form id='pet-record-form' action='/addPetRecord/<%= client %>/<%= pet[0].petId %>' method='POST'>
                 <div id='record-errors'></div>
-                <label for='examvet'>Examining Vet: </label>
+                <label for='examvet'>Examining Vet:<span class='require'>*</span> </label>
                 <input type='text' id='examvet-input' class='form-control' name='exam_vet'>
-                <label for='datetime'>Date and Time: </label>
+                <label for='datetime'>Date and Time:<span class='require'>*</span> </label>
                 <input type='datetime-local' id='datetime-input' class='form-control datetime-input' name='created_at'><br>
-                <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History: </label>
+                <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History:<span class='require'>*</span> </label>
                 <label for='currentmed' id='currentmed-label'>Current Medication: </label>
-                <label for='physicalexam' >Physical Exam: </label><br>
+                <label for='physicalexam' >Physical Exam:<span class='require'>*</span> </label><br>
                 <textarea name='complaint' id='complaint' class='form-control textarea-input'></textarea>
                 <textarea name='current_med' id='currentmed' class='form-control textarea-input'></textarea>
                 <textarea name='physical_exam' id='physicalexam' class='form-control textarea-input'></textarea>
 
                 <div id='vitalsigns'>
                     <p class='lead'>Vital signs</p>
-                    <label for='weight'>Weight/BCS: </label>
+                    <label for='weight'>Weight/BCS:<span class='require'>*</span> </label>
                     <input type='text' name='weight' class='form-control vitalsign'>
-                    <label for='temp'>Temp: </label>
+                    <label for='temp'>Temp:<span class='require'>*</span> </label>
                     <input type='number' name='temp' class='form-control vitalsign'>
-                    <label for='respiratory_rate'>Resp. rate: </label>
+                    <label for='respiratory_rate'>Resp. rate:<span class='require'>*</span> </label>
                     <input type='text' name='resprate' class='form-control vitalsign'>
-                    <label for='heart_rate'>Heart rate: </label>
+                    <label for='heart_rate'>Heart rate:<span class='require'>*</span> </label>
                     <input type='text' name='heartrate' class='form-control vitalsign'>
-                    <label for='crt'>CRT: </label>
+                    <label for='crt'>CRT:<span class='require'>*</span> </label>
                     <input type='text' name='crt' class='form-control vitalsign'>
                     <label for='mm'>MM: </label>
-                    <input type='text' name='mm' class='form-control vitalsign'>
+                    <select name='mm' id='mm' class='form-control vitalsign'>
+                        <option value='Not pale'>Not Pale</option>
+                        <option value='Pale'>Pale</option>
+                    </select>
                 </div>
 
                 <div id='system'>

@@ -15,7 +15,8 @@ class Appointments{
 
     async search_app(req, res){
         let getAppointment = await appointment_model.searchApp(req.body);
-        res.render('partials/appointment', {app: getAppointment});
+        let notif = await appointment_model.countNotif();
+        res.render('partials/appointment', {app: getAppointment, notif: notif});
     }
 
     async validate_appointment(req, res){
