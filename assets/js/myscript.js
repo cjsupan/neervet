@@ -59,63 +59,72 @@ $(document).ready(function(){
         document.getElementById(idname).scrollIntoView({ behavior: "smooth"});
     })
 
+    function editProfile(user){
+        $.get($(user).attr('href'), function(res){
+            document.getElementById('main').innerHTML = res;
+        });
+    }
+
     $(document).on('click', '#edit-profile', function(e){
         e.preventDefault();
 
-        $.get($(this).attr('href'), function(res){
-            document.getElementById('main').innerHTML = res;
-
-            $(document).on('click', '#view-password', function(){
-                if($("#user-password").attr("type") == "text"){
-                    $("#user-password").attr('type', 'password');
-                    $(this).attr("src", "img/closeeye.png");
-                }else if($("#user-password").attr("type") == "password"){
-                    $("#user-password").attr('type', 'text');
-                    $(this).attr("src", "img/openeye.png");
-                }
-            });
-            
-            $(document).on('click', '#view-confirm-password', function(){
-                if($("#user-confirm-password").attr("type") == "text"){
-                    $("#user-confirm-password").attr('type', 'password');
-                    $(this).attr("src", "img/closeeye.png");
-                }else if($("#user-confirm-password").attr("type") == "password"){
-                    $("#user-confirm-password").attr('type', 'text');
-                    $(this).attr("src", "img/openeye.png");
-                }
-            });
-        });
+        editProfile($(this));
     });
+
+    $(document).on('click', '#view-password', function(){
+        console.log($(this));
+        if($("user-password").attr("type") == "text"){
+            
+            $("user-password").attr('type', 'password');
+            $(this).attr("src", "img/closeeye.png");
+
+        }else if($("user-password").attr("type") == "password"){
+            $("user-password").attr('type', 'text');
+            $(this).attr("src", "img/openeye.png");
+        }
+    });
+    
+    $(document).on('click', '#view-confirm-password', function(){
+        if($("user-confirm-password").attr("type") == "text"){
+            $("user-confirm-password").attr('type', 'password');
+            $(this).attr("src", "img/closeeye.png");
+        }else if($("user-confirm-password").attr("type") == "password"){
+            $("user-confirm-password").attr('type', 'text');
+            $(this).attr("src", "img/openeye.png");
+        }
+    });
+
+    function manageUser(user){
+        $.get($(user).attr('href'), function(res){
+            document.getElementById('main').innerHTML = res;
+        });
+    }
 
     $(document).on('click', '#manage-user', function(e){
         e.preventDefault();
 
-        $.get($(this).attr('href'), function(res){
-            document.getElementById('main').innerHTML = res;
-
-            $(document).on('click', '#view-password', function(){
-                if($("#user-password").attr("type") == "text"){
-                    $("#user-password").attr('type', 'password');
-                    $(this).attr("src", "img/closeeye.png");
-                }else if($("#user-password").attr("type") == "password"){
-                    $("#user-password").attr('type', 'text');
-                    $(this).attr("src", "img/openeye.png");
-                }
-            });
-            
-            $(document).on('click', '#view-confirm-password', function(){
-                if($("#user-confirm-password").attr("type") == "text"){
-                    $("#user-confirm-password").attr('type', 'password');
-                    $(this).attr("src", "img/closeeye.png");
-                }else if($("#user-confirm-password").attr("type") == "password"){
-                    $("#user-confirm-password").attr('type', 'text');
-                    $(this).attr("src", "img/openeye.png");
-                }
-            });
-        });
+        manageUser($(this));
     });
 
-    $(document).on('click', '')
+    $(document).on('click', '#view-password', function(){
+        if($("#user-password").attr("type") == "text"){
+            $("#user-password").attr('type', 'password');
+            $(this).attr("src", "img/closeeye.png");
+        }else if($("#user-password").attr("type") == "password"){
+            $("#user-password").attr('type', 'text');
+            $(this).attr("src", "img/openeye.png");
+        }
+    });
+    
+    $(document).on('click', '#view-confirm-password', function(){
+        if($("#user-confirm-password").attr("type") == "text"){
+            $("#user-confirm-password").attr('type', 'password');
+            $(this).attr("src", "img/closeeye.png");
+        }else if($("#user-confirm-password").attr("type") == "password"){
+            $("#user-confirm-password").attr('type', 'text');
+            $(this).attr("src", "img/openeye.png");
+        }
+    });
 
     // GET ALL APPOINTMENTs
     function getAppointment(app){
@@ -620,19 +629,106 @@ $(document).ready(function(){
         });
     });
 
-    //DELETE USER
-    $(document).on('click', '#delete-user', function(e){
+    //EDIT USER STAFF
+    $(document).on('click', '.edit-user-staff', function(e){
+        e.preventDefault();
+        $.get($(this).attr('href'), function(res){
+            var form = '';
+
+                form += "<form id='edit-staff-form' action='/editUserStaff/"+ res[0].id +"' method='POST'>";
+                form += " <div id='profile-errors'></div>";
+                form += "<p class='lead'>Personal Info</p>";
+                form += "<label for='first_name'>First Name: </label>";
+                form += "<input type='text' class='form-control' name='first_name' value='"+ res[0].first_name +"'><br>";
+                form += "<label for='last_name'>Last Name: </label>";
+                form += "<input type='text' class='form-control' name='last_name' value='"+res[0].last_name+"'><br>";
+                form += "<p class='lead'>Account Info</p>";
+                form += "<label for='username'>Username:<span class='require'>*</span></label>";
+                form += "<input type='text' name='username' class='form-control' value='"+res[0].username+"'><br>";
+                form += "<label for='password'>Password:<span class='require'>*</span></label>";
+                form += "<div class='form-group'>";
+                form += "<input type='password' id='users-password' name='password' class='form-control' value='"+res[0].password+"' ><img id='view-password' src='img/closeeye.png'><br>";
+                form += "</div><br>";
+                form += "<label for='confirmpassword'>Confirm Password:<span class='require'>*</span></label>";
+                form += "<div class='form-group'>";
+                form += "<input type='password' id='users-confirm-password' name='confirmpassword' class='form-control' value='"+res[0].password+"' ><img id='view-confirm-password' src='img/closeeye.png'><br>";
+                form += "</div>";
+
+                form += "<label for='user_level'>User level: </label>";
+                if(res[0].user_level == 'Staff'){
+                    form += "<select name='user_level' class='form-control'>";
+                    form += "<option value='Staff'>Staff</option>";
+                    form += "<option value='Admin'>Admin</option>";
+                    form += "</select>";
+
+                }else if(res[0].user_level == 'Admin'){
+                    form += "<select name='user_level' class='form-control'>";
+                    form += "<option value='Admin'>Admin</option>";
+                    form += "<option value='Staff'>Staff</option>";
+                    form += "</select>";
+                }
+                form += "</form>"; 
+            document.getElementById('edit-user-staff-form').innerHTML = form;
+
+            $(document).on('click', '#view-password', function(){
+                if($("#users-password").attr("type") == "text"){
+                    $("#users-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#users-password").attr("type") == "password"){
+                    $("#users-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
+            
+            $(document).on('click', '#view-confirm-password', function(){
+                if($("#users-confirm-password").attr("type") == "text"){
+                    $("#users-confirm-password").attr('type', 'password');
+                    $(this).attr("src", "img/closeeye.png");
+                }else if($("#users-confirm-password").attr("type") == "password"){
+                    $("#users-confirm-password").attr('type', 'text');
+                    $(this).attr("src", "img/openeye.png");
+                }
+            });
+        });
+    });
+
+    //SAVE USER STAFF
+
+    $(document).on('click', '#save-user-staff', function(e){
         e.preventDefault();
 
-        if(confirm('Confirm to Complete')){
+        $.post($('#edit-staff-form').attr('action'), $('#edit-staff-form').serialize(), function(res){
+
+            if(res.length != 0){
+                var errors = '';
+                for(var i=0; i<res.length; i++){
+                    errors += "<div class='alert alert-warning'>"+ res[i] +"</div><br>";
+                    
+                }
+                document.getElementById('profile-errors').innerHTML = errors;
+
+            }else{
+                alert('Profile Updated');
+                var manageUserstaff = document.getElementById('manage-user');
+                $('#editStaffModal').modal('hide');
+                manageUser(manageUserstaff);
+            }
+        });
+
+    })
+
+    //DELETE USER
+    $(document).on('click', '.delete-user-staff', function(e){
+        e.preventDefault();
+
+        if(confirm('Confirm to Delete')){
             $.get($(this).attr('href'), function(){
-                location.reload();
+                var manageUsers = document.getElementById('manage-user')
+                manageUser(manageUsers);
             });
         }else{
             e.preventDefault();
         }
-
-       
     });
 
     //GET ALL CLIENT WHEN CLICKED
