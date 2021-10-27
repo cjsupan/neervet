@@ -18,9 +18,17 @@
                     <td><%= users[i].username %></td>
                     <td><%= users[i].user_level %></td>
                     <td><%= users[i].password %></td>
-                    <td class='delete'><button type='button' id='delete-user' class='btn btn-danger' href='/deleteUser/<%= users[i].id %>'>Delete</button></td>
+                <% if(users[i].user_level == 'Admin'){ %>
+                        <td>
+                            <p>No Action</p>
+                        </td>
+                <% } else if (users[i].user_level == 'Staff'){%>
+                    <td class='delete'>
+                        <button type='button' id='edit-user' class='btn btn-success edit-user-staff' data-toggle="modal" data-target="#editStaffModal" href='/getUserStaff/<%= users[i].id %>'>Edit</button> | <button type='button' id='delete-user' class='btn btn-danger delete-user-staff' href='/deleteUser/<%= users[i].id %>'>Delete</button>
+                    </td>
                 </tr>
-            <% } %>
+                <%} %>
+            <%} %>
         </tbody>
     </table>
 </div>
@@ -38,7 +46,7 @@
         </div>
         <div class="modal-body">
             <form id='add-user-form' action="/addUser" method='POST'>
-                    <div id='user-errors'></div>
+                <div id='user-errors'></div>
                 <p class='lead'>Personal Info</p>
                 <label for='firstname'>First name:<span class='require'>*</span> </label>
                 <input type='text' name='firstname' class='form-control'><br>
@@ -71,4 +79,23 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
+
+<div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Staff</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id='edit-user-staff-form' class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id='save-user-staff' class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+</div>

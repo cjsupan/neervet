@@ -130,8 +130,8 @@ class User extends main_model{
         let result = await this.executeQuery(query);
     }
     
-    async getAllUser(){
-        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level, password FROM users WHERE NOT user_level = 'Admin' ORDER BY user_level ASC");
+    async getAllUser(id){
+        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level, password FROM users WHERE NOT id = ? ORDER BY user_level ASC", id);
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -191,6 +191,13 @@ class User extends main_model{
         let result = await this.executeQuery(query);
 
         return result;
+    }
+
+    async getUserStaff(id){
+        let query = mysql.format("SELECT * FROM users WHERE id = ?", id);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
     }
 
     async countClient(){

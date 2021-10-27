@@ -66,14 +66,28 @@ class Users{
 
     async edit_profile(req, res){
         let result = await user_model.getUser(req.session.user_id);
-
         res.render('partials/editprofile', {user: result, id: req.session.user_id});
     }
 
     async manage_user(req, res){
-
-        let result = await user_model.getAllUser();
+        let result = await user_model.getAllUser(req.session.user_id);
         res.render('partials/manageusers', {users: result});
+    }
+
+    async get_user_staff(req, res){
+        let result = await user_model.getUserStaff(req.params.id);
+
+        res.json(result);
+    }
+
+    async edit_staff(req, res){
+        let result = await user_model.validateProfile(req.body, req.params.id);
+        if(result.length != 0){
+            res.json(result);
+        }else{
+            let updateUser = await user_model.editUser(req.body, req.params.id);
+            res.json([]);
+        }
     }
 
     async delete_user(req, res){
