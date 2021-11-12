@@ -15,7 +15,7 @@ class Clients{
 
     async validate_client(req, res){
         let result = await client_model.validateClient(req.body);
-        console.log(result);
+
         if(result.length > 0){
             res.json(result);
         }else if(result == ''){
