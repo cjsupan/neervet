@@ -34,8 +34,6 @@
                     <button type='button' class='btn btn-success view-health' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
                     <span>|</span>
                     <button type='button' class='btn btn-info view-report' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getReport/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#reportModal">View Report</button>
-                    <span>|</span>
-                    <button type='button' class='btn btn-danger delete-record' href='/deletePetRecord/<%= system[i].pet_id %>/<%= system[i].systemId %>'>Delete</button>
                 </td>
             </tr>
             <% }%>
@@ -159,8 +157,24 @@
         <div id='pet-modal-body' class="modal-body">
             <form id='pet-record-form' action='/addPetRecord/<%= client %>/<%= pet[0].petId %>' method='POST'>
                 <div id='record-errors'></div>
+                <label>Record type:</label>
+                <select name='record-type' class='form-control'>
+                    <option value='consultation'>Consultation</option>
+                    <option value='vaccination'>Vaccination</option>
+                    <option value='deworming'>Deworming</option>
+                    <option value='confinement'>Confinement</option>
+                    <option value='surgery'>Surgery</option>
+                    <option value='boarding'>Boarding</option>
+                </select><br>
                 <label for='examvet'>Examining Vet:<span class='require'>*</span> </label>
-                <input type='text' id='examvet-input' class='form-control' name='exam_vet'>
+                <select name='exam_vet' id='examvet-input' class='form-control'>
+                    <option value='Dr. Ken Oliver O. Badua'>Dr. Ken Oliver O. Badua</option>
+                    <option value='Dr. Annie N. Nacis'>Dr. Annie N. Nacis</option>
+                    <option value='Dr. Danni Lou O. Manuel'>Dr. Danni Lou O. Manuel</option>
+                    <option vlaue='Dr. Jacques Glenn G. Apigo'>Dr. Jacques Glenn G. Apigo</option>
+                    
+                </select>
+                
                 <label for='datetime'>Date and Time:<span class='require'>*</span> </label>
                 <input type='datetime-local' id='datetime-input' class='form-control datetime-input' name='created_at'><br>
                 <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History:<span class='require'>*</span> </label>

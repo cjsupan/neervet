@@ -5,26 +5,32 @@
         <thead class='table-dark'>
             <tr>
                 <th>Name</th>
-                <th>Username</th>
                 <th>User Level</th>
+                <th>Username</th>
                 <th>Password</th>
-                <th>Action</th>
+                <th>Status</th>
+                <th id='action'>Action</th>
             </tr>
         </thead>
         <tbody>
             <% for(var i = 0; i < users.length; i++){ %>
                 <tr>
                     <td><%= users[i].name %></td>
-                    <td><%= users[i].username %></td>
                     <td><%= users[i].user_level %></td>
+                    <td><%= users[i].username %></td>
                     <td><%= users[i].password %></td>
+                    <% if(users[i].is_active == 1){ %>
+                        <td>Active</td>
+                    <% } else if(users[i].is_active == 0){ %>
+                        <td>Not Active</td>
+                    <% } %>
                 <% if(users[i].user_level == 'Admin'){ %>
-                        <td>
+                        <td class='delete'>
                             <p>No Action</p>
                         </td>
                 <% } else if (users[i].user_level == 'Staff'){%>
                     <td class='delete'>
-                        <button type='button' id='edit-user' class='btn btn-success edit-user-staff' data-toggle="modal" data-target="#editStaffModal" href='/getUserStaff/<%= users[i].id %>'>Edit</button> | <button type='button' id='delete-user' class='btn btn-danger delete-user-staff' href='/deleteUser/<%= users[i].id %>'>Delete</button>
+                        <button type='button' id='edit-user' class='btn btn-success edit-user-staff' data-toggle="modal" data-target="#editStaffModal" href='/getUserStaff/<%= users[i].id %>'>Edit</button> 
                     </td>
                 </tr>
                 <%} %>
@@ -45,8 +51,9 @@
             </button>
         </div>
         <div class="modal-body">
+           
             <form id='add-user-form' action="/addUser" method='POST'>
-                <div id='user-errors'></div>
+                 <div id='user-errors'></div>
                 <p class='lead'>Personal Info</p>
                 <label for='firstname'>First name:<span class='require'>*</span> </label>
                 <input type='text' name='firstname' class='form-control'><br>
@@ -81,7 +88,9 @@
     </div>
 </div>
 
-<div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- EDIT STAFF -->
+
+<div class="modal fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="editStaffModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

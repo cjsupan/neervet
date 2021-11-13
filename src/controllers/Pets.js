@@ -42,8 +42,6 @@ class Pets{
             let result = await pet_model.addPetRecord(req.body, req.params.clientid, req.params.petid);
             res.json([]);
         }
-
-        
     }
 
     async edit_pet_info(req, res){

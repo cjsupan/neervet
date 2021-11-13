@@ -3,9 +3,9 @@
     <p class='display-3'>Leoncia Bldg., 118 Poblacion, Bacnotan, La Union</p>
 </div>
 <div id='left'>
-
+    <p class='lead'>Record Type: <span class='lead'><%= system[0].record_type %></span></p>
     <p class='lead' id='exam-vet'>Examining Vet: <span class='lead'><%= system[0].examvet %></span></p>
-    <p class='lead' id='owner'>Client's name: <span class='lead'><%= pet[0].owner %></span></p><br>
+    <p class='lead' id='owner'>Client's Name: <span class='lead'><%= pet[0].owner %></span></p><br>
     <p class='lead' id='address'>Address: <span class='lead'><%= pet[0].address %></span></p><br>
     <p class='lead' id='contact'>Contact No.: <span class='lead'><%= pet[0].contact %></span></p><br>
     <p class='lead' id='complaint'>Complaint/Concerns/History:</p><br>
@@ -15,14 +15,14 @@
 <div id='right'>
 
     <p class='lead' id='addate'>Date: <span class='lead'><%= system[0].created_date %></span></p>
-    <p class='lead' id='petname'>Patient's name: <span class='lead'><%= pet[0].name %></span></p>
+    <p class='lead' id='petname'>Patient's Name: <span class='lead'><%= pet[0].name %></span></p>
     <p class='lead' id='age'>Age: <span class='lead'><%= pet[0].age %></span></p><br>
     <p class='lead' id='species'>Species: <span class='lead'><%= pet[0].species %></span></p>
     <p class='lead' id='breed'>Breed: <span class='lead'><%= pet[0].breed %></span></p>
     <p class='lead' id='sex'>Sex: <span class='lead'><%= pet[0].sex %></span></p><br>
     <p class='lead' id='birtdate'>Date of Birth: <span class='lead'><%= pet[0].birthdate %></span></p>
     <p class='lead' id='color'>Color: <span class='lead'><%= pet[0].color %></span></p><br>
-    <p class='display-3'>Vital signs</p><br>
+    <p class='display-3'>Vital Signs</p><br>
     <p class='lead' id='weight'>Weight/BCS: <span class='lead'><%= vitalsign[0].weight %></span></p>
     <p class='lead' id='temp'>Temp: <span class='lead'><%= vitalsign[0].temp %></span></p>
     <p class='lead' id='resp'>Resp. rate: <span class='lead'><%= vitalsign[0].respiratory_rate %></span></p>

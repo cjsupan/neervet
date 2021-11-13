@@ -47,65 +47,6 @@ class Pet extends main_model{
             errors.push("Date of Birth should not be blank");
         }
 
-        if(this.empty(details.species)){
-            errors.push("Species should not be blank");
-        }
-        if(this.hasnumber(details.species) || this.symbol(details.species)){
-            errors.push("Invalid Species");
-        }
-
-        if(this.empty(details.breed)){
-            errors.push("Breed should not be blank");
-        }
-        if(this.hasnumber(details.breed) || this.symbol(details.breed)){
-            errors.push("Invalid Species");
-        }
-
-        if(this.empty(details.color)){
-            errors.push("Color should not be blank");
-        }
-        if(this.hasnumber(details.color) || this.symbol(details.color)){
-            errors.push("Invalid Color");
-        }
-
-        if(this.empty(details.complainthistory)){
-            errors.push("Complaint/Concerns/History should not be blank");
-        }
-
-        if(this.empty(details.currentmed)){
-            errors.push("Current Medication should not be blank");
-        }
-
-        if(this.empty(details.physicalexam)){
-            errors.push("Physical exam should not be blank");
-        }
-        
-        if(this.empty(details.weight)){
-            errors.push("Weight should not be blank");
-        }
-
-        if(this.empty(details.temp)){
-            errors.push("Temperature should not be blank");
-        }
-
-        if(this.empty(details.resprate)){
-            errors.push("Respiratory rate should not be blank");
-        }
-
-        if(this.empty(details.heartrate)){
-            errors.push("Heart rate should not be blank");
-        }
-
-        if(this.empty(details.crt)){
-            errors.push("CRT should not be blank");
-        }
-
-        if(this.empty(details.mm)){
-            errors.push("MM should not be blank");
-        }
-        if(this.hasnumber(details.mm)){
-            errors.push("Invalid MM");
-        }
         return errors;
     }
 
@@ -150,34 +91,6 @@ class Pet extends main_model{
             errors.push('Invalid name');
         }
 
-        if(this.empty(details.birthdate)){
-            errors.push('Birthdate should not be blank');
-        }
-
-        if(this.empty(details.species)){
-            errors.push('Species should not be blank');
-        }else if(this.hasnumber(details.species) || this.symbol(details.species)){
-            errors.push('Invalid species');
-        }
-
-        if(this.empty(details.breed)){
-            errors.push('Breed should not be blank');
-        }else if(this.hasnumber(details.breed) || this.symbol(details.breed)){
-            errors.push('Invalid breed');
-        }
-
-        if(this.empty(details.sex)){
-            errors.push('Sex should not be blank');
-        }else if(this.hasnumber(details.sex) || this.symbol(details.sex)){
-            errors.push('Invalid sex');
-        }
-
-        if(this.empty(details.color)){
-            errors.push('Color should not be blank');
-        }else if(this.hasnumber(details.color) || this.symbol(details.color)){
-            errors.push('Invalid color');
-        }
-
         return errors;
     }
 
@@ -188,86 +101,18 @@ class Pet extends main_model{
         return result;
     }
 
-    async deletePet(id){
-        let query = mysql.format("DELETE FROM pets WHERE id=?", id);
-        let result = await this.executeQuery(query);
-
-        let system = mysql.format("DELETE FROM systems WHERE pet_id =?", id);
-        let systemresult = await this.executeQuery(system);
-
-        let history = mysql.format("DELETE FROM history WHERE system_pet_id =?", id);
-        let historyresult = await this.executeQuery(history);
-
-        let vitalsign = mysql.format("DELETE FROM vitalsigns WHERE system_pet_id =?", id);
-        let vitalresult = await this.executeQuery(vitalsign);
-
-        let findings = mysql.format("DELETE FROM findings WHERE system_pet_id =?", id);
-        let findingsresult = await this.executeQuery(findings);
-
-        let lab = mysql.format("DELETE FROM laboratory WHERE system_pet_id =?", id);
-        let labresult = await this.executeQuery(lab);
-
-        return lab;
-    }
-
     async validaterecord(details){
         let errors = [];
 
-        if(this.empty(details.exam_vet)){
-            errors.push("Examining vet should not be blank");
-        }
-
-        if(this.hasnumber(details.exam_vet) || this.symbol(details.exam_vet)){
-            errors.push("Examining vet is invalid");
-        }
         if(this.empty(details.created_at)){
             errors.push('Date and time should not be blank');
-        }
-
-        if(this.empty(details.complaint)){
-            errors.push("Complaint/Concerns/History should not be blank");
-        }
-
-        if(this.empty(details.current_med)){
-            errors.push("Current Medication should not be blank");
-        }
-
-        if(this.empty(details.physical_exam)){
-            errors.push("Physical exam should not be blank");
-        }
-        
-        if(this.empty(details.weight)){
-            errors.push("Weight should not be blank");
-        }
-
-        if(this.empty(details.temp)){
-            errors.push("Temperature should not be blank");
-        }
-
-        if(this.empty(details.respiratory_rate)){
-            errors.push("Respiratory rate should not be blank");
-        }
-
-        if(this.empty(details.heart_rate)){
-            errors.push("Heart rate should not be blank");
-        }
-
-        if(this.empty(details.crt)){
-            errors.push("CRT should not be blank");
-        }
-
-        if(this.empty(details.mm)){
-            errors.push("MM should not be blank");
-        }
-        if(this.hasnumber(details.mm)){
-            errors.push("Invalid MM");
         }
 
         return errors;
     }
 
     async pet_info(id){
-        let petInfo = mysql.format("SELECT clients.id as clientId, pets.id as petId, CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%c-%e-%Y') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age FROM clients LEFT JOIN pets ON clients.id = pets.client_id WHERE pets.id = ?", id);
+        let petInfo = mysql.format("SELECT clients.id as clientId, pets.id as petId, CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.species, pets.breed, pets.sex, pets.altered, pets.color, DATE_FORMAT(pets.birthdate, '%Y-%m-%d') AS birthdate, timestampdiff(YEAR, pets.birthdate, now()) as age FROM clients LEFT JOIN pets ON clients.id = pets.client_id WHERE pets.id = ?", id);
         let result = await this.executeQuery(petInfo);
         return JSON.parse(JSON.stringify(result));
     }
@@ -280,7 +125,7 @@ class Pet extends main_model{
     }
 
     async pet_system(petid, systemid){
-        let query = mysql.format("SELECT pets.id as petId, systems.id as systemId, systems.exam_vet as examvet, systems.general_appearance, systems.teeth_mouth, systems.eyes, systems.ears, systems.skin_coat, systems.heart_lungs, systems.digestive, systems.musculoskeletal, systems.nervous, systems.lymph, systems.urogenitals,  DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date, findings.general_appearance as findings_genapp, findings.teeth_mouth as findings_teeth, findings.eyes as findings_eyes, findings.ears as findings_ears, findings.skin_coat as findings_skin, findings.heart_lungs as findings_heart, findings.digestive as findings_digestive, findings.musculoskeletal as findings_muscu, findings.nervous as findings_nervous, findings.lymph as findings_lymph, findings.urogenitals as findings_uro FROM pets LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN findings ON systems.id = findings.system_id WHERE pets.id = ? AND systems.id = ? ORDER BY systems.created_at DESC", [petid, systemid]);
+        let query = mysql.format("SELECT pets.id as petId, systems.id as systemId, systems.exam_vet as examvet, systems.record_type, systems.general_appearance, systems.teeth_mouth, systems.eyes, systems.ears, systems.skin_coat, systems.heart_lungs, systems.digestive, systems.musculoskeletal, systems.nervous, systems.lymph, systems.urogenitals,  DATE_FORMAT(systems.created_at, '%c/%e/%Y') as created_date, findings.general_appearance as findings_genapp, findings.teeth_mouth as findings_teeth, findings.eyes as findings_eyes, findings.ears as findings_ears, findings.skin_coat as findings_skin, findings.heart_lungs as findings_heart, findings.digestive as findings_digestive, findings.musculoskeletal as findings_muscu, findings.nervous as findings_nervous, findings.lymph as findings_lymph, findings.urogenitals as findings_uro FROM pets LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN findings ON systems.id = findings.system_id WHERE pets.id = ? AND systems.id = ? ORDER BY systems.created_at DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
@@ -337,28 +182,11 @@ class Pet extends main_model{
         return historyresult;
     }
 
-    async deletePetRecord(petid, systemid){
-        let system = mysql.format("DELETE FROM systems WHERE pet_id = ? AND id = ?", [petid, systemid]);
-        let systemresult = await this.executeQuery(system);
-
-        let findings = mysql.format("DELETE FROM findings WHERE system_pet_id = ? AND system_id = ?", [petid, systemid]);
-        let findingsresult = await this.executeQuery(findings);
-
-        let vital = mysql.format("DELETE FROM vitalsigns WHERE system_pet_id = ? AND system_id = ?", [petid, systemid]);
-        let vitalresult = await this.executeQuery(vital);
-
-        let history = mysql.format("DELETE FROM history WHERE system_pet_id = ? AND system_id = ?", [petid, systemid]);
-        let historyresult = await this.executeQuery(history);
-
-        let lab = mysql.format("DELETE FROM laboratory WHERE system_pet_id = ? AND system_id = ?", [petid, systemid])
-        let labresult = await this.executeQuery(lab);
-
-        return labresult;
-    }
-
     async updateLab(details, clientid, petid, systemid){
         var date = new Date();
         let system = {};
+        system.record_type = details.record_type;
+        system.exam_vet = details.exam_vet;
         system.general_appearance = details.general_appearance;
         system.teeth_mouth = details.teeth_mouth;
         system.eyes = details.eyes;
@@ -444,7 +272,7 @@ class Pet extends main_model{
 
     async getReport(petid, systemid){
         
-        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.sex, pets.breed, DATE_FORMAT(pets.birthdate, '%Y-%m-%d') as birthdate, pets.color, systems.id as systemid, systems.exam_vet, vitalsigns.weight, history.complaint, laboratory.diagnosis_procedure, laboratory.definitive, laboratory.treatment, laboratory.prescribed_med ,DATE_FORMAT(laboratory.created_at, '%M %d, %Y') as exam_date FROM clients LEFT JOIN pets ON clients.id = pets.client_id LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN vitalsigns ON systems.pet_id = vitalsigns.system_pet_id LEFT JOIN history  ON vitalsigns.system_pet_id = history.system_pet_id LEFT JOIN laboratory ON history.system_pet_id = laboratory.system_pet_id WHERE pets.id = ? AND systems.id = ? AND laboratory.system_id = ? AND history.system_id = ? AND vitalsigns.system_id = ?", [petid, systemid, systemid, systemid, systemid]);
+        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) as owner, clients.address, clients.contact, pets.name, pets.sex, pets.breed, DATE_FORMAT(pets.birthdate, '%Y-%m-%d') as birthdate, pets.color, systems.id as systemid, systems.exam_vet, vitalsigns.weight, vitalsigns.temp, vitalsigns.respiratory_rate, vitalsigns.heart_rate, vitalsigns.crt, vitalsigns.mm , history.complaint, laboratory.diagnosis_procedure, laboratory.definitive, laboratory.treatment, laboratory.prescribed_med ,DATE_FORMAT(laboratory.created_at, '%M %d, %Y') as exam_date FROM clients LEFT JOIN pets ON clients.id = pets.client_id LEFT JOIN systems ON pets.id = systems.pet_id LEFT JOIN vitalsigns ON systems.pet_id = vitalsigns.system_pet_id LEFT JOIN history  ON vitalsigns.system_pet_id = history.system_pet_id LEFT JOIN laboratory ON history.system_pet_id = laboratory.system_pet_id WHERE pets.id = ? AND systems.id = ? AND laboratory.system_id = ? AND history.system_id = ? AND vitalsigns.system_id = ?", [petid, systemid, systemid, systemid, systemid]);
         let result = await this.executeQuery(query);
         let info = JSON.parse(JSON.stringify(result));
 

@@ -173,6 +173,17 @@ $(document).ready(function(){
                 form += "<input type='text' name='title' class='form-control' value="+res[0].title+"><br>";
                 form += "<label for='datetime'>Date and Time:<span class='require'>*</span> </label>";
                 form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' class='form-control' required><br>";
+                form += "<label for='is_active'>Status: </label>";
+                form += "<select name='is_active' class='form-control'>";
+                if(res[0].is_active == 1){
+                    form += "<option value='1' selected>Active</option>"
+                    form += "<option value='0' >Not Active</option>";
+                }else if(res[0].is_active == 0){
+                    form += "<option value='0' selected>Not Active</option>";
+                    form += "<option value='1' >Active</option>";
+                }
+                
+                form += "</select>"; 
                 form += "</form>";
                 form += "<div id='appointment-errors'></div>";
             body.innerHTML = form;
@@ -199,18 +210,7 @@ $(document).ready(function(){
             }
         });
     });
-
-    // DELETE APPOINTMENT
-    $(document).on('click','.delete-appointment', function(e){
-        e.preventDefault();
-        if(confirm('Confirm to delete')){
-            $.get($(this).attr('href'));
-            let app = document.getElementById('appointment');
-            getAppointment(app);
-        }else{
-            e.preventDefault();
-        }
-    });
+    
 
     
     // GET ALL CLIENT WHO NEED TO NOTIFY
@@ -334,20 +334,6 @@ $(document).ready(function(){
         });
     });
 
-
-    //DELETE PET
-    $(document).on('click', '.delete-pet', function(e){
-        e.preventDefault();
-        if(confirm('Confirm to delete')){
-            e.preventDefault();
-            $.get($(this).attr('href'));
-            let client = document.getElementById('client-stay');
-            viewClient(client);
-        }else{
-            e.preventDefault();
-        }
-    });
-
      //ADD PET
      $(document).on('click', '#save-pet',function(e){
         e.preventDefault();
@@ -448,6 +434,32 @@ $(document).ready(function(){
 
     });
 
+    // // ADD PET RECORD
+    // $(document).on('click', '#add-pet-record', function(e){
+    //     e.preventDefault();
+
+    //     var ids = document.getElementById('record-href').value;
+    //     var href = "/treatment/" + ids;
+    //     console.log(document.getElementById('record-href').href);
+
+    //     document.getElementById('record-href').href = href;
+    //     $.get($("#record-href").attr('href'), function(res){
+    //         console.log(document.getElementById('record-href').href)
+    //         document.getElementById('record-form').innerHTML = res;
+    //     })
+    // });
+
+    // //RECORD TYPE
+    // $(document).on('change', '#record-type', function(e){
+    //     e.preventDefault();
+    //     var ids = document.getElementById('record-href').value;
+    //     var href = this.value + "/" + ids;
+    //     document.getElementById('record-href').href = href;
+    //     $.get($("#record-href").attr('href'), function(res){
+    //         document.getElementById('record-form').innerHTML = res;
+    //     })
+    // })
+
 
     //SAVE PET INFORMATION
     $(document).on('click', '#save-pet-info', function(e){
@@ -471,41 +483,11 @@ $(document).ready(function(){
         });
     });
 
-
-    //DELETE PET RECORD
-    $(document).on('click', '.delete-record', function(e){
-        e.preventDefault();
-        if(confirm('Confirm to delete')){
-            $.get($(this).attr('href'), function(){
-                var stay = document.getElementById('pet-stay');
-                viewPet(stay);
-            });
-        }else{
-            e.preventDefault();
-        }
-    });
-
-
     //CLIENT BACK
     $(document).on('click', '#client-back', function(e){
         e.preventDefault();
         let client = document.getElementById('client');
         getclient(client);
-    });
-
-
-    //DELETE CLIENT
-    $(document).on('click', '.deleteClient', function(e){
-        e.preventDefault();
-        if(confirm('Confirm to delete')){
-             e.preventDefault();
-             $.get($(this).attr('href'), function(){
-                 let client = document.getElementById('client');
-                 getclient(client);
-            });
-        }else{
-            e.preventDefault();
-        }
     });
 
 
@@ -657,39 +639,53 @@ $(document).ready(function(){
                 form += "<label for='user_level'>User level: </label>";
                 if(res[0].user_level == 'Staff'){
                     form += "<select name='user_level' class='form-control'>";
-                    form += "<option value='Staff'>Staff</option>";
+                    form += "<option value='Staff' selected>Staff</option>";
                     form += "<option value='Admin'>Admin</option>";
                     form += "</select>";
 
                 }else if(res[0].user_level == 'Admin'){
                     form += "<select name='user_level' class='form-control'>";
-                    form += "<option value='Admin'>Admin</option>";
+                    form += "<option value='Admin' selected>Admin</option>";
                     form += "<option value='Staff'>Staff</option>";
+                    form += "</select>";
+                }
+                form += "<label for='is_active'>Status: </label>";
+                if(res[0].is_active == 1){
+                    form += "<select name='is_active' class='form-control'>";
+                    form += "<option value='1' selected>Active</option>";
+                    form += "<option value='0'>Not Active</option>";
+                    form += "</select>";
+                }else if(res[0].is_active == 0){
+                    form += "<select name='is_active' class='form-control'>";
+                    form += "<option value='0' selected>Not Active</option>";
+                    form += "<option value='1'>Active</option>";
                     form += "</select>";
                 }
                 form += "</form>"; 
             document.getElementById('edit-user-staff-form').innerHTML = form;
 
-            $(document).on('click', '#view-password', function(){
-                if($("#users-password").attr("type") == "text"){
-                    $("#users-password").attr('type', 'password');
-                    $(this).attr("src", "img/closeeye.png");
-                }else if($("#users-password").attr("type") == "password"){
-                    $("#users-password").attr('type', 'text');
-                    $(this).attr("src", "img/openeye.png");
-                }
-            });
             
-            $(document).on('click', '#view-confirm-password', function(){
-                if($("#users-confirm-password").attr("type") == "text"){
-                    $("#users-confirm-password").attr('type', 'password');
-                    $(this).attr("src", "img/closeeye.png");
-                }else if($("#users-confirm-password").attr("type") == "password"){
-                    $("#users-confirm-password").attr('type', 'text');
-                    $(this).attr("src", "img/openeye.png");
-                }
-            });
         });
+    });
+
+    $(document).on('click', '#view-password', function(){
+        if($("#users-password").attr("type") == "text"){
+            $("#users-password").attr('type', 'password');
+            $(this).attr("src", "img/closeeye.png");
+        }else if($("#users-password").attr("type") == "password"){
+            $("#users-password").attr('type', 'text');
+            $(this).attr("src", "img/openeye.png");
+        }
+    });
+    
+    $(document).on('click', '#view-confirm-password', function(){
+        if($("#users-confirm-password").attr("type") == "text"){
+            $("#users-confirm-password").attr('type', 'password');
+            $(this).attr("src", "img/closeeye.png");
+        }else if($("#users-confirm-password").attr("type") == "password"){
+            $("#users-confirm-password").attr('type', 'text');
+            $(this).attr("src", "img/openeye.png");
+        }
     });
 
     //SAVE USER STAFF
@@ -716,20 +712,6 @@ $(document).ready(function(){
         });
 
     })
-
-    //DELETE USER
-    $(document).on('click', '.delete-user-staff', function(e){
-        e.preventDefault();
-
-        if(confirm('Confirm to Delete')){
-            $.get($(this).attr('href'), function(){
-                var manageUsers = document.getElementById('manage-user')
-                manageUser(manageUsers);
-            });
-        }else{
-            e.preventDefault();
-        }
-    });
 
     //GET ALL CLIENT WHEN CLICKED
     $(document).on('click','#client', function(e){
@@ -829,18 +811,6 @@ $(document).ready(function(){
         e.preventDefault();
         
         if(confirm('Confirm to Complete')){
-            $.get($(this).attr('href'));
-            let appToday = document.getElementById('app-today');
-            getAppointmentToday(appToday);
-        }else{
-            e.preventDefault();
-        }
-    });
-
-    // DELETE APPOINTMENT TODAY
-    $(document).on('click','.delete-appointment-today', function(e){
-        e.preventDefault();
-        if(confirm('Confirm to delete')){
             $.get($(this).attr('href'));
             let appToday = document.getElementById('app-today');
             getAppointmentToday(appToday);

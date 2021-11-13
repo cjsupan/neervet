@@ -1,7 +1,92 @@
 <form id='record-form' action='' method='POST'>
     <div id='record-errors'></div>
+    <label for='record_type'>Record Type:</label>
+    <select name='record_type' id='record-type' class='form-control'>
+        <% if(system[0].record_type == 'consultation'){ %>
+
+            <option value='consultation' selected>Consultation</option>
+            <option value='vaccination'>Vaccination</option>
+            <option value='deworming'>Deworming</option>
+            <option value='confinement'>Confinement</option>
+            <option value='surgery'>Surgery</option>
+            <option value='boarding'>Boarding</option>
+
+        <% }else if(system[0].record_type == 'vaccination'){%>
+
+            <option value='vaccination' selected>Vaccination</option>
+            <option value='consultation'>Consultation</option>
+            <option value='deworming'>Deworming</option>
+            <option value='confinement'>Confinement</option>
+            <option value='surgery'>Surgery</option>
+            <option value='boarding'>Boarding</option>
+        <% }else if(system[0].record_type == 'deworming'){ %>
+
+            <option value='deworming' selected>Deworming</option>
+            <option value='consultation'>Consultation</option>
+            <option value='vaccination'>Vaccination</option>
+            <option value='confinement'>Confinement</option>
+            <option value='surgery'>Surgery</option>
+            <option value='boarding'>Boarding</option>
+        <% }else if(system[0].record_type == 'confinement'){ %>
+
+            <option value='confinement' selected>Confinement</option>
+            <option value='consultation'>Consultation</option>
+            <option value='vaccination'>Vaccination</option>
+            <option value='deworming'>Deworming</option>
+            <option value='surgery'>Surgery</option>
+            <option value='boarding'>Boarding</option>
+        <% }else if(system[0].record_type == 'confinement'){ %>
+
+            <option value='surgery' selected>Surgery</option>
+            <option value='consultation'>Consultation</option>
+            <option value='vaccination'>Vaccination</option>
+            <option value='deworming'>Deworming</option>
+            <option value='confinement' >Confinement</option>
+            <option value='boarding'>Boarding</option>
+        <% }else if(system[0].record_type == 'boarding'){ %>
+
+            <option value='boarding' selected>Boarding</option>
+            <option value='consultation'>Consultation</option>
+            <option value='vaccination'>Vaccination</option>
+            <option value='deworming'>Deworming</option>
+            <option value='confinement' >Confinement</option>
+            <option value='surgery'>Surgery</option>
+        <% } %>
+    </select><br>
+    
     <label for='exam_vet'>Examining Vet:<span class='require'>*</span> </label>
-    <input type='text' id='exam-vet' name='exam_vet' class='form-control' value='<%= system[0].examvet %>' required>
+    <select name='exam_vet' id='exam-vet' name='exam_vet' class='form-control' required>
+        <% if(system[0].examvet == "Dr. Ken Oliver O. Badua" ){ %>
+            
+            <option value='Dr. Ken Oliver O. Badua' selected>Dr. Ken Oliver O. Badua</option>
+            <option value='Dr. Annie N. Nacis'>Dr. Annie N. Nacis</option>
+            <option value='Dr. Danni Lou O. Manuel'>Dr. Danni Lou O. Manuel</option>
+            <option vlaue='Dr. Jacques Glenn G. Apigo'>Dr. Jacques Glenn G. Apigo</option>
+
+        <% }else if (system[0].examvet == "Dr. Annie N. Nacis") { %>
+
+            <option value='Dr. Annie N. Nacis' selected>Dr. Annie N. Nacis</option>
+            <option value='Dr. Ken Oliver O. Badua'>Dr. Ken Oliver O. Badua</option>
+            <option value='Dr. Danni Lou O. Manuel'>Dr. Danni Lou O. Manuel</option>
+            <option vlaue='Dr. Jacques Glenn G. Apigo'>Dr. Jacques Glenn G. Apigo</option>
+
+        <% }else if (system[0].examvet == "Dr. Danni Lou O. Manuel") { %>
+
+            <option value='Dr. Danni Lou O. Manuel' selected>Dr. Danni Lou O. Manuel</option>
+            <option value='Dr. Ken Oliver O. Badua'>Dr. Ken Oliver O. Badua</option>
+            <option value='Dr. Annie N. Nacis'>Dr. Annie N. Nacis</option>
+            
+            <option vlaue='Dr. Jacques Glenn G. Apigo'>Dr. Jacques Glenn G. Apigo</option>
+
+        <% }else if (system[0].examvet == "Dr. Jacques Glenn G. Apigo") { %>
+
+            <option vlaue='Dr. Jacques Glenn G. Apigo' selected>Dr. Jacques Glenn G. Apigo</option>
+            <option value='Dr. Ken Oliver O. Badua'>Dr. Ken Oliver O. Badua</option>
+            <option value='Dr. Annie N. Nacis'>Dr. Annie N. Nacis</option>
+            <option value='Dr. Danni Lou O. Manuel'>Dr. Danni Lou O. Manuel</option>
+            
+        <% } %>
+    </select>
     <label for='created_at'>Date and Time:<span class='require'>*</span> </label>
     <input type='datetime-local' id='dateandtime' name='created_at' class='form-control' required><br>
 

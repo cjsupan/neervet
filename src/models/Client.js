@@ -83,34 +83,6 @@ class Client extends main_model{
         return result;
     }
 
-    async deleteClient(id){
-        let query = mysql.format('DELETE FROM clients WHERE id = ?', id);
-        let result = await this.executeQuery(query);
-
-        let app = mysql.format('DELETE FROM appointments WHERE client_id = ?', id);
-        let appresult = await this.executeQuery(app);
-
-        let pets = mysql.format('DELETE FROM pets WHERE client_id = ?', id);
-        let petresult = await this.executeQuery(pets);
-        
-        let vitalsign = mysql.format('DELETE FROM vitalsigns WHERE system_pet_client_id = ?', id);
-        let vitalresult = await this.executeQuery(vitalsign);
-
-        let history = mysql.format('DELETE FROM history WHERE system_pet_client_id = ?', id );
-        let historyresult = await this.executeQuery(history);
-
-        let system = mysql.format('DELETE FROM systems WHERE pet_client_id = ?', id);
-        let systemresult = await this.executeQuery(system);
-
-        let findings = mysql.format('DELETE FROM findings WHERE system_pet_client_id = ?', id);
-        let findingsresult = await this.executeQuery(findings);
-
-        let laboratory = mysql.format("DELETE FROM laboratory WHERE system_pet_client_id = ? ", id);
-        let laboratoryresult = await this.executeQuery(query);
-
-        return result;
-    }
-
     async viewClient(id){
         let query = mysql.format('SELECT id, first_name, last_name,  CONCAT(first_name, " ",last_name) as name, email, address, contact  FROM clients WHERE id = ?', id);
         let result = await this.executeQuery(query);

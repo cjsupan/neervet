@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 3 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: clients
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: findings
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `findings` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: history
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `history` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: laboratory
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `laboratory` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: pets
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `pets` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: systems
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `systems` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: users
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 9 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # SCHEMA DUMP FOR TABLE: vitalsigns
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `vitalsigns` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8mb4;
 
 # ------------------------------------------------------------
 # DATA DUMP FOR TABLE: appointments
@@ -210,11 +210,11 @@ VALUES
     1,
     4,
     'Vaccination',
-    '2021-10-27 15:16:00',
+    '2021-10-26 18:41:00',
     0,
-    0,
+    1,
     '2021-10-27 23:43:44',
-    '2021-10-26 15:16:08'
+    '2021-10-26 18:41:32'
   );
 INSERT INTO
   `appointments` (
@@ -232,11 +232,33 @@ VALUES
     2,
     2,
     'Vaccination',
-    '2021-09-30 18:34:00',
+    '2021-11-12 20:30:00',
     0,
-    0,
+    1,
     '2021-09-23 11:58:39',
-    '2021-09-23 11:58:39'
+    '2021-11-12 20:30:31'
+  );
+INSERT INTO
+  `appointments` (
+    `id`,
+    `client_id`,
+    `title`,
+    `date_and_time`,
+    `notification`,
+    `complete`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    3,
+    4,
+    'Vaccination',
+    '2021-11-12 20:31:00',
+    0,
+    0,
+    '2021-11-12 20:31:38',
+    '2021-11-12 20:32:02'
   );
 
 # ------------------------------------------------------------
@@ -330,6 +352,50 @@ VALUES
     '01234567890',
     '2021-10-08 12:57:33',
     '2021-10-08 12:57:33'
+  );
+INSERT INTO
+  `clients` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `email`,
+    `address`,
+    `contact`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    5,
+    'Firstname',
+    'Lastname',
+    'email@gmail.com',
+    'asdasd',
+    '09352909072',
+    '2021-11-12 21:34:25',
+    '2021-11-12 21:34:25'
+  );
+INSERT INTO
+  `clients` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `email`,
+    `address`,
+    `contact`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    6,
+    'Thomas',
+    'Austria ',
+    'tomdeaustria@slc-sflu.edu.ph',
+    'san fernando la union',
+    '01231231123',
+    '2021-11-13 10:31:27',
+    '2021-11-13 10:31:27'
   );
 
 # ------------------------------------------------------------
@@ -642,7 +708,7 @@ VALUES
     9,
     9,
     4,
-    '',
+    'something here',
     '',
     '',
     '',
@@ -655,6 +721,126 @@ VALUES
     '',
     '2021-10-06 00:00:00',
     '2021-10-08 18:31:33'
+  );
+INSERT INTO
+  `findings` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    10,
+    10,
+    10,
+    3,
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-11-12 00:00:00',
+    '2021-11-12 21:38:12'
+  );
+INSERT INTO
+  `findings` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    11,
+    11,
+    11,
+    6,
+    'something',
+    'something',
+    'something',
+    'something',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-11-13 00:00:00',
+    '2021-11-13 10:34:27'
+  );
+INSERT INTO
+  `findings` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    12,
+    12,
+    11,
+    6,
+    'n/a',
+    '',
+    '',
+    '',
+    '',
+    'n/a',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-11-13 10:44:00',
+    '2021-11-13 10:45:51'
   );
 
 # ------------------------------------------------------------
@@ -852,6 +1038,78 @@ VALUES
     'something here',
     '2021-10-06 00:00:00',
     '2021-10-08 18:31:33'
+  );
+INSERT INTO
+  `history` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `complaint`,
+    `current_med`,
+    `physical_exam`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    10,
+    10,
+    10,
+    3,
+    'something',
+    'something',
+    'something',
+    '2021-11-12 00:00:00',
+    '2021-11-12 21:38:12'
+  );
+INSERT INTO
+  `history` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `complaint`,
+    `current_med`,
+    `physical_exam`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    11,
+    11,
+    11,
+    6,
+    'something',
+    'something',
+    'something',
+    '2021-11-13 00:00:00',
+    '2021-11-13 10:34:27'
+  );
+INSERT INTO
+  `history` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `complaint`,
+    `current_med`,
+    `physical_exam`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    12,
+    12,
+    11,
+    6,
+    'fever',
+    'n/a',
+    'n/a',
+    '2021-11-13 10:44:00',
+    '2021-11-13 10:45:51'
   );
 
 # ------------------------------------------------------------
@@ -1239,24 +1497,174 @@ VALUES
     9,
     9,
     4,
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    NULL,
-    '',
-    '',
-    '',
-    NULL,
-    '',
+    'Positive',
+    'sarcoptes',
+    'Positive',
+    'Negative',
+    'Negative',
+    'Positive',
+    'Ready',
+    'Positive',
+    'Hookworm',
+    'something here',
+    'something here',
+    'something here',
+    'something here',
+    'something here',
+    'something here',
+    'something here',
     '2021-10-08 18:31:33',
     '2021-10-08 18:31:33'
+  );
+INSERT INTO
+  `laboratory` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `heartworm`,
+    `skin_scrape`,
+    `ear_mites`,
+    `cdv`,
+    `cpv`,
+    `fiv`,
+    `vaginal_smear`,
+    `urinalysis`,
+    `fecalysis`,
+    `xray`,
+    `diagnosis_procedure`,
+    `differential`,
+    `definitive`,
+    `treatment`,
+    `prescribed_med`,
+    `comments`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    10,
+    10,
+    10,
+    3,
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Not Ready',
+    'Negative',
+    'Negative',
+    'something',
+    'something',
+    'something',
+    'something',
+    'something',
+    'something',
+    'something',
+    '2021-11-12 21:38:12',
+    '2021-11-12 21:38:12'
+  );
+INSERT INTO
+  `laboratory` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `heartworm`,
+    `skin_scrape`,
+    `ear_mites`,
+    `cdv`,
+    `cpv`,
+    `fiv`,
+    `vaginal_smear`,
+    `urinalysis`,
+    `fecalysis`,
+    `xray`,
+    `diagnosis_procedure`,
+    `differential`,
+    `definitive`,
+    `treatment`,
+    `prescribed_med`,
+    `comments`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    11,
+    11,
+    11,
+    6,
+    'Positive',
+    'Negative',
+    'Positive',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Ready',
+    'Negative',
+    'Negative',
+    'something',
+    'something',
+    'something here',
+    'something',
+    'something',
+    'something',
+    'something',
+    '2021-11-13 10:34:27',
+    '2021-11-13 10:34:27'
+  );
+INSERT INTO
+  `laboratory` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `heartworm`,
+    `skin_scrape`,
+    `ear_mites`,
+    `cdv`,
+    `cpv`,
+    `fiv`,
+    `vaginal_smear`,
+    `urinalysis`,
+    `fecalysis`,
+    `xray`,
+    `diagnosis_procedure`,
+    `differential`,
+    `definitive`,
+    `treatment`,
+    `prescribed_med`,
+    `comments`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    12,
+    12,
+    11,
+    6,
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Negative',
+    'Not Ready',
+    'Negative',
+    'Negative',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '2021-11-13 10:45:51',
+    '2021-11-13 10:45:51'
   );
 
 # ------------------------------------------------------------
@@ -1486,6 +1894,62 @@ VALUES
     '2014-06-08 00:00:00',
     '2021-10-06 00:00:00',
     '2021-10-08 18:31:33'
+  );
+INSERT INTO
+  `pets` (
+    `id`,
+    `client_id`,
+    `name`,
+    `species`,
+    `breed`,
+    `sex`,
+    `altered`,
+    `color`,
+    `birthdate`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    10,
+    3,
+    'Athena',
+    'canine',
+    'aspin',
+    'Male',
+    'No',
+    'Brown',
+    '2021-09-12 00:00:00',
+    '2021-11-12 00:00:00',
+    '2021-11-12 21:38:12'
+  );
+INSERT INTO
+  `pets` (
+    `id`,
+    `client_id`,
+    `name`,
+    `species`,
+    `breed`,
+    `sex`,
+    `altered`,
+    `color`,
+    `birthdate`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    11,
+    6,
+    'Kali',
+    'canine',
+    'aspin',
+    'Male',
+    'No',
+    'Brown',
+    '2018-02-13 00:00:00',
+    '2021-11-13 00:00:00',
+    '2021-11-13 10:34:27'
   );
 
 # ------------------------------------------------------------
@@ -1798,6 +2262,46 @@ VALUES
     9,
     4,
     'Ken oliver',
+    'Abnormal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    '2021-10-27 02:24:00',
+    '2021-10-27 02:24:53'
+  );
+INSERT INTO
+  `systems` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `exam_vet`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    10,
+    10,
+    3,
+    'Ken oliver',
     'Normal',
     'Normal',
     'Normal',
@@ -1809,8 +2313,88 @@ VALUES
     'Normal',
     'Normal',
     'Normal',
-    '2021-10-06 00:00:00',
-    '2021-10-08 18:31:33'
+    '2021-11-12 21:58:00',
+    '2021-11-12 21:58:56'
+  );
+INSERT INTO
+  `systems` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `exam_vet`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    11,
+    11,
+    6,
+    'Ken oliver',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Abnormal',
+    'Normal',
+    'Normal',
+    'Abnormal',
+    'Normal',
+    'Normal',
+    '2021-11-13 10:40:00',
+    '2021-11-13 10:41:09'
+  );
+INSERT INTO
+  `systems` (
+    `id`,
+    `pet_id`,
+    `pet_client_id`,
+    `exam_vet`,
+    `general_appearance`,
+    `teeth_mouth`,
+    `eyes`,
+    `ears`,
+    `skin_coat`,
+    `heart_lungs`,
+    `digestive`,
+    `musculoskeletal`,
+    `nervous`,
+    `lymph`,
+    `urogenitals`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    12,
+    11,
+    6,
+    'Ken oliver',
+    'Abnormal',
+    'Abnormal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Abnormal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    'Normal',
+    '2021-11-13 10:46:00',
+    '2021-11-13 10:46:30'
   );
 
 # ------------------------------------------------------------
@@ -1874,14 +2458,14 @@ INSERT INTO
   )
 VALUES
   (
-    7,
-    'Cedrick John',
-    'Supan',
+    10,
     'Staff',
-    'cjsupan',
-    'cjsupan',
-    '2021-09-29 18:25:24',
-    '2021-09-29 18:25:24'
+    'Staff',
+    'Staff',
+    'staff',
+    'staff',
+    '2021-10-27 22:16:37',
+    '2021-11-13 08:42:35'
   );
 INSERT INTO
   `users` (
@@ -1896,14 +2480,36 @@ INSERT INTO
   )
 VALUES
   (
-    8,
+    11,
+    'Cedrick',
+    'Cjsupan',
     'Staff',
-    'Staff',
-    'Staff',
-    'staff',
-    'staff',
-    '2021-10-26 13:46:15',
-    '2021-10-26 13:46:15'
+    'cjsupan',
+    'cjsupan',
+    '2021-10-27 23:56:15',
+    '2021-11-13 08:32:13'
+  );
+INSERT INTO
+  `users` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `user_level`,
+    `username`,
+    `password`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    12,
+    'Cedrick John',
+    'Supan',
+    'Admin',
+    'asdasd',
+    'asdasd',
+    '2021-11-13 08:14:07',
+    '2021-11-13 08:14:07'
   );
 
 # ------------------------------------------------------------
@@ -2149,6 +2755,96 @@ VALUES
     'Pale',
     '2021-10-06 00:00:00',
     '2021-10-08 18:31:33'
+  );
+INSERT INTO
+  `vitalsigns` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `weight`,
+    `temp`,
+    `respiratory_rate`,
+    `heart_rate`,
+    `crt`,
+    `mm`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    10,
+    10,
+    10,
+    3,
+    '15',
+    '38.9',
+    '12',
+    '5',
+    '12',
+    'Pale',
+    '2021-11-12 00:00:00',
+    '2021-11-12 21:38:12'
+  );
+INSERT INTO
+  `vitalsigns` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `weight`,
+    `temp`,
+    `respiratory_rate`,
+    `heart_rate`,
+    `crt`,
+    `mm`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    11,
+    11,
+    11,
+    6,
+    '15',
+    '38.9',
+    '12',
+    '5',
+    '2',
+    'Not pale',
+    '2021-11-13 00:00:00',
+    '2021-11-13 10:34:27'
+  );
+INSERT INTO
+  `vitalsigns` (
+    `id`,
+    `system_id`,
+    `system_pet_id`,
+    `system_pet_client_id`,
+    `weight`,
+    `temp`,
+    `respiratory_rate`,
+    `heart_rate`,
+    `crt`,
+    `mm`,
+    `created_at`,
+    `updated_at`
+  )
+VALUES
+  (
+    12,
+    12,
+    11,
+    6,
+    '15',
+    '38.9',
+    '5',
+    '12',
+    '12',
+    'Pale',
+    '2021-11-13 10:44:00',
+    '2021-11-13 10:45:51'
   );
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

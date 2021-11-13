@@ -4,7 +4,7 @@ class main{
     }
 
     symbol(data){
-        return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(data);
+        return /[!@#$%^&*()_+\-=\[\]{};':"\\|,<>\/?]+/.test(data);
     }
 
     email(data){

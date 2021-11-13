@@ -23,6 +23,7 @@
                 <th>Title</th>
                 <th id='contact'>Contact No.</th>
                 <th>Date & Time</th>
+                <th id='status'>Status</th>
                 <th id='action'>Action</th>
             </tr>
         </thead>
@@ -35,8 +36,17 @@
                 <td><%=app[i].title %></td>
                 <td><%=app[i].contact %></td>
                 <td><%=app[i].date %></td>
+                <td>
+                    <% if(app[i].is_active == 1){ %>
+                        
+                        Active
+                        
+                    <% }else if(app[i].is_active == 0){ %>
+                        Not Active
+                    <% } %>
+                </td>
                 <input type='hidden' id='app-id' href='/getAppInfo/<%= app[i].id %>'>
-                <td><button type='button' class='btn btn-success edit-appointment' value='<%= app[i].id %>' data-toggle="modal" data-target="#editAppModal">Edit</button> | <button type='button' class='btn btn-danger delete-appointment' href='/deleteAppointment/<%= app[i].id %>'>Delete</button></td>
+                <td><button type='button' class='btn btn-success edit-appointment' value='<%= app[i].id %>' data-toggle="modal" data-target="#editAppModal">Edit</button></td>
             </tr>
         <% } %>
         </tbody>

@@ -48,6 +48,9 @@ class User extends main_model{
             
             if(auth.length === 0){
                 errors.push("User record doesn't exist");
+
+            }else if(auth[0].is_active == 0){
+                errors.push("User is not active");
             }
         }
         return errors;
@@ -100,8 +103,8 @@ class User extends main_model{
 
         if(this.empty(details.password)){
             errors.push('Password should not be blank');
-        }
-        if(!this.match(details.password, details.confirmpassword)){
+            
+        }else if (!this.match(details.password, details.confirmpassword)){
             errors.push("Password do not match");
         }
 
@@ -125,13 +128,14 @@ class User extends main_model{
         newdetails.last_name = details.last_name;
         newdetails.username = details.username;
         newdetails.updated_at = details.updated_at;
+        newdetails.is_active = details.is_active;
 
         let query = mysql.format("UPDATE users SET ? WHERE id = ?", [newdetails, id]);
         let result = await this.executeQuery(query);
     }
     
     async getAllUser(id){
-        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level, password FROM users WHERE NOT id = ? ORDER BY user_level ASC", id);
+        let query = mysql.format("SELECT id, CONCAT(first_name, ' ', last_name) as name, username, user_level, password, is_active FROM users WHERE id != ? and user_level = 'Staff' ORDER BY updated_at DESC", id);
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -161,7 +165,8 @@ class User extends main_model{
         if(this.empty(details.confirmpassword)){
             errors.push('Confirm password should not be blank');
         }
-        if(!this.match(details.password, details.confirmpassword)){
+
+        if(!this.empty(details.password) && !this.empty(details.confirmpassword) && !this.match(details.password, details.confirmpassword)){
             errors.push("Password do not match");
         }
         let query = mysql.format("SELECT * FROM users WHERE username = ?", details.username);
@@ -180,14 +185,9 @@ class User extends main_model{
         var firstname = details.firstname.charAt(0).toUpperCase() + details.firstname.slice(1);
         var lastname = details.lastname.charAt(0).toUpperCase() + details.lastname.slice(1);
 
-        let query = mysql.format("INSERT INTO users (username, password, first_name, last_name, user_level, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?)",[details.username, details.password, firstname, lastname, details.userlevel, date, date]);
-        let result = await this.executeQuery(query);
+        details.is_active = 1;
 
-        return result;
-    }
-
-    async deleteUser(id){
-        let query = mysql.format("DELETE FROM users WHERE id = ?", id);
+        let query = mysql.format("INSERT INTO users (username, password, first_name, last_name, user_level, is_active, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",[details.username, details.password, firstname, lastname, details.userlevel, details.is_active, date, date]);
         let result = await this.executeQuery(query);
 
         return result;

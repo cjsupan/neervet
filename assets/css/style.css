@@ -389,11 +389,13 @@ span.require{
 
 #main #editStaffModal form input, #main #editStaffModal form select{
     width: 270px;
+    margin-bottom: 10px;
     display: inline-block;
 }
 
 #main #editStaffModal form .form-group{
     display: inline-block;
+    height: 40px;
     border: 1px solid #d0d0d0;
     border-radius: 5px; 
 }
@@ -413,8 +415,8 @@ span.require{
 }
 
 #main #profile form{
-    width: 50%;
-    margin: 10px 25%;
+    width: 60%;
+    margin: 10px 20%;
     padding: 20px 10px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     text-align: right;
@@ -432,12 +434,12 @@ span.require{
 
 #main #profile form input{
     width: 350px;
-    margin: 5px 50px 10px 10px;
+    margin: 5px 100px 10px 10px;
     display: inline-block;
 }
 
 #main #profile form .form-group{
-    margin: 5px 50px 10px 10px;
+    margin: 5px 100px 10px 10px;
     border-radius: 5px;
     border: 1px solid #d0d0d0;
     display: inline-block;
@@ -485,6 +487,10 @@ span.require{
     top: 0;
 } 
 
+#main #manage-user-table #action{
+    width: 200px;
+}
+
 #main #manage-user-table tbody .delete{
     text-align: center;
 }
@@ -498,6 +504,14 @@ span.require{
     width: 100%;
     display: inline-block;
 }
+
+#main #profile form #profile-errors{
+    width: 90%;
+    margin: 0px 5%;
+    text-align: left;
+    display: inline-block;
+}
+
 
 #main #manageUserModal form{
     width: 95%;
@@ -684,17 +698,16 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     display: inline-block;
 }
 
-#main #appointment-table .delete-appointment-today{
-    margin: 5px;
-    display: inline-block;
-}
-
 #main #appointment-table thead th{
     width: 220px;
 }
 
 #main #appointment-table thead #contact{
     width: 120px;
+}
+
+#main #appointment-table #status{
+    width: 100px;
 }
 
 #main #appointment-table thead{
@@ -755,7 +768,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #client-table thead #action{
-    width: 200px;
+    width: 120px;
 }
 
 
@@ -950,7 +963,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #pet-section #th-action{
-    width: 220px;
+    width: 120px;
 }
 
 #main #pet-section tbody .center{
@@ -976,7 +989,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     display: inline-block;
 }
 
-#main #appointmentModal #appointment-form input, #editAppModal #edit-appointment input{
+#main #appointmentModal #appointment-form input, #editAppModal #edit-appointment input, #editAppModal #edit-appointment select{
     width: 250px; 
     margin: 10px 50px 0px 0px ;
     display: inline-block;
@@ -1170,6 +1183,12 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     margin-right: 5px;
 }
 
+#main #labModal .modal-content .modal-body #record-form #record-type{
+    width: 200px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
 #main #labModal .modal-content .modal-body #record-form .lab-textarea{
     width: 150px;
     margin-right: 180px;
@@ -1331,7 +1350,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #healthRecordTable thead #action{
-    width: 350px;
+    width: 250px;
 }
 
 #main #healthRecordTable tbody .btn-view span{
