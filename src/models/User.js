@@ -207,7 +207,7 @@ class User extends main_model{
     }
 
     async countApp(){
-        let query = mysql.format("SELECT COUNT(id) as apps FROM appointments WHERE DATE_FORMAT(date_and_time, '%b %e %Y') = DATE_FORMAT(now(), '%b %e %Y') AND complete = 0");
+        let query = mysql.format("SELECT COUNT(id) as apps FROM appointments WHERE DATE_FORMAT(date_and_time, '%b %e %Y') = DATE_FORMAT(now(), '%b %e %Y') AND complete = 0 and is_active = 1");
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }

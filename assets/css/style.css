@@ -768,7 +768,11 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #client-table thead #action{
-    width: 120px;
+    width: 300px;
+}
+
+#main #client-table td{
+    text-align: center;
 }
 
 

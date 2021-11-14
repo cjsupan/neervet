@@ -35,7 +35,8 @@ class Appointments{
     }
 
     async get_app_info(req, res){
-        let result = await appointment_model.getAppInfo(req.params.id);
+        let result = await appointment_model.getAppInfo(req.params.id, req.params.clientid);
+        
         res.json(result);
     }
 
@@ -45,7 +46,7 @@ class Appointments{
         if(result.length != 0){
             res.json(result);
         }else if(result == ''){
-            let result = await appointment_model.updateAppointment(req.body, req.params.id);
+            let result = await appointment_model.updateAppointment(req.body, req.params.id, req.params.clientid);
             res.json([]);
         }
     }
@@ -57,7 +58,6 @@ class Appointments{
 
     async get_notification(req, res){
         let result = await appointment_model.getNotif();
-
         res.render('partials/notification.ejs', {clients: result});
     }
 

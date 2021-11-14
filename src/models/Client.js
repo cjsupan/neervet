@@ -17,13 +17,13 @@ class Client extends main_model{
     }
 
     async getAllClient(){
-        let query = mysql.format('SELECT id, CONCAT(first_name, " ",last_name) as name, email, address, contact  FROM clients ORDER BY created_at DESC');
+        let query = mysql.format('SELECT id, CONCAT(first_name, " ",last_name) as name, email, address, contact, is_active FROM clients ORDER BY created_at DESC');
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
 
     async searchClient(details){
-        let query = mysql.format("SELECT id, CONCAT(first_name, ' ',last_name) as name, email, address, contact  FROM clients WHERE CONCAT(first_name, ' ',last_name) LIKE '%"+details.search+"%' ORDER BY created_at DESC");
+        let query = mysql.format("SELECT id, CONCAT(first_name, ' ',last_name) as name, email, address, contact , is_active FROM clients WHERE CONCAT(first_name, ' ',last_name) LIKE '%"+details.search+"%' ORDER BY created_at DESC");
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -88,6 +88,22 @@ class Client extends main_model{
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
+
+    // async activate(id){
+    //     let details = {is_active : 1};
+    //     let query = mysql.format("UPDATE clients SET ? WHERE id = ?",[details, id]);
+    //     let result = await this.executeQuery(query);
+
+    //     return JSON.parse(JSON.stringify(result));
+    // }
+
+    // async deactivate(id){
+    //     let details = {is_active : 0};
+    //     let query = mysql.format("UPDATE clients SET ? WHERE id = ?",[details, id]);
+    //     let result = await this.executeQuery(query);
+
+    //     return JSON.parse(JSON.stringify(result));
+    // }
 }
 
 module.exports = new Client();

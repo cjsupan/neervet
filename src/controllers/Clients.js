@@ -35,9 +35,12 @@ class Clients{
         }
     }
 
-    async delete_client(req, res){
-        let result = await client_model.deleteClient(req.params.id);
-        res.redirect('/');
+    async activate(req, res){
+
+    }
+
+    async deactivate(req, res){
+        
     }
 
     async view_client(req, res){

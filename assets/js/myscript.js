@@ -149,11 +149,9 @@ $(document).ready(function(){
         });
     }
 
-    // EDIT APPOINTMENT
-    $(document).on('click', '.edit-appointment', function(e){
-        e.preventDefault();
-
-        var id = $(this).val();
+    function editAppointment(app){
+        
+        var id = $(app).val();
         var body = $('#editAppModal')[0].children[0].children[0].children[1];
 
         var dateToday = new Date();
@@ -165,14 +163,16 @@ $(document).ready(function(){
         var sec = dateToday.getSeconds();
                     
         var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
-        
-        $.get($("#app-id").attr('href'), function(res){
+
+        $.get($(app).attr('href'), function(res){
+            var date = res[0].date_and_time.replace('Z', '');
+            console.log(date);
             var form = '';
                 form += "<form id='edit-appointment' action='/editAppointment/"+id+"' method='POST'>";
                 form += "<label for='title'>Title:<span class='require'>*</span> </label>";
                 form += "<input type='text' name='title' class='form-control' value="+res[0].title+"><br>";
                 form += "<label for='datetime'>Date and Time:<span class='require'>*</span> </label>";
-                form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' class='form-control' required><br>";
+                form += "<input type='datetime-local' id='edit-app-date' name='date_and_time' class='form-control' min='"+ today +"' value="+ res[0].datetime +" required><br>";
                 form += "<label for='is_active'>Status: </label>";
                 form += "<select name='is_active' class='form-control'>";
                 if(res[0].is_active == 1){
@@ -187,10 +187,14 @@ $(document).ready(function(){
                 form += "</form>";
                 form += "<div id='appointment-errors'></div>";
             body.innerHTML = form;
-
-            document.getElementById('edit-app-date').min = today;
         });
-        
+    }
+
+    // EDIT APPOINTMENT
+    $(document).on('click', '.edit-appointment', function(e){
+        e.preventDefault();
+
+        editAppointment(this);
     });
 
     $(document).on('click', '#update-app', function(e){
@@ -312,6 +316,34 @@ $(document).ready(function(){
         viewClient(this);
         
     });
+
+    //CLIENT STATUS
+    // $(document).on('click', '.client-status', function(e){
+    //     e.preventDefault();
+    //     if(this.value == 'activate'){
+    //         if(confirm('Confirm to Activate')){
+    //         $.get($(this).attr('href'), function(){
+
+    //             getclient(document.getElementById('client'));
+    //         });
+                
+    //         }else{
+    //             e.preventDefault();
+    //         }
+    //     }else if(this.value == 'deactivate'){
+
+    //         if(confirm('Confirm to Deactivate')){
+    //             $.get($(this).attr('href'), function(){
+    
+    //                 getclient(document.getElementById('client'));
+    //             });
+                    
+    //         }else{
+    //             e.preventDefault();
+    //         }
+    //     }
+        
+    // });
 
     // EDIT PROFILE
     $(document).on('click', '#save-client-info', function(e){
