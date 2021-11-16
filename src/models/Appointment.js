@@ -94,6 +94,8 @@ class Appointment extends main_model{
                 html += "<ul><li>Title: "+ client[i].title +"</li>";
                 html += "<li>Date: "+ client[i].date +"</li>";
                 html += "<li>Time: "+ client[i].time +"</li></ul>";
+                html += "<br><br>";
+                html += "<p>09564926029 / 0946855</p>";
         
             const msg = {
                     to: client[i].email,
