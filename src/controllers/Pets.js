@@ -33,6 +33,16 @@ class Pets{
         res.render('partials/petpage', {client: req.params.clientid, pet: petInfo, system: petSystem, lab: petLab});
     }
 
+    async get_record_type(req, res){
+        let petInfo = await pet_model.pet_info(req.params.petid);
+
+        let petLab = await pet_model.pet_lab_record_type(req.body, req.params.petid);
+
+        let petSystem = await pet_model.get_health_record_type(req.body, req.params.petid);
+
+        res.render('partials/petpage', {client: req.params.clientid, pet: petInfo, system: petSystem, lab: petLab});
+    }
+
     async add_pet_record(req, res){
         let validate = await pet_model.validaterecord(req.body);
 

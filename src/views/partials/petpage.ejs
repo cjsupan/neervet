@@ -15,12 +15,28 @@
 </div>
 <button type='button' id='add-pet-record' class='btn btn-primary' data-toggle="modal" data-target="#petRecordModal"> <span>+</span> Record</button><br>
 <h1 class='display-3 h1-healthrecord'>Health Records</h1>
+<input type='hidden' id='record-type-input' href='/getRecordType/<%= client %>/<%= pet[0].petId %>/'>
+<form id='record-type-form' action='/getRecordType/<%= client %>/<%= pet[0].petId %>/' method='POST'>
+    <label for='record-type-show' id='record-type-label'>Record Type:</label>
+    <select id='record-type-show' name='recordTypeShow' class='form-control'>
+        <option>Select Type</option>
+        <option value=''>All</option>
+        <option value='Consultation'>Consultation</option>
+        <option value='Vaccination'>Vaccination</option>
+        <option value='Deworming'>Deworming</option>
+        <option value='Confinement'>Confinement</option>
+        <option value='Surgery'>Surgery</option>
+        <option value='Boarding'>Boarding</option>
+    </select>
+</form>
+
 <div id='healthRecordTable'>
     
     <table class=' table table-bordered'>
         <thead class='table-dark'>
             <tr>
                 <th>Examining Vet</th>
+                <th>Record Type</th>
                 <th>Date</th>
                 <th id='action'>Action</th>
             </tr>
@@ -29,6 +45,7 @@
             <% for(var i=0; i< system.length; i++){%>
             <tr>
                 <td><%= system[i].exam_vet %></td>
+                <td><%= system[i].record_type %></td>
                 <td class='date'><%= system[i].created_date %></td>
                 <td class='btn-view'>
                     <button type='button' class='btn btn-success view-health' value='<%= client %>/<%= pet[0].petId %>/<%= system[i].systemId %>' href='/getHealth/<%= system[i].pet_id %>/<%= system[i].systemId %>' data-toggle="modal" data-target="#viewHealthRecordModal">View</button>
@@ -158,7 +175,7 @@
             <form id='pet-record-form' action='/addPetRecord/<%= client %>/<%= pet[0].petId %>' method='POST'>
                 <div id='record-errors'></div>
                 <label>Record type:</label>
-                <select name='record-type' class='form-control'>
+                <select name='recordType' class='form-control'>
                     <option value='consultation'>Consultation</option>
                     <option value='vaccination'>Vaccination</option>
                     <option value='deworming'>Deworming</option>

@@ -20,7 +20,7 @@ class Appointments{
     }
 
     async validate_appointment(req, res){
-        let result = await appointment_model.validateAppointment(req.body);
+        let result = await appointment_model.validateAppointment(req.body, req.params.id);
         if(result.length != 0){
             res.json(result);
         }else if(result.length === 0 ){

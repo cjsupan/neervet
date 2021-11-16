@@ -118,7 +118,14 @@ class Pet extends main_model{
     }
 
     async get_health_record(id){
-        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, exam_vet,  DATE_FORMAT(systems.created_at, '%b %e, %Y %h:%i %p') as created_date FROM systems WHERE pet_id = ? ORDER BY created_at DESC", id);
+        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, record_type, exam_vet,  DATE_FORMAT(systems.created_at, '%b %e, %Y %h:%i %p') as created_date FROM systems WHERE pet_id = ? ORDER BY created_at DESC", id);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    async get_health_record_type(type, id){
+        let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, record_type, exam_vet, DATE_FORMAT(systems.created_at, '%b %e, %Y %h:%i %p') as created_date FROM systems WHERE record_type LIKE '%"+ type.recordTypeShow +"%' AND pet_id = ? ORDER BY systems.created_at DESC", id);
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -150,6 +157,13 @@ class Pet extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
+    async pet_lab_record_type(type, petid){
+        let query = mysql.format("SELECT *, systems.record_type FROM laboratory LEFT JOIN systems ON laboratory.system_id = systems.id WHERE systems.record_type LIKE '%"+ type.recordTypeShow +"%' AND system_pet_id = ? ORDER BY systems.created_at DESC", petid);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result)); 
+    }
+
     async get_pet_lab(petid, systemid){
         let query = mysql.format("SELECT * FROM laboratory WHERE system_pet_id = ? AND system_id = ? ORDER BY system_id DESC", [petid, systemid]);
         let result = await this.executeQuery(query);
@@ -162,7 +176,7 @@ class Pet extends main_model{
         let date = new Date();
         var examvet = details.exam_vet.charAt(0).toUpperCase() + details.exam_vet.slice(1);
 
-        let systems = mysql.format("INSERT INTO systems (pet_id, pet_client_id, exam_vet, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [petId, clientId, examvet, details.generalApp, details.teethmouth, details.eyes, details.ears, details.skincoat, details.heartlungs, details.digestive, details.musculoskeletal, details.nervous, details.lymph, details.urogenitals, details.created_at, date]);
+        let systems = mysql.format("INSERT INTO systems (pet_id, pet_client_id, record_type, exam_vet, general_appearance, teeth_mouth, eyes, ears, skin_coat, heart_lungs, digestive, musculoskeletal, nervous, lymph, urogenitals, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [petId, clientId, details.recordType,examvet, details.generalApp, details.teethmouth, details.eyes, details.ears, details.skincoat, details.heartlungs, details.digestive, details.musculoskeletal, details.nervous, details.lymph, details.urogenitals, details.created_at, date]);
         let systemsresult = await this.executeQuery(systems);
 
         let systemid = systemsresult.insertId;

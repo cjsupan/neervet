@@ -118,7 +118,7 @@ class Appointment extends main_model{
         return message;
     }
     
-    async validateAppointment(details){
+    async validateAppointment(details, id){
         let errors = [];
         if(this.empty(details.title)){
             errors.push('Title should not be blank');
@@ -126,6 +126,15 @@ class Appointment extends main_model{
 
         if(this.empty(details.date_and_time)){
             errors.push('Date and time should not be blank');
+        }
+
+        let query = mysql.format("SELECT is_active FROM clients WHERE id = ? ", id);
+        let result = await this.executeQuery(query);
+
+        var client =  JSON.parse(JSON.stringify(result));
+
+        if(client[0].is_active == 0){
+            errors.push('Client is not active');
         }
 
         return errors;

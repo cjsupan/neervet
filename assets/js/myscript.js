@@ -410,6 +410,32 @@ $(document).ready(function(){
     }
     //VIEW PET PAGE/INFORMATION -- end
 
+    //CHANGE PET RECORD TYPE
+    function changeRecordType(pet){
+
+        $.post($(pet).attr('action'), $(pet).serialize(), function(res){
+            document.getElementById('main').innerHTML = res;
+
+            var dateToday = new Date();
+            var dd = String(dateToday.getDate()).padStart(2, '0');
+            var mm = String(dateToday.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = dateToday.getFullYear();
+            var hour = dateToday.getHours();
+            var min = dateToday.getMinutes();
+            var sec = dateToday.getSeconds();
+            
+            var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+            document.getElementById('datetime-input').max = today;
+        });
+        
+    }
+
+    $(document).on('change', '#record-type-show', function(e){
+        e.preventDefault();
+        
+        var pet = document.getElementById('record-type-form');
+        changeRecordType(pet);
+    });
 
     //SAVE LAB RECORD
     $(document).on('click', '#save-lab', function(e){

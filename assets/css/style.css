@@ -1341,6 +1341,15 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     display: inline-block;
 }
 
+#main #record-type-label{
+    margin-left: 25px;
+}
+
+#main #record-type-show{
+    display: inline-block;
+    width: 250px;
+}
+
 #main #healthRecordTable{
     width: 95%;
     height: 400px;
