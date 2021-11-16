@@ -89,21 +89,21 @@ class Client extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
-    // async activate(id){
-    //     let details = {is_active : 1};
-    //     let query = mysql.format("UPDATE clients SET ? WHERE id = ?",[details, id]);
-    //     let result = await this.executeQuery(query);
+    async activate(id){
+        let details = {is_active : 1};
+        let query = mysql.format("UPDATE clients SET ? WHERE id = ?",[details, id]);
+        let result = await this.executeQuery(query);
 
-    //     return JSON.parse(JSON.stringify(result));
-    // }
+        return JSON.parse(JSON.stringify(result));
+    }
 
-    // async deactivate(id){
-    //     let details = {is_active : 0};
-    //     let query = mysql.format("UPDATE clients SET ? WHERE id = ?",[details, id]);
-    //     let result = await this.executeQuery(query);
+    async deactivate(id){
+        let details = {is_active : 0};
+        let query = mysql.format("UPDATE clients SET ? WHERE id = ?",[details, id]);
+        let result = await this.executeQuery(query);
 
-    //     return JSON.parse(JSON.stringify(result));
-    // }
+        return JSON.parse(JSON.stringify(result));
+    }
 }
 
 module.exports = new Client();

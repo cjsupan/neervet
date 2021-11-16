@@ -64,7 +64,7 @@ class Appointments{
     async send_notification(req, res){
         let result = await appointment_model.sendNotif();
         if(result.length != 0){
-             res.json("Some email has not been sent");
+             res.json("email has not been sent");
         }else if(result.length == 0){
             res.json('All email has been sent');
         }

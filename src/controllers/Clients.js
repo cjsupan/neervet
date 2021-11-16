@@ -36,11 +36,13 @@ class Clients{
     }
 
     async activate(req, res){
-
+        let result = client_model.activate(req.params.id);
+        res.json([]);
     }
 
     async deactivate(req, res){
-        
+        let result = client_model.deactivate(req.params.id);
+        res.json([]);
     }
 
     async view_client(req, res){

@@ -32,8 +32,8 @@ Router.get("/appointment", AppointmentController.appointment);
 Router.post("/addAppointment/:id", AppointmentController.validate_appointment);
 Router.get("/appointmentsToday", AppointmentController.appointments_today);
 Router.get("/completeAppointment/:id", AppointmentController.complete_appointment);
-Router.get("/getAppInfo/:id", AppointmentController.get_app_info);
-Router.post("/editAppointment/:id", AppointmentController.edit_appointment);
+Router.get("/getAppInfo/:id/:clientid", AppointmentController.get_app_info);
+Router.post("/editAppointment/:id/:clientid", AppointmentController.edit_appointment);
 Router.get("/deleteAppointment/:id", AppointmentController.delete_appointment);
 Router.post("/searchApp", AppointmentController.search_app);
 
@@ -42,8 +42,9 @@ Router.get("/client", ClientController.client);
 Router.post("/searchClient", ClientController.search_client);
 Router.post("/addClient", ClientController.validate_client);
 Router.post("/editClientProfile/:id", ClientController.update_client);
-Router.get("/deleteClient/:id", ClientController.delete_client);
 Router.get("/viewClient/:id", ClientController.view_client);
+Router.get('/activate/:id', ClientController.activate);
+Router.get('/deactivate/:id', ClientController.deactivate);
 
 // PET ROUTER
 Router.post("/addPet/:id", PetController.validate_pet);
@@ -53,6 +54,11 @@ Router.get("/deletePet/:id", PetController.delete_pet);
 
 Router.post("/addPetRecord/:clientid/:petid", PetController.add_pet_record);
 Router.get("/deletePetRecord/:petid/:systemid", PetController.delete_pet_record);
+
+// Router.get('/treatment/:clientid/:petid', PetController.treatment);
+// Router.get('/vaccination/:clientid/:petid', PetController.vaccination);
+// Router.get('/deworming/:clientid/:petid', PetController.deworming);
+// Router.get('/checkup/:clientid/:petid', PetController.checkup);
 
 Router.get("/getReport/:petid/:systemid", PetController.get_report);
 

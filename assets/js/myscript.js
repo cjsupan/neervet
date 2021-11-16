@@ -318,32 +318,32 @@ $(document).ready(function(){
     });
 
     //CLIENT STATUS
-    // $(document).on('click', '.client-status', function(e){
-    //     e.preventDefault();
-    //     if(this.value == 'activate'){
-    //         if(confirm('Confirm to Activate')){
-    //         $.get($(this).attr('href'), function(){
+    $(document).on('click', '.client-status', function(e){
+        e.preventDefault();
+        if(this.value == 'activate'){
+            if(confirm('Confirm to Activate')){
+            $.get($(this).attr('href'), function(){
 
-    //             getclient(document.getElementById('client'));
-    //         });
+                getclient(document.getElementById('client'));
+            });
                 
-    //         }else{
-    //             e.preventDefault();
-    //         }
-    //     }else if(this.value == 'deactivate'){
+            }else{
+                e.preventDefault();
+            }
+        }else if(this.value == 'deactivate'){
 
-    //         if(confirm('Confirm to Deactivate')){
-    //             $.get($(this).attr('href'), function(){
+            if(confirm('Confirm to Deactivate')){
+                $.get($(this).attr('href'), function(){
     
-    //                 getclient(document.getElementById('client'));
-    //             });
+                    getclient(document.getElementById('client'));
+                });
                     
-    //         }else{
-    //             e.preventDefault();
-    //         }
-    //     }
+            }else{
+                e.preventDefault();
+            }
+        }
         
-    // });
+    });
 
     // EDIT PROFILE
     $(document).on('click', '#save-client-info', function(e){

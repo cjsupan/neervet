@@ -19,7 +19,7 @@ class Appointment extends main_model{
     }
 
     async getAllAppointment(){
-        let query = mysql.format("SELECT appointments.id, title, appointments.is_active, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p') as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE appointments.complete = 0 AND appointments.is_active = 1 ORDER BY appointments.date_and_time ASC");
+        let query = mysql.format("SELECT appointments.id, title, appointments.is_active, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p') as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE appointments.complete = 0 ORDER BY appointments.date_and_time ASC");
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));

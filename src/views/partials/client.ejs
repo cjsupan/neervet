@@ -11,7 +11,6 @@
         <thead class='table-dark'>
             <tr>
                 <th>Name</th>
-                <th>Email</th>
                 <th>Address</th>
                 <th id='contact'>Contact No.</th>
                 <th>Status</th>
@@ -23,24 +22,23 @@
 
                 <tr>
                     <td class='capitalize'><%=client[i].name %></td>
-                    <td><%=client[i].email %></td>
                     <td class='capitalize'><%=client[i].address %></td>
                     <td><%=client[i].contact %></td>
                     <td class='status'>
                         <% if(client[i].is_active == 1){ %>
                             Active
-                        <% } else{%>
+                        <% } else{ %>
                             Not Active
                         <% } %>
                     </td>
                     
                     <td class='td-action' ><button type='button' id='<%= client[i].id %>' class='btn btn-success viewClient' href='/viewClient/<%= client[i].id %>'>View</button>
                     |
-                    <!-- <% if(client[i].is_active == 1){ %>
+                    <% if(client[i].is_active == 1){ %>
                         <button href='/deactivate/<%= client[i].id %>' value='deactivate' class='btn btn-danger client-status'>Deactivate</button>
-                    <%}else if(client[i].is_active == 0){%>
-                        <button href='/activate/<%= client[i].id' value='activate' class='btn btn-primary client-status' >Activate</button>
-                    <% } %> -->
+                    <% }else if(client[i].is_active == 0){ %>
+                        <button href='/activate/<%= client[i].id %>' value='activate' class='btn btn-primary client-status' >Activate</button>
+                    <% } %>
                     </td>
                 </tr>
             <% } %>
