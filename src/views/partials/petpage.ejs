@@ -81,7 +81,7 @@
             <input type='text' id='breed' name='breed' class='form-control' value='<%= pet[0].breed %>' required><br>
             <label for='sex'>Sex: </label>
             <input type='text' name='sex' class='form-control' value='<%= pet[0].sex %>' required>
-            <label for='color'>Color:<span class='require'>*</span> </label>
+            <label for='color'>Color:</label>
             <input type='text' name='color' class='form-control' value='<%= pet[0].color %>' required>
             <div id='pet-info-errors'></div>
         </form>
@@ -189,29 +189,28 @@
                     <option value='Dr. Annie N. Nacis'>Dr. Annie N. Nacis</option>
                     <option value='Dr. Danni Lou O. Manuel'>Dr. Danni Lou O. Manuel</option>
                     <option vlaue='Dr. Jacques Glenn G. Apigo'>Dr. Jacques Glenn G. Apigo</option>
-                    
                 </select>
                 
                 <label for='datetime'>Date and Time:<span class='require'>*</span> </label>
                 <input type='datetime-local' id='datetime-input' class='form-control datetime-input' name='created_at'><br>
-                <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History:<span class='require'>*</span> </label>
+                <label for='complaint/history' id='complaint-label'>Complaints/Concerns/History: </label>
                 <label for='currentmed' id='currentmed-label'>Current Medication: </label>
-                <label for='physicalexam' >Physical Exam:<span class='require'>*</span> </label><br>
+                <label for='physicalexam' >Physical Exam: </label><br>
                 <textarea name='complaint' id='complaint' class='form-control textarea-input'></textarea>
                 <textarea name='current_med' id='currentmed' class='form-control textarea-input'></textarea>
                 <textarea name='physical_exam' id='physicalexam' class='form-control textarea-input'></textarea>
 
                 <div id='vitalsigns'>
                     <p class='lead'>Vital signs</p>
-                    <label for='weight'>Weight/BCS:<span class='require'>*</span> </label>
+                    <label for='weight'>Weight/BCS: </label>
                     <input type='text' name='weight' class='form-control vitalsign'>
-                    <label for='temp'>Temp:<span class='require'>*</span> </label>
+                    <label for='temp'>Temp: </label>
                     <input type='number' name='temp' class='form-control vitalsign'>
-                    <label for='respiratory_rate'>Resp. rate:<span class='require'>*</span> </label>
+                    <label for='respiratory_rate'>Resp. rate: </label>
                     <input type='text' name='resprate' class='form-control vitalsign'>
-                    <label for='heart_rate'>Heart rate:<span class='require'>*</span> </label>
+                    <label for='heart_rate'>Heart rate: </label>
                     <input type='text' name='heartrate' class='form-control vitalsign'>
-                    <label for='crt'>CRT:<span class='require'>*</span> </label>
+                    <label for='crt'>CRT: </label>
                     <input type='text' name='crt' class='form-control vitalsign'>
                     <label for='mm'>MM: </label>
                     <select name='mm' id='mm' class='form-control vitalsign'>

@@ -158,15 +158,17 @@ $(document).ready(function(){
         var dd = String(dateToday.getDate()).padStart(2, '0');
         var mm = String(dateToday.getMonth() + 1).padStart(2, '0');
         var yyyy = dateToday.getFullYear();
-        var hour = dateToday.getHours();
+        var hour = dateToday.getHours().toLocaleString();
         var min = dateToday.getMinutes();
+        
         var sec = dateToday.getSeconds();
                     
         var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+        console.log(today);
 
         $.get($(app).attr('href'), function(res){
             var date = res[0].date_and_time.replace('Z', '');
-            console.log(date);
+           
             var form = '';
                 form += "<form id='edit-appointment' action='/editAppointment/"+id+"' method='POST'>";
                 form += "<label for='title'>Title:<span class='require'>*</span> </label>";
@@ -405,7 +407,10 @@ $(document).ready(function(){
             var sec = dateToday.getSeconds();
             
             var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
+            var bday = yyyy + '-' + mm + '-' + dd;
             document.getElementById('datetime-input').max = today;
+            document.getElementById('birthdate').max = bday;
+            console.log(document.getElementById('birthdate'))
         });
     }
     //VIEW PET PAGE/INFORMATION -- end
@@ -491,33 +496,6 @@ $(document).ready(function(){
         viewPet(this);
 
     });
-
-    // // ADD PET RECORD
-    // $(document).on('click', '#add-pet-record', function(e){
-    //     e.preventDefault();
-
-    //     var ids = document.getElementById('record-href').value;
-    //     var href = "/treatment/" + ids;
-    //     console.log(document.getElementById('record-href').href);
-
-    //     document.getElementById('record-href').href = href;
-    //     $.get($("#record-href").attr('href'), function(res){
-    //         console.log(document.getElementById('record-href').href)
-    //         document.getElementById('record-form').innerHTML = res;
-    //     })
-    // });
-
-    // //RECORD TYPE
-    // $(document).on('change', '#record-type', function(e){
-    //     e.preventDefault();
-    //     var ids = document.getElementById('record-href').value;
-    //     var href = this.value + "/" + ids;
-    //     document.getElementById('record-href').href = href;
-    //     $.get($("#record-href").attr('href'), function(res){
-    //         document.getElementById('record-form').innerHTML = res;
-    //     })
-    // })
-
 
     //SAVE PET INFORMATION
     $(document).on('click', '#save-pet-info', function(e){

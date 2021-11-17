@@ -4,6 +4,7 @@ class Appointments{
     async appointment(req, res){
         let getAppointment = await appointment_model.getAllAppointment();
         let notif = await appointment_model.countNotif();
+        let deactive = await appointment_model.deactive_appointment()
 
         res.render('partials/appointment', {app: getAppointment, notif: notif});
     }
@@ -20,7 +21,7 @@ class Appointments{
     }
 
     async validate_appointment(req, res){
-        let result = await appointment_model.validateAppointment(req.body, req.params.id);
+        let result = await appointment_model.validateAddAppointment(req.body, req.params.id);
         if(result.length != 0){
             res.json(result);
         }else if(result.length === 0 ){
@@ -41,7 +42,7 @@ class Appointments{
     }
 
     async edit_appointment(req, res){
-        let result = await appointment_model.validateAppointment(req.body);
+        let result = await appointment_model.validateEditAppointment(req.body, req.params.clientid);
 
         if(result.length != 0){
             res.json(result);

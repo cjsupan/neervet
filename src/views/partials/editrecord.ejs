@@ -90,22 +90,22 @@
     <label for='created_at'>Date and Time:<span class='require'>*</span> </label>
     <input type='datetime-local' id='dateandtime' name='created_at' class='form-control' required><br>
 
-    <label for='weight' class='vitalsign-label'>Weight:<span class='require'>*</span> </label>
+    <label for='weight' class='vitalsign-label'>Weight: </label>
     <input type='text' name='weight' class='form-control vitalsign-input' value='<%= vitalsign[0].weight %>'>
-    <label for='temp' class='vitalsign-label'>Temp:<span class='require'>*</span> </label>
+    <label for='temp' class='vitalsign-label'>Temp: </label>
     <input type='text' name='temp' class='form-control vitalsign-input' value='<%= vitalsign[0].temp %>'>
-    <label for='resp' id='resp' class='vitalsign-label'>Respiratory rate:<span class='require'>*</span> </label>
+    <label for='resp' id='resp' class='vitalsign-label'>Respiratory rate: </label>
     <input type='text' name='respiratory_rate' class='form-control vitalsign-input' value='<%= vitalsign[0].respiratory_rate %>'>
-    <label for='heart' id='heart' class='vitalsign-label'>Heart rate:<span class='require'>*</span> </label>
+    <label for='heart' id='heart' class='vitalsign-label'>Heart rate: </label>
     <input type='text' name='heart_rate' class='form-control vitalsign-input' value='<%= vitalsign[0].heart_rate %>'>
-    <label for='crt' class='vitalsign-label'>CRT:<span class='require'>*</span> </label>
+    <label for='crt' class='vitalsign-label'>CRT: </label>
     <input type='text' name='crt' class='form-control vitalsign-input' value='<%= vitalsign[0].crt %>'>
     <label for='mm' class='vitalsign-label'>MM: </label>
     <input type='text' name='mm' class='form-control vitalsign-input' value='<%= vitalsign[0].mm %>'><br>
-    <label for='complaint'>Complaints/Concerns/History:<span class='require'>*</span> </label><br>
+    <label for='complaint'>Complaints/Concerns/History: </label><br>
     <textarea id='complaint' name='complaint' class='form-control' ><%= history[0].complaint %></textarea><br>
     <label for='current_med' id='currentmed-label'>Current Medication: </label>
-    <label for='physical'>Physical Exam:<span class='require'>*</span> </label><br>
+    <label for='physical'>Physical Exam: </label><br>
     <textarea id='current_med' name='current_med' class='form-control' ><%= history[0].current_med %></textarea>
     <textarea id='physical' name='physical_exam' class='form-control'><%= history[0].physical_exam %></textarea><br>
     <div id='system-table'>

@@ -19,7 +19,7 @@ class Appointment extends main_model{
     }
 
     async getAllAppointment(){
-        let query = mysql.format("SELECT appointments.id, title, appointments.is_active, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p') as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE appointments.complete = 0 ORDER BY appointments.date_and_time ASC");
+        let query = mysql.format("SELECT appointments.id, title, appointments.is_active, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p') as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE appointments.complete = 0 AND clients.is_active = 1 ORDER BY appointments.is_active DESC, appointments.date_and_time ASC");
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -41,6 +41,19 @@ class Appointment extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
+    async deactive_appointment(){
+        var notifdate = new Date();
+        var hh = notifdate.getHours();
+        var mm = notifdate.getMinutes();
+        var ss = notifdate.getSeconds();
+        var notif = notifdate.getFullYear()+ "-" + (notifdate.getMonth() + 1) + '-' + (notifdate.getDate() - 1) + hh + ':' + mm + ':' + ss;
+        console.log(notif);
+        let query = mysql.format("UPDATE appointments SET is_active = 0 WHERE date_and_time < ?", notif);
+        let result = await this.executeQuery(query);
+
+        return result;
+    }
+
     async getAppointmentsToday(){
        
         let query = mysql.format('SELECT appointments.id, title, complete, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, " ", clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, "%b %e %Y %l:%i %p" ) as date FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE appointments.is_active = 1 AND day(date_and_time) = day(now()) AND month(date_and_time) = month(now()) AND year(date_and_time) = year(now()) ORDER BY appointments.created_at DESC');
@@ -56,9 +69,9 @@ class Appointment extends main_model{
         if(details.from != '' && details.to != ''){
             from = new Date(details.from).toISOString().slice(0, 19).replace('T', ' ');
             to = new Date(details.to).toISOString().slice(0, 19).replace('T', ' ');
-            query = mysql.format("SELECT appointments.id, title, appointments.is_active, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p' ) as date, clients.is_active FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE appointments.is_active = 1 AND  clients.is_active = 1 AND CONCAT(clients.first_name, '', clients.last_name) LIKE '%"+details.search+"%' AND date_and_time BETWEEN '"+from+"' AND '"+to+"' ORDER BY appointments.date_and_time ASC");
+            query = mysql.format("SELECT appointments.id, title, appointments.is_active, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p' ) as date, clients.is_active FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE clients.is_active = 1 AND CONCAT(clients.first_name, '', clients.last_name) LIKE '%"+details.search+"%' AND date_and_time BETWEEN '"+from+"' AND '"+to+"' ORDER BY appointments.date_and_time ASC");
         }else{
-            query = mysql.format("SELECT appointments.id, title, appointments.is_active, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p' ) as date, clients.is_active FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE appointments.is_active = 1 AND  clients.is_active = 1 AND CONCAT(clients.first_name, '', clients.last_name) LIKE '%"+details.search+"%' OR date_and_time BETWEEN '"+from+"' AND '"+to+"' ORDER BY appointments.date_and_time ASC");
+            query = mysql.format("SELECT appointments.id, title, appointments.is_active, clients.email as email, clients.id as clientId, CONCAT(clients.first_name, ' ', clients.last_name) as name, clients.address, clients.contact, DATE_FORMAT(appointments.date_and_time, '%b %e %Y %l:%i %p' ) as date, clients.is_active FROM appointments INNER JOIN clients ON appointments.client_id = clients.id WHERE clients.is_active = 1 AND CONCAT(clients.first_name, '', clients.last_name) LIKE '%"+details.search+"%' OR date_and_time BETWEEN '"+from+"' AND '"+to+"' ORDER BY appointments.date_and_time ASC");
         }
     
         let result = await this.executeQuery(query);
@@ -82,7 +95,7 @@ class Appointment extends main_model{
        
         notifdate.setDate(notifdate.getDate() + 1);
     
-        let query = mysql.format("SELECT appointments.id as id ,appointments.client_id as client_id, appointments.title , CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y') AS date, DATE_FORMAT(date_and_time, '%l:%i %p') as time FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
+        let query = mysql.format("SELECT appointments.id as id ,appointments.client_id as client_id, appointments.title , CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y') AS date, DATE_FORMAT(date_and_time, '%l:%i %p') as time FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE appointment.is_active = 1 AND clients.is_active = 1 AND DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
         let result = await this.executeQuery(query);
         
         let client = JSON.parse(JSON.stringify(result));
@@ -118,7 +131,7 @@ class Appointment extends main_model{
         return message;
     }
     
-    async validateAppointment(details, id){
+    async validateAddAppointment(details, id){
         let errors = [];
         if(this.empty(details.title)){
             errors.push('Title should not be blank');
@@ -128,13 +141,25 @@ class Appointment extends main_model{
             errors.push('Date and time should not be blank');
         }
 
-        let query = mysql.format("SELECT is_active FROM clients WHERE id = ? ", id);
+        let query = mysql.format("SELECT is_active FROM clients WHERE id = ?", id);
         let result = await this.executeQuery(query);
 
         var client =  JSON.parse(JSON.stringify(result));
-
         if(client[0].is_active == 0){
             errors.push('Client is not active');
+        }
+
+        return errors;
+    }
+
+    async validateEditAppointment(details, id){
+        let errors = [];
+        if(this.empty(details.title)){
+            errors.push('Title should not be blank');
+        }
+
+        if(this.empty(details.date_and_time)){
+            errors.push('Date and time should not be blank');
         }
 
         return errors;

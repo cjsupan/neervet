@@ -698,6 +698,11 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     display: inline-block;
 }
 
+#main #appointment-table thead{
+    position: sticky;
+    top: 0;
+}
+
 #main #appointment-table thead th{
     width: 220px;
 }
@@ -801,7 +806,12 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
    margin-right: 5px;
 }
 
-#main #client-table td .deleteClient{
+#main #client-table .td-action{
+    text-align: left;
+    padding-left: 50px;
+}
+
+#main #client-table td .client-status{
     margin-left: 5px;
 }
 
@@ -1018,6 +1028,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #petModal #pet-modal-body #examvet-input{
+    width: 215px;
     margin: 10px 130px 60px 0px;
 }
 

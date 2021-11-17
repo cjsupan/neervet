@@ -17,7 +17,7 @@ class Client extends main_model{
     }
 
     async getAllClient(){
-        let query = mysql.format('SELECT id, CONCAT(first_name, " ",last_name) as name, email, address, contact, is_active FROM clients ORDER BY created_at DESC');
+        let query = mysql.format('SELECT id, CONCAT(first_name, " ",last_name) as name, email, address, contact, is_active FROM clients ORDER BY is_active DESC,created_at DESC');
         let result = await this.executeQuery(query);
         return JSON.parse(JSON.stringify(result));
     }
