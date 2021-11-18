@@ -43,11 +43,9 @@ class Appointment extends main_model{
 
     async deactive_appointment(){
         var notifdate = new Date();
-        var hh = notifdate.getHours();
-        var mm = notifdate.getMinutes();
-        var ss = notifdate.getSeconds();
-        var notif = notifdate.getFullYear()+ "-" + (notifdate.getMonth() + 1) + '-' + (notifdate.getDate() - 1) + hh + ':' + mm + ':' + ss;
-        console.log(notif);
+
+        var notif = notifdate.getFullYear()+ "-" + (notifdate.getMonth() + 1) + '-' + (notifdate.getDate()) + ' ' + '00:00:00';
+        
         let query = mysql.format("UPDATE appointments SET is_active = 0 WHERE date_and_time < ?", notif);
         let result = await this.executeQuery(query);
 

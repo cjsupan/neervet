@@ -761,7 +761,6 @@ $(document).ready(function(){
     //BACKUP
     $(document).on('click', '#backup-restore', function(e){
         e.preventDefault();
-        $('.sub-menu ul').slideUp();
        
         $.get($(this).attr('href'), function(res){
             document.getElementById('main').innerHTML = res;
@@ -773,6 +772,13 @@ $(document).ready(function(){
         $.get($(this).attr('href'));
     });
 
+    $(document).on('change', '#sqlfile', function(){
+        if(this.files.length != 0){
+            $('#restore-now').prop('disabled', false);
+        }else if(this.files.length == 0){
+            $('#restore-now').prop('disabled', true);
+        }
+    });
 
     //RESTORE
     $(document).on('click', '#restore-now', function(e){
