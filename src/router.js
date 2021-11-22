@@ -36,6 +36,8 @@ Router.get("/getAppInfo/:id/:clientid", AppointmentController.get_app_info);
 Router.post("/editAppointment/:id/:clientid", AppointmentController.edit_appointment);
 Router.get("/deleteAppointment/:id", AppointmentController.delete_appointment);
 Router.post("/searchApp", AppointmentController.search_app);
+Router.get("/getNotification", AppointmentController.get_notification);
+Router.get("/sendNotification", AppointmentController.send_notification);
 
 // CLIENT ROUTER
 Router.get("/client", ClientController.client);
@@ -55,6 +57,10 @@ Router.get("/deletePet/:id", PetController.delete_pet);
 Router.post("/addPetRecord/:clientid/:petid", PetController.add_pet_record);
 Router.get("/deletePetRecord/:petid/:systemid", PetController.delete_pet_record);
 
+Router.get("/getAllRecords/:id", PetController.get_all_records);
+
+Router.post("/addRecordType", PetController.add_record_type);
+
 Router.post('/getRecordType/:clientid/:petid', PetController.get_record_type);
 
 Router.get("/getReport/:petid/:systemid", PetController.get_report);
@@ -63,8 +69,5 @@ Router.get("/getLab/:clientid/:petid/:systemid", PetController.get_lab);
 Router.post("/updateLab/:clientid/:petid/:systemid", PetController.update_lab);
 
 Router.get("/getHealth/:petid/:systemid", PetController.get_health);
-
-Router.get("/getNotification", AppointmentController.get_notification);
-Router.get("/sendNotification", AppointmentController.send_notification);
 
 module.exports = Router;

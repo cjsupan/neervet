@@ -90,7 +90,7 @@ class Client extends main_model{
     }
 
     async activate(id){
-        let details = {is_active : 1};
+        let details = {is_active: 1};
         let query = mysql.format("UPDATE clients SET ? WHERE id = ?",[details, id]);
         let result = await this.executeQuery(query);
 
@@ -98,7 +98,7 @@ class Client extends main_model{
     }
 
     async deactivate(id){
-        let details = {is_active : 0};
+        let details = {is_active: 0};
         let query = mysql.format("UPDATE clients SET ? WHERE id = ?",[details, id]);
         let result = await this.executeQuery(query);
 

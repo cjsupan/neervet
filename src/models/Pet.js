@@ -117,6 +117,34 @@ class Pet extends main_model{
         return JSON.parse(JSON.stringify(result));
     }
 
+    async get_all_pet_records(id){
+        let query = mysql.format("SELECT * FROM pets WHERE pets.id = ?", id);
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    async validaterecordtype(type){
+
+        let errors = [];
+
+        if(this.empty(type.record_type)){
+            errors.push("Record type should not be blank");
+        }
+
+        return errors;
+    }
+
+    async add_record_type(type){
+        
+        var date = new Date();
+        var recordtype = type.record_type.charAt(0).toUpperCase() + type.record_type.slice(1);
+        let query = mysql.format("INSERT INTO record_types (type, created_at) VALUES(?, ?)", [recordtype, date]);
+        let result = await this.executeQuery(query);
+
+        return result;
+    }
+
     async get_health_record(id){
         let query = mysql.format("SELECT systems.id as systemId, pet_id, pet_client_id, record_type, exam_vet,  DATE_FORMAT(systems.created_at, '%b %e, %Y %h:%i %p') as created_date FROM systems WHERE pet_id = ? ORDER BY created_at DESC", id);
         let result = await this.executeQuery(query);
@@ -275,6 +303,13 @@ class Pet extends main_model{
         let labresult = await this.executeQuery(labquery);
 
         return labresult;
+    }
+
+    async record_type(){
+        let query = mysql.format("SELECT * FROM record_types");
+        let result = await this.executeQuery(query);
+
+        return JSON.parse(JSON.stringify(result));
     }
 
     async getLab(id){

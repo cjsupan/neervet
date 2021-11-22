@@ -35,7 +35,7 @@ class Appointment extends main_model{
         notifdate.setDate(notifdate.getDate() + num);
         var notif = notifdate.getFullYear()+ "-" + (notifdate.getMonth() + num) + '-' + (notifdate.getDate() + num) + " 00:00:00";
 
-        let query = mysql.format("SELECT COUNT(notification) as notif FROM appointments WHERE notification = 0 AND is_active = 1 AND date_and_time BETWEEN ? AND ?", [datenow,notif]);
+        let query = mysql.format("SELECT COUNT(notification) as notif FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE notification = 0 AND appointments.is_active = 1 AND clients.is_active = 1 AND date_and_time BETWEEN ? AND ?", [datenow,notif]);
         let result = await this.executeQuery(query);
 
         return JSON.parse(JSON.stringify(result));
@@ -81,7 +81,7 @@ class Appointment extends main_model{
         let num = parseInt(1);
         notifdate.setDate(notifdate.getDate() + num);
     
-        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y %l:%i %p') AS datetime FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e') AND notification = 0 AND appointments.is_active = 1", notifdate);
+        let query = mysql.format("SELECT CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y %l:%i %p') AS datetime FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e') AND notification = 0 AND appointments.is_active = 1 AND clients.is_active = 1", notifdate);
         let result = await this.executeQuery(query);
     
         return JSON.parse(JSON.stringify(result));
@@ -93,7 +93,7 @@ class Appointment extends main_model{
        
         notifdate.setDate(notifdate.getDate() + 1);
     
-        let query = mysql.format("SELECT appointments.id as id ,appointments.client_id as client_id, appointments.title , CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y') AS date, DATE_FORMAT(date_and_time, '%l:%i %p') as time FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE appointment.is_active = 1 AND clients.is_active = 1 AND DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e')", notifdate);
+        let query = mysql.format("SELECT appointments.id as id ,appointments.client_id as client_id, appointments.title , CONCAT(clients.first_name, ' ', clients.last_name) AS name, clients.email, clients.address, clients.contact, DATE_FORMAT(date_and_time, '%b %e %Y') AS date, DATE_FORMAT(date_and_time, '%l:%i %p') as time FROM appointments LEFT JOIN clients ON appointments.client_id = clients.id WHERE DATE_FORMAT(date_and_time, '%Y %m %e') = DATE_FORMAT(?, '%Y %m %e') AND appointments.is_active = 1 AND clients.is_active = 1", notifdate);
         let result = await this.executeQuery(query);
         
         let client = JSON.parse(JSON.stringify(result));
@@ -106,13 +106,14 @@ class Appointment extends main_model{
                 html += "<li>Date: "+ client[i].date +"</li>";
                 html += "<li>Time: "+ client[i].time +"</li></ul>";
                 html += "<br><br>";
-                html += "<p>09564926029 / 0946855</p>";
+                html += "<p>Contact Us: 09564926029 / 09468552745</p>";
+                html += "Facebook: https://www.facebook.com/Neervet-Animal-Clinic-Bacnotan-309296566638092";
         
             const msg = {
                     to: client[i].email,
                     from: "supancj18@gmail.com",
                     subject: "Appointment - Neervet Animal Clinic",
-                    text: "here's the email",
+                    text: "This is a reminder",
                     html: html
                 };
                 var id = client[i].id;

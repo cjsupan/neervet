@@ -265,6 +265,13 @@ span.require{
     display: inline-block;
 }
 
+.modal:nth-of-type(even) {
+    z-index: 1052 !important;
+}
+.modal-backdrop.show:nth-of-type(even) {
+    z-index: 1051 !important;
+}
+
 #how-to-add-pet-record{
     color:#007bff;
     cursor: pointer;
@@ -1310,6 +1317,12 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     display: inline-block;
 }
 
+#main #get-all-records{
+    display: inline-block;
+    margin-left: 76%;
+    vertical-align: top;
+}
+
 #main #pet-page{
     width: 95%;
     margin: 10px 2%;
@@ -1348,7 +1361,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 
 #main .h1-healthrecord{
     width: 95%;
-    margin: 10px 2%;
+    margin: 20px 2%;
     display: inline-block;
 }
 
@@ -1356,15 +1369,30 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
     margin-left: 25px;
 }
 
+#main #record-type-form{
+    display: inline-block;
+}
+
 #main #record-type-show{
     display: inline-block;
-    width: 250px;
+    width: 180px;
+}
+
+#main #add-record-type{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 0px 10px 75%;
+}
+
+#addRecordTypeModal #record-type-input{
+    display: inline-block;
+    width: 200px;
 }
 
 #main #healthRecordTable{
     width: 95%;
     height: 400px;
-    margin: 10px 2%;
+    margin: 40px 2%;
     border: 1px solid #d0d0d0;
     display: inline-block;
 }
@@ -1395,7 +1423,7 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 }
 
 #main #add-pet-record{
-    margin-left: 89%;
+    margin-left: 59%;
     display: inline-block;
 }
 
@@ -1868,7 +1896,6 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
 
 @media print{
     @page{
-        margin: 0in 1in;
         font-weight: bold;
     }
     #head{
@@ -1913,6 +1940,10 @@ background: linear-gradient(61deg, rgba(255,183,239,1) 0%, rgba(255,193,193,1) 2
         font-family: 'Times New Roman', Times, serif;
         text-transform: uppercase;
         font-weight: bold;
+    }
+
+    #all-records{
+        margin: 1in 1in;
     }
     
 }

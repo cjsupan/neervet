@@ -2,7 +2,7 @@
 <button type='button' id='pet-back' class='btn btn-secondary'>Back</button>
 <input type='hidden' id='back-to-client' href='/viewClient/<%= client %>'>
 <input type='hidden' id='pet-stay' href='/viewPet/<%= client %>/<%= pet[0].petId %>'>
-
+<button type="button" id='get-all-records' href='/getAllRecords/<%= pet[0].petId %>' class="btn btn-primary" data-toggle="modal" data-target="#printAllRecordModal">Print All Records</button>
 <div id='pet-page'>
     <p class='display-4' id='name'>Name: <span class='lead'><%= pet[0].name %></span></p>
     <button type='button' id='edit-pet' class='btn btn-info btn-sm' data-toggle="modal" data-target="#editPetModal">Edit Profile</button>
@@ -13,7 +13,6 @@
     <p class='display-4'>Color: <span class='lead'><%= pet[0].color %></span></p>
     <p class='display-4' id='owner-name'>Owner's name: <span class='lead'><%= pet[0].owner %></span></p>
 </div>
-<button type='button' id='add-pet-record' class='btn btn-primary' data-toggle="modal" data-target="#petRecordModal"> <span>+</span> Record</button><br>
 <h1 class='display-3 h1-healthrecord'>Health Records</h1>
 <input type='hidden' id='record-type-input' href='/getRecordType/<%= client %>/<%= pet[0].petId %>/'>
 <form id='record-type-form' action='/getRecordType/<%= client %>/<%= pet[0].petId %>/' method='POST'>
@@ -21,15 +20,14 @@
     <select id='record-type-show' name='recordTypeShow' class='form-control'>
         <option>Select Type</option>
         <option value=''>All</option>
-        <option value='Consultation'>Consultation</option>
-        <option value='Vaccination'>Vaccination</option>
-        <option value='Deworming'>Deworming</option>
-        <option value='Confinement'>Confinement</option>
-        <option value='Surgery'>Surgery</option>
-        <option value='Boarding'>Boarding</option>
+
+        <% for(var i = 0; i < record.length; i++){ %>
+            <option value='<%= record[i].type %>'><%= record[i].type %></option>
+        <% } %>
     </select>
 </form>
 
+<button type='button' id='add-pet-record' class='btn btn-primary' data-toggle="modal" data-target="#petRecordModal"> <span>+</span> Add Record</button><br>
 <div id='healthRecordTable'>
     
     <table class=' table table-bordered'>
@@ -56,6 +54,28 @@
             <% }%>
         </tbody>
     </table>
+</div>
+
+<!-- PRINT ALL RECORD -->
+
+<div class="modal fade" id="printAllRecordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">All Records</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id='print-all-records' class="btn btn-primary">Print</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- EDIT PET INFO -->
@@ -119,8 +139,33 @@
     </div>
 </div>
 
+<!-- ADD RECORD TYPE -->
+<div class="modal fade" id="addRecordTypeModal" tabindex="-1" data-backdrop="static" data-keyboard='false' role="dialog" aria-labelledby="addRecordTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Record Type</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id='record-type-errors'></div>
+            <form id='add-record-type-form' action='/addRecordType' method='POST'>
+                <label for='recordType'>Record Type: </label>
+                <input type='text' id='record-type-input' name='record_type' class='form-control'>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" id='add-record-type-btn' class="btn btn-primary">Add</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 <!-- VIEW PET REPORT -->
-<div class="modal fade" id="reportModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+<div class="modal fade" id="reportModal" data-backdrop="static" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -162,7 +207,7 @@
 
 <!-- PET RECORD MODAL -->
 
-<div class="modal fade" id="petRecordModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="petRecordModalLabel" aria-hidden="true">
+<div class="modal fade" id="petRecordModal" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="petRecordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -174,14 +219,12 @@
         <div id='pet-modal-body' class="modal-body">
             <form id='pet-record-form' action='/addPetRecord/<%= client %>/<%= pet[0].petId %>' method='POST'>
                 <div id='record-errors'></div>
+                <button type="button" class="btn btn-info btn-sm" id='add-record-type' data-toggle="modal" data-target="#addRecordTypeModal">+ Add Record Type</button><br>
                 <label>Record type:</label>
                 <select name='recordType' class='form-control'>
-                    <option value='consultation'>Consultation</option>
-                    <option value='vaccination'>Vaccination</option>
-                    <option value='deworming'>Deworming</option>
-                    <option value='confinement'>Confinement</option>
-                    <option value='surgery'>Surgery</option>
-                    <option value='boarding'>Boarding</option>
+                    <% for(i in record){ %>
+                        <option value='<%= record[i].type %>'><%= record[i].type %></option>
+                    <% } %>
                 </select><br>
                 <label for='examvet'>Examining Vet:<span class='require'>*</span> </label>
                 <select name='exam_vet' id='examvet-input' class='form-control'>

@@ -30,7 +30,31 @@ class Pets{
 
         let petSystem = await pet_model.get_health_record(req.params.petid);
 
-        res.render('partials/petpage', {client: req.params.clientid, pet: petInfo, system: petSystem, lab: petLab});
+        let recordType = await pet_model.record_type();
+        
+
+        res.render('partials/petpage', {client: req.params.clientid, pet: petInfo, system: petSystem, lab: petLab, record: recordType});
+    }
+
+    async get_all_records(req, res){
+        let petInfo = await pet_model.pet_info(req.params.id);
+
+        let petSystem = await pet_model.get_health_record(req.params.id);
+
+        res.render('partials/allrecords', {pet: petInfo, system: petSystem});
+    }
+
+    async add_record_type(req, res){
+        let validate_record = await pet_model.validaterecordtype(req.body);
+
+        if(validate_record.length != 0){
+            console.log(validate_record[0]);
+            res.json(validate_record[0]);
+
+        }else{
+            let addRecordType = await pet_model.add_record_type(req.body);
+            res.json('');
+        }
     }
 
     async get_record_type(req, res){
@@ -40,7 +64,10 @@ class Pets{
 
         let petSystem = await pet_model.get_health_record_type(req.body, req.params.petid);
 
-        res.render('partials/petpage', {client: req.params.clientid, pet: petInfo, system: petSystem, lab: petLab});
+        let recordType = await pet_model.record_type();
+       
+
+        res.render('partials/petpage', {client: req.params.clientid, pet: petInfo, system: petSystem, lab: petLab, record: recordType});
     }
 
     async add_pet_record(req, res){

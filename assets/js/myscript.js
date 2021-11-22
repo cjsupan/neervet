@@ -72,7 +72,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '#view-password', function(){
-        console.log($(this));
+        
         if($("user-password").attr("type") == "text"){
             
             $("user-password").attr('type', 'password');
@@ -164,7 +164,7 @@ $(document).ready(function(){
         var sec = dateToday.getSeconds();
                     
         var today = yyyy + '-' + mm + '-' + dd + 'T' + hour + ':' + min;
-        console.log(today);
+        
 
         $.get($(app).attr('href'), function(res){
             var date = res[0].date_and_time.replace('Z', '');
@@ -216,8 +216,6 @@ $(document).ready(function(){
             }
         });
     });
-    
-
     
     // GET ALL CLIENT WHO NEED TO NOTIFY
     $(document).on('click', '#notification', function(e){
@@ -410,10 +408,40 @@ $(document).ready(function(){
             var bday = yyyy + '-' + mm + '-' + dd;
             document.getElementById('datetime-input').max = today;
             document.getElementById('birthdate').max = bday;
-            console.log(document.getElementById('birthdate'))
+            
         });
     }
     //VIEW PET PAGE/INFORMATION -- end
+
+    $(document).on('click', '#get-all-records', function(e){
+        e.preventDefault();
+
+        $.get($(this).attr('href'), function(res){
+            var modalBody = $("#printAllRecordModal")[0].children[0].children[0].children[1];
+            console.log($("#printAllRecordModal")[0].children[0].children[0].children[1]);
+            modalBody.innerHTML = res;
+        });
+    });
+
+    //ADD PET RECORD TYPE
+    $(document).on('click', '#add-record-type-btn', function(e){
+        e.preventDefault();
+
+        $.post($('#add-record-type-form').attr('action'), $('#add-record-type-form').serialize(), function(res){
+            console.log(res);
+            if(res.length != ''){
+                var errors = '';
+                errors += "<div class='alert alert-warning'>"+res+"</div>";
+
+                document.getElementById('record-type-errors').innerHTML = errors;
+            }else{
+                alert('Record type added');
+                $('#addRecordTypeModal').modal('hide');
+                $('#petRecordModal').modal('hide');
+                viewPet(document.getElementById('pet-stay'));
+            }
+        });
+    });
 
     //CHANGE PET RECORD TYPE
     function changeRecordType(pet){
@@ -534,6 +562,11 @@ $(document).ready(function(){
 
     });
 
+    // PRINT ALL RECORD
+    $(document).on('click', '#print-all-records', function(){
+        $('#all-records').printThis();
+    });
+
 
     //EDIT LAB RECORD
     $(document).on('click','#edit-lab', function(e){
@@ -575,7 +608,7 @@ $(document).ready(function(){
     // VIEW PET REPORT
     $(document).on('click', '.view-report', function(e){
         e.preventDefault();
-        console.log(document.getElementById('pet-report'));
+        
         $.get($(this).attr('href'), function(res){
             document.getElementById('pet-report').innerHTML = res;
         });
@@ -783,7 +816,7 @@ $(document).ready(function(){
     //RESTORE
     $(document).on('click', '#restore-now', function(e){
         e.preventDefault()
-        console.log($("#sqlfile")[0].files)
+        
         document.getElementById('spin').innerHTML = "<div id='spinner' class='spinner-border text-light' role='status'></div>";
         
         var fd = new FormData();

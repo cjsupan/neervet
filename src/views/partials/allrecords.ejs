@@ -1,0 +1,30 @@
+<div id='all-records'>
+    
+    <div id='all-pet-record'>
+        <p class='lead' id='name'>Name: <span class='lead'><%= pet[0].name %></span></p>
+        <p class='lead'>Age: <span class='lead'><%= pet[0].age %></span></p>
+        <p class='lead'>Birthday: <span class='lead'><%= pet[0].birthdate %></span></p>
+        <p class='lead'>Sex: <span class='lead'><%= pet[0].sex %></span></p>
+        <p class='lead'>Altered: <span class='lead'><%= pet[0].altered %></span></p>
+        <p class='lead'>Color: <span class='lead'><%= pet[0].color %></span></p>
+        <p class='lead' id='owner-name'>Owner's name: <span class='lead'><%= pet[0].owner %></span></p>
+    </div>
+        <table class='table table-bordered'>
+            <thead class='table-dark'>
+                <tr>
+                    <th>Examining Vet</th>
+                    <th>Record Type</th>
+                    <th>Date and Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(x in system){ %>
+                    <tr>
+                        <td><%= system[x].exam_vet %></td>
+                        <td><%= system[x].record_type %></td>
+                        <td><%= system[x].created_date %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+    </table>
+</div>
